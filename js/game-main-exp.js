@@ -36,9 +36,9 @@ var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 let studyId = 'placeHolder';
 
 if (DEBUG){
-   studyId    = "uci-hri-experiment-2-pilot1-debug";
+   studyId    = "uci-hri-experiment-3-pilot1-debug";
 } else {
-    studyId   = "uci-hri-experiment-2-pilot1";
+    studyId   = "uci-hri-experiment-3-pilot1";
 }
 // console.log("Study ID: " + studyId);    
 
@@ -102,6 +102,9 @@ function getDifficultySettingsFromURL() {
         AIDisplayMode: parseInt(urlParams.get('maxTargets'), 10) || 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept 
         AIMaxDisplayLength: parseInt(urlParams.get('maxTargets'), 10) || 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: parseInt(urlParams.get('maxTargets'), 10) || 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 20, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: parseInt(urlParams.get('visualizeAIPlayer'), 10) || 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: parseInt(urlParams.get('maxTargets'), 10) || 8, // MS2: added this parameter to limit total number of targets
         spawnProbability: parseFloat(urlParams.get('spawnProbability')) || 1.0,
         spawnInterval: parseInt(urlParams.get('spawnInterval'), 10) || 10,
@@ -123,11 +126,14 @@ function getDifficultySettingsFromURL() {
 
 let difficultySettings = {
     1: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 3, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1.0,
         spawnInterval: 10,
@@ -139,11 +145,14 @@ let difficultySettings = {
         speedHigh: 3, // highest end of object speed distribution
         randSeed: 12},
     2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 6, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1,
         spawnInterval: 10,
@@ -156,11 +165,14 @@ let difficultySettings = {
         randSeed: 123},
     // Add more settings for each level
     3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 9, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1,
         spawnInterval: 10,
@@ -172,11 +184,14 @@ let difficultySettings = {
         speedHigh: 3, // highest end of object speed distribution
         randSeed: 1234},
     4: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 3, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1.0,
         spawnInterval: 10,
@@ -188,11 +203,14 @@ let difficultySettings = {
         speedHigh: 3, // highest end of object speed distribution
         randSeed: 12345},
     5: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 6, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1,
         spawnInterval: 10,
@@ -205,11 +223,14 @@ let difficultySettings = {
         randSeed: 123456},
     // Add more settings for each level
     6: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
         maxTargets: 9, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1,
         spawnInterval: 10,
@@ -277,6 +298,7 @@ const player = {
     x: canvas.width/2 , //center the x,y in the center of the player.
     y: canvas.height/2 ,
     moving:false,
+    shownAdvice:false, //MS6: flag to show advice
     targetX:canvas.width/2,
     targetY:canvas.height/2,
     velocity: 1.5,
@@ -327,6 +349,8 @@ const AIplayer = {
 };
 let AIcaughtTargets = [];
 let AIplayerLocation = [];
+let numFramesPlayernotMoving = 0; // MS6
+let numFramesAfterCaughtTarget = 0; // MS6
 
 // ****************************UPDATE FUNCTIONS***************************//
 
@@ -525,6 +549,8 @@ function render() {
     //     // MS4: draw the path suggested by AI
     // }
     drawAISolution();
+    // drawFullAISolutionDEBUG(); // MS6: test function
+
     drawTargetLocation();   // Draw target location
     // drawCursor(mouseX, mouseY); // Draw cursor
     drawObjects();          // Draw objects
@@ -584,6 +610,7 @@ function updateObjects(settings) {
             player.moving = false;
         } else {
             // Move player towards the target
+            numFramesPlayernotMoving = 0; // MS6
             player.angle = Math.atan2(deltaY, deltaX);
             player.x += player.velocity * Math.cos(player.angle);
             player.y += player.velocity * Math.sin(player.angle);
@@ -592,6 +619,8 @@ function updateObjects(settings) {
 
             playerLocation.push({frame: frameCountGame, x: player.x, y: player.y});
         }
+    } else {
+        numFramesPlayernotMoving++; // MS6
     }
 
     // Prevent player from moving off-screen
@@ -623,7 +652,10 @@ function updateObjects(settings) {
         spawnObject(settings);    
     }
 
+
+
     let toRemove = [];
+    let caughtAnything = false; // MS6
     objects.forEach((obj, index) => {
         if (obj.active) {
             obj.x += obj.vx * obj.speed; // Update x position
@@ -655,6 +687,7 @@ function updateObjects(settings) {
                 
                 // console.log("Collision detected!");
                 caughtTargets.push(caughtObj);
+                caughtAnything = true; //MS6
             }
 
             if (!obj.AIintercepted && checkCollision(AIplayer, obj)) { // MS5: added a condition
@@ -681,25 +714,54 @@ function updateObjects(settings) {
             targetMissed();
         }
     });
+
+    if (caughtAnything) numFramesAfterCaughtTarget=0; else numFramesAfterCaughtTarget++; // MS6
+
     // MS4: Remove items starting from the end
     for (let i = toRemove.length - 1; i >= 0; i--) {
         objects.splice(toRemove[i], 1);
     }
 
-    sol = runAIPlanner( objects, AIplayer , observableRadius , center, 0, 'AI' );
-
-    // MS5: Run planner for the AI player
-    AIplayer.targetX = sol.interceptLocations[0][0]; // Set target position for the AI player
-    AIplayer.targetY = sol.interceptLocations[0][1]; 
-    // MS4: Run AI planner
-    if (settings.AIMode>0) {
-        // MS4
-        //console.time('functionExecutionTime');
-        sol = runAIPlanner( objects, player , observableRadius , center, settings.planNumFramesAhead , 'human' ); 
-        //console.timeEnd('functionExecutionTime');
-        //console.log( 'Calculated AI path');   
-    }
-
+     // MS6: Run planner for the AI player
+     let offlineSol = runAIPlanner( objects, AIplayer , observableRadius , center, 0, 'AI' );
+     AIplayer.targetX = offlineSol.interceptLocations[0][0]; // Set target position for the AI player
+     AIplayer.targetY = offlineSol.interceptLocations[0][1]; 
+ 
+     if (settings.AIMode>0) {
+         //console.time('functionExecutionTime');
+         sol = runAIPlanner( objects, player , observableRadius , center, settings.planNumFramesAhead , 'human' ); 
+         //console.timeEnd('functionExecutionTime');
+         //console.log( 'Calculated AI path');  
+         
+         // MS6
+         // Calculate the value of the human's current target
+         player.shownAdvice = true;
+         if (settings.AIMode >= 2) {
+             //if ((frameCountGame > 100) & (player.moving)) {
+             //    console.log( 'test case');
+             //}
+ 
+             
+             let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( sol , player , settings.AIadviceAngleThreshold );
+             player.shownAdvice = false;
+ 
+             const deltaX = player.x - center.x;
+             const deltaY = player.y - center.y;
+             const distanceToCenter = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+ 
+ 
+             if ((numFramesAfterCaughtTarget > settings.AIthresholdnumframesaftercaughttarget) && (distanceToCenter > 50)) {
+                 if (!player.moving) {
+                     player.shownAdvice = true;
+                 } else if (player.moving && (valueHumanPlan <= settings.AIadviceThresholdHigh)) {
+                     player.shownAdvice = true;
+                 }
+             }
+             
+             //console.log( 'Numframesplayernotmoving=' + numFramesPlayernotMoving + ' NumFramesAfterCaughtTarget=' + numFramesAfterCaughtTarget + ' ValuePlan=' + valueHumanPlan);
+         }
+         
+     }
 }
 
 function spawnObject(settings){
@@ -1148,7 +1210,7 @@ function drawGrid() {
 
 // MS4: draw the path suggested by AI planner
 function drawAISolution() {
-    if ((settings.AIMode>0) && (sol != null)) {
+    if ((settings.AIMode>0) && (sol != null) && (player.shownAdvice)) {  // MS6: change in conditional
         // get the length of the suggested path
         let pathLength = Math.min( sol.interceptLocations.length, settings.AIMaxDisplayLength );
         if (pathLength > 0) {
@@ -1229,6 +1291,87 @@ function drawAISolution() {
         
     }
 }
+
+// MS6: test function
+function drawFullAISolutionDEBUG() {
+    if ((settings.AIMode>0) && (sol != null)) {
+        // Draw all indices
+        let numObjects = objects.length;
+        for (let i=0; i<numObjects; i++) {
+            let index = i;
+            let targetX = objects[index].x;
+            let targetY = objects[index].y;
+            ctx.fillStyle = 'black'; // Color of the text
+            ctx.fillText(index , targetX - 25, targetY + 15);
+        }
+
+        let numSuggestions = sol.valueGoingTowardsObject.length;
+        for (let i=0; i<numSuggestions; i++) {
+            // Show value and index for each target
+            let index = sol.originalIndexSuggestions[i];
+            let value = sol.valueGoingTowardsObject[i];
+
+            let targetX = center.x;
+            let targetY = center.y;
+            let valueTarget = 0;
+            if (index != -1) { // Not going towards origin
+                if (objects[index] == null) {
+                    console.log( 'test');
+                }
+                targetX = objects[index].x;
+                targetY = objects[index].y;
+                valueTarget = objects[index].fill / objects[index].size;
+            }
+            ctx.fillStyle = 'black'; // Color of the text
+            ctx.fillText(index , targetX + 25, targetY + 15); 
+  
+            ctx.fillStyle = 'green'; // Color of the text
+            let str = value.toFixed(2) + ' (' + valueTarget.toFixed(2) + ')';
+            ctx.fillText(str , targetX + 25, targetY - 15); 
+
+            //if (objects.length != numSuggestions) {
+            //    console.log( 'test');
+            //}
+
+
+            if (sol.interceptLocationTowardsObject[i] != null) {
+               let toX = sol.interceptLocationTowardsObject[i][0];
+               let toY = sol.interceptLocationTowardsObject[i][1];
+               
+               // Draw interception path for player
+               ctx.save();
+               ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency 
+               ctx.lineWidth = 5;
+               // Set the dash pattern: [dashLength, gapLength]
+               ctx.setLineDash([10, 15]); // Example: 10 pixels dash, 15 pixels gap
+               ctx.beginPath();
+               ctx.moveTo(player.x, player.y );
+               ctx.lineTo( toX, toY );
+
+               let str = value.toFixed( 2 );
+               ctx.fillText(str , toX + 15, toY - 15); 
+
+               // Draw trajectory from target to this interception point
+               //let index = sol.originalIndex[i];
+               //if (index != -1) {
+                  //if (objects[index] == null) {
+                  //    console.log( 'test');
+                  //} else {                
+                    ctx.lineTo( targetX, targetY );           
+                  //}
+                  
+               //}
+
+
+               ctx.stroke();
+               ctx.restore();
+            }
+            
+        }
+    }
+} 
+
+
 
 // MS4: draw arrow
 function drawFilledArrow(ctx, toX, toY, arrowWidth) {

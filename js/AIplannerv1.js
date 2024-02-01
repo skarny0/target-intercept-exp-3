@@ -141,6 +141,79 @@ valueGoingTowardsObject: [8×1 double]
   console.log(sol);
 }
 
+// MS6
+function calcValueHumanPlan( sol , player , angleThreshold) {
+
+  // Check
+  //if (player.moving) {
+  //   console.log( 'check');
+  //} 
+
+  // Number of suggested locations
+  let numSuggestions = sol.interceptLocationTowardsObject.length;
+  let valueHumanPlan = 0;
+  if ((numSuggestions == 0) | (!player.moving)) {
+      return [ valueHumanPlan, [] ];
+  } else {
+      let values = new Array(numSuggestions).fill(0);
+
+      // Copy over the values and add some number to avoid division by zero
+      for (let i=0; i<numSuggestions; i++) values[i] = (sol.valueGoingTowardsObject[i] + 0.001) /  (sol.maxValue + 0.001 );
+
+      // Calculate which angle bracket the player falls in
+      let maxV = 0;
+      let maxI = 0;
+      for (let i=0; i<numSuggestions; i++) {
+          // Optimal interception vector
+          let interceptVector = sol.interceptLocationTowardsObject[i];
+          if (interceptVector != null) {
+              let dx2 = ( interceptVector[0] - player.x );
+              let dy2 = ( interceptVector[1] - player.y );
+
+              // Player movement
+              let dx1 = ( player.targetX - player.x );
+              let dy1 = ( player.targetY - player.y );
+              
+              // Calculate the dot product of the two vectors
+              const dotProduct = dx1 * dx2 + dy1 * dy2;
+
+              // Calculate the magnitude of the first vector
+              const magnitude1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+
+              // Calculate the magnitude of the second vector
+              const magnitude2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+              // Calculate the cosine of the angle between the two vectors
+              const cosTheta = dotProduct / (magnitude1 * magnitude2);
+
+              // Calculate the angle in radians
+              const angleRadians = Math.acos(cosTheta);
+
+              // Convert the angle to degrees (optional)
+              const angleDegrees = angleRadians * (180 / Math.PI);
+            // let dotProduct = dx1 * dx2 + dy1 * dy2;
+
+            // // Calculate magnitude of vector b
+            // let magnitudeB = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+            // // Calculate and return scalar projection of a onto b (length of the projection)
+            // let distance = dotProduct / magnitudeB;
+
+              if (angleDegrees < angleThreshold) { 
+                  if (values[i] > maxV) {
+                      maxV = values[ i ];
+                      maxI = i;
+                  }
+              }
+          }
+          
+      }
+      
+      valueHumanPlan = maxV;
+      return [ valueHumanPlan, values ];
+  }
+}
+
 function runAIPlanner( objects, player , observableRadius , center, planNumFramesAhead, whAgent  ) {
   // Function to run the AI planner
 
@@ -166,7 +239,7 @@ function runAIPlanner( objects, player , observableRadius , center, planNumFrame
   let objectPositionsY = filteredObjects.map(object => (object.y - center.y) / observableRadius);
   let objectVelocitiesX = filteredObjects.map(object => (object.vx * object.speed) / observableRadius);
   let objectVelocitiesY = filteredObjects.map(object => (object.vy * object.speed) / observableRadius);
-  let objectValues = filteredObjects.map(object => object.value); // checks value of object
+  let objectValues = filteredObjects.map(object => object.fill / object.size); // MS6 check this
   let originalIndex = filteredObjects.map(object => object.OriginalIndex );
   
   let circleRadius = +1.00;
@@ -232,19 +305,35 @@ function runAIPlanner( objects, player , observableRadius , center, planNumFrame
   for (let i=0; i<solLength; i++) {
        sol.interceptLocations[i][0] = ( sol.interceptLocations[i][0] * observableRadius ) + center.x;
        sol.interceptLocations[i][1] = ( sol.interceptLocations[i][1] * observableRadius ) + center.y;
+
+       // MS6
        let index = sol.interceptionOrder[ i ];
        if (index != -1) {
            sol.originalIndex[i] = originalIndex[ index ];
        }       
   }
 
-  
-  if ((solLength==0) || (sol.interceptLocations.length==0)) {
-      console.log( 'Solution length' + solLength );
+
+  // MS6
+  if (whAgent == 'human') {
+      let numSuggestions = sol.valueGoingTowardsObject.length;
+      sol.originalIndexSuggestions = new Array(numSuggestions).fill(-1);
+      for (let i=0; i<numSuggestions; i++) {
+          if (sol.interceptLocationTowardsObject[i] != null) {
+             if (originalIndex[i] != null) {
+                 sol.originalIndexSuggestions[i] = originalIndex[ i ];
+             }
+                   
+             sol.interceptLocationTowardsObject[i][0] = ( sol.interceptLocationTowardsObject[i][0] * observableRadius ) + center.x; 
+             sol.interceptLocationTowardsObject[i][1] = ( sol.interceptLocationTowardsObject[i][1] * observableRadius ) + center.y;
+          } 
+      }
   }
+  
   return sol;
 } 
 
+// MS6
 function planSingleFrame(playerStartX, playerStartY, playerSpeed, objectPositionsX, objectPositionsY, objectVelocitiesX, objectVelocitiesY, objectValues, circleRadius) {
   const numObjects = objectPositionsX.length;
   let timeToLeaveCircle = new Array(numObjects).fill(0);
@@ -282,10 +371,9 @@ function planSingleFrame(playerStartX, playerStartY, playerSpeed, objectPosition
       sol.minTime = timeToIntercept;
       sol.interceptionOrder = objectID;
       sol.interceptLocationTowardsObject.push([ objectPosX, objectPosY ]);
-      sol.valueGoingTowardsObject = 0;
+      sol.valueGoingTowardsObject = [ 0 ]; // MS6
       sol.interceptionOrder = [ objectID ];
       sol.interceptLocations.push([ objectPosX, objectPosY ]);
-      //sol.interceptLocations = [ objectPosX, objectPosY ];
       sol.interceptTimes = [ timeToIntercept ];
       sol.lastPlayerPosX = objectPosX;
       sol.lastPlayerPosY = objectPosY;
@@ -317,6 +405,7 @@ function planSingleFrame(playerStartX, playerStartY, playerSpeed, objectPosition
                       let interceptTime = [];
                       let countj = 0;
                       let interceptionOrder = [];
+                      let firstIntercept = []; // MS6
   
                       for (let j = 0; j < planningDepth; j++) {
                           let objectIdx = order[j];
@@ -331,13 +420,25 @@ function planSingleFrame(playerStartX, playerStartY, playerSpeed, objectPosition
                           if (success) {
                               countj++;
                               interceptionOrder.push(objectIdx);
-                              totalValue += objectValues[objectIdx];
-                              totalDistance += distance;
+                              // MS7 change
+                              let valueNow = objectValues[objectIdx];
                               totalTime += timeToIntercept;
+                              totalDistance += distance;
+                              totalValue += valueNow;
+                              //let alpha = 0.1; // HARD CODED PARAMETER!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                              //totalValue += valueNow * Math.pow( alpha , totalDistance );
+                              //totalValue += valueNow * Math.pow( alpha , totalTime );
+                              //totalValue += valueNow * Math.pow( alpha , j );
+                              
                               playerPosX = interceptPosX;
                               playerPosY = interceptPosY;
                               interceptLocations.push([interceptPosX, interceptPosY]);
                               interceptTime.push( timeToIntercept);
+                          }
+
+                          // MS6
+                          if ((j==0) && (success)) {
+                              firstIntercept = [interceptPosX, interceptPosY]; 
                           }
                       }
   
@@ -352,11 +453,10 @@ function planSingleFrame(playerStartX, playerStartY, playerSpeed, objectPosition
                           sol.lastPlayerPosY = playerPosY;
                       }
 
-                      if (totalValue > sol.valueGoingTowardsObject[o1]) {
+                      // MS6: made changes in this block
+                      if ((totalValue > sol.valueGoingTowardsObject[o1]) && (firstIntercept.length != 0)) {
                           sol.valueGoingTowardsObject[o1] = totalValue;
-                          let toX = interceptLocations[0][0];
-                          let toY = interceptLocations[0][1];
-                          sol.interceptLocationTowardsObject[o1] = [ toX , toY ];
+                          sol.interceptLocationTowardsObject[o1] = firstIntercept;
                       }
                   }
               }

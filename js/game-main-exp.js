@@ -134,7 +134,7 @@ let difficultySettings = {
         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
         AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 3, // MS2: added this parameter to limit total number of targets
+        maxTargets: 9, // MS2: added this parameter to limit total number of targets
         spawnProbability:  1.0,
         spawnInterval: 10,
         valueSkew: 1,

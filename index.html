@@ -90,14 +90,22 @@
         -->
         <script>
             $(document).ready(function(){
-                $('#consent-main-content').load("html/consent.html");
-                //$('#instructions-main-content').load("html/instructions.html");
-                //$('#comprehension-quiz-main-content').load('html/comprehension-quiz.html');
-                //$('#task-main-content').load('html/experiment_concurrent.html');
-                //$('#survey-main-content').load('html/survey.html');
-                //$('#task-complete').load('html/complete.html');
+                if (DEBUG){
+                    $("#task-header").attr("hidden", false);
+                    $("#task-main-content").attr("hidden", false);
 
-                // $('#task-main-content').load('html/game-main-exp.html');
+                    // Load Main Experiment
+                    $('#task-main-content').load('html/game-main-exp.html');
+                } else{
+                    $('#consent-main-content').load("html/consent.html");
+                    //$('#instructions-main-content').load("html/instructions.html");
+                    //$('#comprehension-quiz-main-content').load('html/comprehension-quiz.html');
+                    //$('#task-main-content').load('html/experiment_concurrent.html');
+                    //$('#survey-main-content').load('html/survey.html');
+                    //$('#task-complete').load('html/complete.html');
+
+                    // $('#task-main-content').load('html/game-main-exp.html');}
+                }
             });
         </script>
 
@@ -147,7 +155,7 @@
                     <!--
                         Consent Page
                     -->
-                    <h2 class="page-title-header" id="consent-header">
+                    <h2 class="page-title-header" id="consent-header" hidden = "true">
                         Consent Page
                     </h2>
                     <!--

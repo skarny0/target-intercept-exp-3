@@ -235,6 +235,7 @@ $(document).ready(function (){
 
             // Write to Database
             let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
+            // let path = EXPERIMENT_DATABASE_NAME + firebaseUserId + '/consentData';
             writeRealtimeDatabase(path, CONSENT_DATA);
 
             // // Load Instructions
@@ -251,13 +252,6 @@ $(document).ready(function (){
             // Load Instructions
             $('#instructions-main-content').load("html/instructions.html");
         }
-
-        // Write to Database
-        let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
-        writeRealtimeDatabase(path, CONSENT_DATA);
-
-        // Load Instructions
-        $('#instructions-main-content').load("html/instructions.html");
     };
     /*
         Insert METADATA into page appropriately :)

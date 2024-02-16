@@ -27,6 +27,15 @@ function getDebugParams(){
     return debugBoolean;
 }
 
+
+var blockInfo = {
+    order: [], // Fill this with the block order
+    conditions: [], // Fill this with the conditions
+    completedBlock: 0,
+    completedBlockOrder: [],
+    assignment: false
+};
+
 // DEBUG MODE
 var DEBUG = getDebugParams();   // Always start coding in DEBUG mode
 console.log("DEBUG MODE: " + DEBUG);
@@ -40,7 +49,6 @@ if (DEBUG){
 } else {
     var EXPERIMENT_DATABASE_NAME    = "uci-hri-experiment-3-pilot2";
 }
-    
 
 //      Section Headers
 var SECTION_TITLE_CONSENT_PAGE  = "Consent Page";

@@ -20,7 +20,7 @@ to conduct the post-experiment survey.
 import {
     writeRealtimeDatabase,
     firebaseUserId
-} from "./firebasepsych1.0.js";
+} from "./firebasepsych1.1.js";
 
 
 /******************************************************************************
@@ -89,7 +89,7 @@ $(document).ready(function (){
         // Set selection variable
         TOPIC_ABILITY_DICT[topic_currently_ranked] = Number($(this).val());
 
-        if (TOPICS_RANKED == 6) {
+        if (TOPICS_RANKED == 10) {
             // Enable "Submit" button
             $('#survey-complete-button').prop('disabled', false);
         }
@@ -116,22 +116,24 @@ $(document).ready(function (){
         */
         let SURVEY_END_TIME = new Date();
 
-        // WRITE TO DATABASE
-        writeRealtimeDatabase(
-            SURVEY_DB_PATH + "/selfAssessment/usability",
-            TOPIC_ABILITY_DICT
-        );
-        writeRealtimeDatabase(
-            SURVEY_DB_PATH + "/metadata/surveyEndTime",
-            SURVEY_END_TIME.toString()
-        );
-        writeRealtimeDatabase(
-            SURVEY_DB_PATH + "/metadata/surveyTotalTime",
-            SURVEY_END_TIME - SURVEY_START_TIME
-        );
+        // // WRITE TO DATABASE
+        // writeRealtimeDatabase(
+        //     SURVEY_DB_PATH + "/selfAssessment/usability",
+        //     TOPIC_ABILITY_DICT
+        // );
+        // writeRealtimeDatabase(
+        //     SURVEY_DB_PATH + "/metadata/surveyEndTime",
+        //     SURVEY_END_TIME.toString()
+        // );
+        // writeRealtimeDatabase(
+        //     SURVEY_DB_PATH + "/metadata/surveyTotalTime",
+        //     SURVEY_END_TIME - SURVEY_START_TIME
+        // );
         
         // Hide Instructions
-        $('#survey-main-content').load('html/survey-teaming.html');
+        // $('#survey-main-content').load('html/survey-teaming.html');
+        $("#survey-container").attr("hidden", true);
+        
     };
     //  Handle Likert Selection for ALL Topics
     $('.likert-topic li input').click(likertTopicAbility);

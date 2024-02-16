@@ -37,7 +37,7 @@ Everything is in order as it appears in the HTML file (top to bottom).
     margin-bottom: 4rem;
 }
 #survey-likert-legend-header-container {
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-bottom: 2px solid #0064a4;
 }
 /*  Likert Legend - Title Row   */
@@ -76,22 +76,22 @@ Everything is in order as it appears in the HTML file (top to bottom).
 }
 /*  Likert Topic Row    */
 .survey-likert-topic-container {
-    height: 250px;
+    height: 150px;
     /*padding-bottom: 0.5rem;*/
     border-bottom: 2px solid #0064a4;
 }
 /*  Shared Styling  */
-.likert-topic {
+.likert-topic-workload {
     list-style:none;
     width:100%;
     margin:0;
     padding:0 0 0 0px;
     display:block;
 }
-.likert-topic:last-of-type {
+.likert-topic-workload:last-of-type {
     border-bottom:0;
 }
-.likert-topic:before {
+.likert-topic-workload:before {
     content: '';
     position: relative;
     top: 1em;
@@ -100,7 +100,7 @@ Everything is in order as it appears in the HTML file (top to bottom).
     height: 0.5em;
     width: 90%;
 }
-.likert-topic li {
+.likert-topic-workload li {
     display:inline-block;
     width:5.5%;
     text-align:center;
@@ -116,27 +116,7 @@ Everything is in order as it appears in the HTML file (top to bottom).
 #survey-topic03-likert-scale-radio-button-selection:before {
     background-color: #f46d43;
 }
-#survey-topic04-likert-scale-radio-button-selection:before {
-    background-color: #fdae61;
-}
-#survey-topic05-likert-scale-radio-button-selection:before {
-    background-color: #fee08b;
-}
-#survey-topic06-likert-scale-radio-button-selection:before {
-    background-color: #e6f598;;
-}
-#survey-topic07-likert-scale-radio-button-selection:before {
-    background-color: #abdda4;
-}
-#survey-topic08-likert-scale-radio-button-selection:before {
-    background-color: #66c2a5;
-}
-#survey-topic09-likert-scale-radio-button-selection:before {
-    background-color: #3288bd;
-}
-#survey-topic10-likert-scale-radio-button-selection:before {
-    background-color: #5e4fa2;
-}
+
 /*  Input Radio Button Styling  */
 input[name="q01"] {
     position:relative;
@@ -162,68 +142,12 @@ input[name="q03"] {
     width: 100%;
     height: 2em
 }
-input[name="q04"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em
-}
-input[name="q05"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em
-}
-input[name="q06"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em
-}
-input[name="q07"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em
-}
-input[name="q08"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em
-}
-input[name="q09"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em;
-}
-input[name="q10"] {
-    position:relative;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    width: 100%;
-    height: 2em;
-}
 
 /**************************************
 *   Row 3
 *   Submit Button
 **************************************/
-#survey-complete-button {
+#survey-complete-button-workload {
     width: 100%;
     font-size: 1.25em;
 }

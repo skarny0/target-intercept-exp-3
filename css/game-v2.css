@@ -1,86 +1,27 @@
-
-#gameContainer{
-    position: relative;
+.container-fluid {
     display: flex;
-    flex-direction: row; /* Change to row to align children horizontally */
-    justify-content: center; /* Center the children horizontally */
-    align-items: center; /* Align the children to the start of the cross axis */
-    /* gap: 5px; Optional: Adds space between the canvas and the textbox */
-    flex: 1; /* Ensures the container takes up the full width of the page */
-}
-#gameCanvas {
-    background-color: #D3D3D3; /* Light grey background */
-    border: 2px solid black;
-    margin: 0 20px; /* Adds space between the canvas and other elements */
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    height: 100vh;
 }
 
-#scoreCanvas {
-    background-color: #ffffff; /* White background for better readability */
-    border: 1px solid #000000; /* Black border for visibility */
-    border-radius: 4px; /* Rounded corners for a smoother look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    margin-top: 10px; /* Space from the top of the gameContainer */
-    /* margin-left: auto; Aligns the canvas to the right inside the flex container */
-    margin-right: 5px; /* Space from the right edge of the gameContainer */
-    padding: 5px; /* Padding inside the canvas */
-    display: block; /* Ensures the canvas is treated as a block for margin auto to work */
-    text-align: left;
-}
-
-#scoreContainer{
-    position: fixed;
-    display: flex;
-    flex-direction: row; /* Change to row to align children horizontally */
-    justify-content: center; /* Center the children horizontally */
-    align-items: center; /* Align the children to the start of the cross axis */
-    gap: 0px; /* Optional: Adds space between the canvas and the textbox */
-    /* flex: 0; Ensures the container takes up the full width of the page */
-    top:300;
-    left: 10
-}
-
-#sliderContainer {
+#gameContainer, #robotContainer {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Creates space between each slider */
-    align-items: center; /* Centers the sliders */
+    justify-content: center;
+}
+
+#gameContainer {
+    flex: 4; /* Occupies more space */
+    align-items: center; /* Centers content vertically in the container */
 }
 
 #robotContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Change to row to align children horizontally */
-    justify-content: start; /* Center the children horizontally */
-    align-items: left; /* Align the children to the start of the cross axis */
-    /* gap: 5px; Optional: Adds space between the canvas and the textbox */
-    flex: 1; /* Ensures the container takes up the full width of the page */
+    flex: 1; /* Occupies less space */
+    align-items: flex-start; /* Aligns content to the start */
+    max-width: 300px; /* Limits the width */
 }
-
-#aiAssistRobot {
-    margin-top: 20px; /* Adjust as needed */
-    /* background-color: yellow;  */
-}
-
-#aiAssistRobotCaption{
-    background-color: yellow; 
-    color: #333;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 10px;
-}
-
-#aiModeStatus {
-    color: red;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    padding:10px;
-}
-
-#toggleAIAssistance {
-    margin-top: 10px; /* Space between the robot image and the button */
-}
-
 #messageBox {
     display: none; /* Initially hidden */
     background: white;
@@ -89,6 +30,32 @@
     margin-top: 10px; /* Space between the toggle button and the message box */
     text-align: center; /* Center the text within the message box */
 }
+
+#gameCanvas {
+    background-color: #D3D3D3; /* Light grey background */
+    border: 2px solid black;
+    margin: 0 20px; /* Adds space between the canvas and other elements */
+}
+
+#scoreCanvas {
+    width: 100%; /* Adjusts to the width of its container */
+    height: 200px; /* Significantly larger height */
+    margin-top: 20px;
+    border: 2px solid #000000; /* More pronounced border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds depth with shadow */
+    background-color: #ffffff; /* Ensures background is white */
+}
+
+#aiAssistRobot {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+#aiAssistRobotCaption{
+    margin-top: 20px; /* Adjust as needed */
+    background-color: yellow; 
+}
+
 
 .gamePage {
     display: none; /* Hide all pages by default */

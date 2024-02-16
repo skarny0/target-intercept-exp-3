@@ -24,8 +24,8 @@ This file should contain static experimental metadata such as:
 import {
     writeRealtimeDatabase,
     writeURLParameters,
-    firebaseUserId
-} from "./firebasepsych1.0.js";
+    firebaseUserId1
+} from "./firebasepsych1.1.js";
 
 /******************************************************************************
     METADATA
@@ -234,7 +234,7 @@ $(document).ready(function (){
             // $('#survey-main-content').load('html/survey-workload.html');
 
             // Write to Database
-            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
+            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/consentData';
             // let path = EXPERIMENT_DATABASE_NAME + firebaseUserId + '/consentData';
             writeRealtimeDatabase(path, CONSENT_DATA);
 
@@ -246,7 +246,7 @@ $(document).ready(function (){
             $("#instructions-main-content").attr("hidden", false);
 
             // Write to Database
-            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
+            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/consentData';
             writeRealtimeDatabase(path, CONSENT_DATA);
 
             // Load Instructions
@@ -288,11 +288,11 @@ $(document).ready(function (){
 
     if (DEBUG){
         console.log("TESTING");
-        console.log("Firebase UserID:", firebaseUserId);
+        console.log("Firebase UserID:", firebaseUserId1);
     }
     /*  WRITE TO FIREBASE */
     // Save URL parameters on the path: "[studyId]/participantData/[firebaseUserId]/participantInfo"
-    let pathnow = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/participantInfo';
+    let pathnow = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/participantInfo';
     writeURLParameters( pathnow );
 
     $('#terms').click(activateButton);

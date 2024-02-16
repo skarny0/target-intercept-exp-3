@@ -12,6 +12,9 @@ This file should contain all variables and functions needed for
 the game.
 */
 
+// $("#full-game-container").attr("hidden", true);
+$("#survey-workload-container").attr("hidden", true);
+$("#survey-full-container").attr("hidden", true);
 
 // //**************************FIREBASE FUNCTIONALITY****************************//
 // /// Importing functions and variables from the Firebase Psych library
@@ -26,76 +29,79 @@ import { writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
     initializeRealtimeDatabase,initializeSecondRealtimeDatabase } from "./firebasepsych1.1.js";
 
 // Define the configuration file for first database
-const firebaseConfig_db1 = {
-    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-    authDomain: "uci-hri-main.firebaseapp.com",
-    databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
-    projectId: "uci-hri-main",
-    storageBucket: "uci-hri-main.appspot.com",
-    messagingSenderId: "639884968072",
-    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-};
+// const firebaseConfig_db1 = {
+//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+//     authDomain: "uci-hri-main.firebaseapp.com",
+//     databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
+//     projectId: "uci-hri-main",
+//     storageBucket: "uci-hri-main.appspot.com",
+//     messagingSenderId: "639884968072",
+//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+// };
 
-// Define the configuration file for second database
-const firebaseConfig_db2 = {
-    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-    authDomain: "uci-hri-main.firebaseapp.com",
-    databaseURL: "https://uci-hri-main-event.firebaseio.com",
-    projectId: "uci-hri-main",
-    storageBucket: "uci-hri-main.appspot.com",
-    messagingSenderId: "639884968072",
-    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-};
+// // Define the configuration file for second database
+// const firebaseConfig_db2 = {
+//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+//     authDomain: "uci-hri-main.firebaseapp.com",
+//     databaseURL: "https://uci-hri-main-event.firebaseio.com",
+//     projectId: "uci-hri-main",
+//     storageBucket: "uci-hri-main.appspot.com",
+//     messagingSenderId: "639884968072",
+//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+// };
 
-// Get the reference to the two databases using the configuration files
-const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
-const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
+// // Get the reference to the two databases using the configuration files
+// const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
+// const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
 
 
-// console.log("Firebase UserId=" + firebaseUserId);
+// // console.log("Firebase UserId=" + firebaseUserId);
 
-function getDebugParams(){
-    const urlParams = new URLSearchParams(window.location.search);
-    let debugBoolean = Boolean(urlParams.get('debug'));
+// function getDebugParams(){
+//     const urlParams = new URLSearchParams(window.location.search);
+//     let debugBoolean = Boolean(urlParams.get('debug'));
 
-    // console.log(debugBoolean);
+//     // console.log(debugBoolean);
 
-    return debugBoolean;
-}
+//     return debugBoolean;
+// }
 
-var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
+// var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 
-let studyId = 'placeHolder';
+// let studyId = 'placeHolder';
 
-if (DEBUG){
-   studyId    = "uci-hri-experiment-3-pilot2-debug";
-} else {
-    studyId   = "uci-hri-experiment-3-pilot2";
-}
-// console.log("Study ID: " + studyId);    
+// if (DEBUG){
+//    studyId    = "uci-hri-experiment-3-pilot2-debug";
+// } else {
+//     studyId   = "uci-hri-experiment-3-pilot2";
+// }
+// // console.log("Study ID: " + studyId);    
 
+// export {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG};
+
+import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
 
 // Show the user id that is provided by the Firebase Psych library.
-console.log( "Firebase UserId1=" + firebaseUserId1 );
-console.log( "Firebase UserId2=" + firebaseUserId2 );
+// console.log( "Firebase UserId1=" + firebaseUserId1 );
+// console.log( "Firebase UserId2=" + firebaseUserId2 );
 
 // database write function
 function writeGameDatabase(){
-    console.log("Writing to database");
-    let path1 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/spawnData';
-    let path2 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/caughtTargets';
+    // console.log("Writing to database");
+    let path1 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/spawnData';
+    let path2 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/caughtTargets';
 
     // write event stream to a separate realtime database
-    let path3 = studyId + '/participantData/' + firebaseUserId2 + '/round' + currentRound + '/eventStream'; 
+    let path3 = studyId + '/participantData/' + firebaseUserId2 + '/block' + currentBlock + '/round' + currentRound + '/eventStream'; 
 
-    let path4 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/playerClicks';
-    let path5 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/playerLocation';
-    let path6 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/settings';
-    let path7 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/roundTime';
-    let path8 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/AIcaughtTargets';
-    let path9 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/AIplayerLocation';
-    let path10 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/aiScore';
-    let path11 = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/playerScore';
+    let path4 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerClicks';
+    let path5 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerLocation';
+    let path6 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/settings';
+    let path7 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/roundTime';
+    let path8 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIcaughtTargets';
+    let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIplayerLocation';
+    let path10 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/aiScore';
+    let path11 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerScore';
 
     writeRealtimeDatabase(db1, path1, spawnData);
     writeRealtimeDatabase(db1, path2, caughtTargets);
@@ -113,44 +119,22 @@ function writeGameDatabase(){
     writeRealtimeDatabase(db1, path11, score);   
 }
 
-// // Example: storing a numeric value
-// // The result of this is stored on the path: "[studyId]/participantData/[firebaseUserId]/trialData/trial1/ResponseTime"
-
-// intitial firebase write.
-// let pathnow = studyId + '/participantData/' + firebaseUserId + '/participantInfo';
-// let pathnow = studyId + firebaseUserId + '/participantInfo'
-
-
-let pathnow = studyId+'/participantData/'+firebaseUserId1+'/trialData/trial2';
-let valuenow = { condition: 2, responseTime: 370, isCorrect: true, answer: 'B' };
-writeRealtimeDatabase( db1, pathnow , valuenow );
-writeURLParameters(db1, pathnow);
-$('#message').append('Executing example 1...<br>');
-
-/// Example 2: Storing a JavaScript object in database 2
-pathnow = studyId+'/participantData/'+firebaseUserId2+'/trialData/trial2';
-valuenow = { condition: 1, responseTime: 123, isCorrect: true, answer: 'F' };
-writeRealtimeDatabase( db2, pathnow , valuenow );
-writeURLParameters(db2, pathnow);
-$('#message').append('Executing example 2...<br>');
-
-
-//**************************BLOCK RANDOMIZATION ******************************//
-// const maxCompletionTimeMinutes = 60;
-
-// // Example 1: Assign a random condition for Viewpoint
-// const viewPointCondition = 'ViewPoint'; // a string we use to represent the condition name
-// let numConditions = 4; // Number of conditions for this variable
-// let numDraws = 1; // Number of  assignments (mutually exclusive) we want to sample for this participants
-// let assignedCondition = await blockRandomization(db1, studyId, viewPointCondition, numConditions,
-//   maxCompletionTimeMinutes, numDraws); // the await keyword is mandatory
-// let msg = viewPointCondition + ": participant is assigned level: " + assignedCondition;
-// console.log(msg);
-// $('#message').append(msg + '<br>');
-
 //**************************GAME INITIALIZATION*******************************//
+// function initEnvironment (){
+//     // World Building Elements
+//     const canvas = document.getElementById('gameCanvas');
+//     const ctx = canvas.getContext('2d');
+//     const scoreCanvas = document.getElementById('scoreCanvas');
+//     const scoreCtx = scoreCanvas.getContext('2d');
+//     const world = { width: 800, height: 800 };
+//     const center = { x: canvas.width / 2, y: canvas.height / 2 };
+//     let observableRadius = 390; // Radius for positioning objects
 
-// World Building Elements
+//     return canvas, ctx, scoreCanvas, scoreCtx, world, center, observableRadius;
+// }
+
+// let canvas, ctx, scoreCanvas, scoreCtx, world, center, observableRadius = initEnvironment();
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreCanvas = document.getElementById('scoreCanvas');
@@ -160,8 +144,6 @@ const center = { x: canvas.width / 2, y: canvas.height / 2 };
 let observableRadius = 390; // Radius for positioning objects
 
 let settings = {};
-
-
 
 // ***********************EXPERIMENTAL PARAMETERS***************************// 
 
@@ -197,161 +179,210 @@ function getDifficultySettingsFromURL() {
 }
 
 let defaultSettings = {
-    AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+    maxFrames: 12000,           // MS1: maximum number of frames to run the game
+    planNumFramesAhead: 1,      // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+    AIDisplayMode: 1,           // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+    AIMaxDisplayLength: 3,      // MS4: can be used to truncate the AI path length shown
+    visualizeAIPlayer: 0,       // MS5: 0:default; 1=visualize AI player running in background
+    AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+    AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+    AIframeDelay: 30,           // Delaying advice so that it doesn't overwhelm the player
     spawnProbability:  1.0,
     spawnInterval: 10,
     valueSkew: 1,
     valueLow: 0,
     valueHigh:  1,
     playerSpeed: 3,
+    maxTargets: 10,
     speedLow:  1.5, // lowest end of object speed distribution
     speedHigh: 3, // highest end of object speed distribution
-    // randSeed: 12
 };
 
 let difficultySettings = {
-    1: {experiment: 3, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30,
-        maxTargets: 3, // MS2: added this parameter to limit total number of targets
-        randSeed: 12},
-    2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 6, // MS2: added this parameter to limit total number of targets
-        randSeed: 123},
-        // Add more settings for each level
-    3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 9, // MS2: added this parameter to limit total number of targets
-        randSeed: 1234},
-    4: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 3, // MS2: added this parameter to limit total number of targets
-        randSeed: 12345},
-    5: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 6, // MS2: added this parameter to limit total number of targets
-        randSeed: 123456},
-        // Add more settings for each level
-    6: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 9, // MS2: added this parameter to limit total number of targets
-        randSeed: 1234567}
+    // CONDITION 1
+    1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                randSeed: 12},
+            2: {AIMode: 0, 
+                randSeed: 123},},
+        1: {1: {AIMode: 1, 
+                randSeed: 12345},
+            2: {AIMode: 1, 
+                randSeed: 123456}}},
+    // CONDITION 2
+    2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                randSeed: 12},
+            2: {AIMode: 1, 
+                randSeed: 123}},
+        1: {1: {AIMode: 0, 
+                randSeed: 12345},
+            2: {AIMode: 0, 
+                randSeed: 123456}}},
+    // CONDITION 3
+    3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                randSeed: 12},
+            2: {AIMode: 0, 
+                randSeed: 123}},
+        1: {1: {AIMode: 2, 
+                randSeed: 12345},
+            2: {AIMode: 2, 
+                randSeed: 123456}}},
+    // CONDITION 4
+    4: {0: {1: {AIMode: 2,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                randSeed: 12},
+            2: {AIMode: 2, 
+                randSeed: 123}},
+        1: {1: {AIMode: 0, 
+                randSeed: 12345},
+            2: {AIMode: 0, 
+                randSeed: 123456}}}
 };
 
+// final block conditions will look something like this.
 // let difficultySettings = {
-//     1 :{
-//         1: {experiment: 3, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 0, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30,
-//             maxTargets: 3, // MS2: added this parameter to limit total number of targets
-//             randSeed: 12},
-//         2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 0, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//             maxTargets: 6, // MS2: added this parameter to limit total number of targets
-//             randSeed: 123},
-//         // Add more settings for each level
-//         3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 0, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//             maxTargets: 9, // MS2: added this parameter to limit total number of targets
-//             randSeed: 1234},
-//     },
-//     2:{ 1 : {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//             maxTargets: 3, // MS2: added this parameter to limit total number of targets
-//             randSeed: 12345},
-//         2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//             maxTargets: 6, // MS2: added this parameter to limit total number of targets
-//             randSeed: 123456},
-//         // Add more settings for each level
-//         3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//             AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//             planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//             AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//             AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//             visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//             AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//             AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//             AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//             maxTargets: 9, // MS2: added this parameter to limit total number of targets
-//             randSeed: 1234567},}
+//     // CONDITION 1
+//     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 0, 
+//                 randSeed: 123},},
+//         1: {1: {AIMode: 1, 
+//                 randSeed: 12345},
+//             2: {AIMode: 1, 
+//                 randSeed: 123456}}},
+//     // CONDITION 2
+//     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 1, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 0, 
+//                 randSeed: 12345},
+//             2: {AIMode: 0, 
+//                 randSeed: 123456}}},
+//     // CONDITION 3
+//     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 0, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 2, 
+//                 randSeed: 12345},
+//             2: {AIMode: 2, 
+//                 randSeed: 123456}}},
+//     // CONDITION 4
+//     4: {0: {1: {AIMode: 2,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 2, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 0, 
+//                 randSeed: 12345},
+//             2: {AIMode: 0, 
+//                 randSeed: 123456}}},
+//      // CONDITION 5
+//     5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 0, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 3, 
+//                 randSeed: 12345},
+//             2: {AIMode: 3, 
+//                 randSeed: 123456}}},
+//      // CONDITION 6
+//     6: {0: {1: {AIMode: 3,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 3, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 0, 
+//                 randSeed: 12345},
+//             2: {AIMode: 0, 
+//                 randSeed: 123456}}},
+//      // CONDITION 7
+//     7: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 0, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 4, 
+//                 randSeed: 12345},
+//             2: {AIMode: 4, 
+//                 randSeed: 123456}}},
+//      // CONDITION 8
+//     8: {0: {1: {AIMode: 4,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+//                 randSeed: 12},
+//             2: {AIMode: 4, 
+//                 randSeed: 123}},
+//         1: {1: {AIMode: 0, 
+//                 randSeed: 12345},
+//             2: {AIMode: 0, 
+//                 randSeed: 123456}}}
 // };
 
 // Example of what previous settings looked like
+// let difficultySettings = {
+//     1: {experiment: 3, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30,
+//         maxTargets: 3, // MS2: added this parameter to limit total number of targets
+//         randSeed: 12},
+//     2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
+//         maxTargets: 6, // MS2: added this parameter to limit total number of targets
+//         randSeed: 123},
+//         // Add more settings for each level
+//     3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
+//         maxTargets: 9, // MS2: added this parameter to limit total number of targets
+//         randSeed: 1234},
+//     4: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
+//         maxTargets: 3, // MS2: added this parameter to limit total number of targets
+//         randSeed: 12345},
+//     5: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
+//         maxTargets: 6, // MS2: added this parameter to limit total number of targets
+//         randSeed: 123456},
+//         // Add more settings for each level
+//     6: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
+//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
+//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
+//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
+//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
+//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
+//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
+//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
+//         maxTargets: 9, // MS2: added this parameter to limit total number of targets
+//         randSeed: 1234567}
+// };
 /*
         experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
@@ -376,12 +407,16 @@ let difficultySettings = {
 
 // Get the keys for randomization
 let settingKeys = Object.keys(difficultySettings);
+//console.log(settingKeys);   
 
+// Block randomization variables -- placed here for ordering dependency
 let currentRound = 1;
-let maxRounds = Object.keys(difficultySettings).length;
+let currentBlock = 0;
+let currentCondition = null;
+let noAssignment = true;
+
+let maxRounds = 2;
 let roundID = "round + " + currentRound;
-
-
 
 // Timing variables
 let gameStartTime, elapsedTime;
@@ -392,7 +427,14 @@ let isGameRunning       = false;
 let frameCountGame      = 0; // MS: number of updates of the scene
 let deltaFrameCount     = 0; // To limit the size of the Event Stream object; 
 const fps               = 30; // Desired logic updates per second
-const maxFrames         = 30 * fps;//120 * 60; // Two minutes in frames
+
+let maxFrames = null;
+if (!DEBUG){
+    maxFrames = defaultSettings.maxFrames;
+} else{ // set it to whatever you want
+    maxFrames         = 2 * fps;//120 * 60; // Two minutes in frames
+}
+
 const updateInterval    = 1000 / fps; // How many milliseconds per logic update
 let firstRender         = 0;
 let roundTime           = 0;
@@ -407,10 +449,6 @@ let playerLocation  = [];
 
 const eventStreamSize = 720; // 2 minutes of 60 fps updates
 let eventStream = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
-
-
-//let eventStream     = [];
-//let eventObject     = {time: 0, player: {}, objects:{}}; // edit this object to include all current data on each player and object in the environment
 
 // Variables for cursor
 let cursorSize = 40;
@@ -437,6 +475,7 @@ const player = {
     height:50,
     score:0
 };
+
 const camera = {
     x: world.width / 2,
     y: world.height / 2,
@@ -455,8 +494,7 @@ function lcg(seed) {
       current = (a * current + c) % m;
       return current / m;
     };
-  }
-  
+}
 let randomGenerator;
 // MS4: ******************************* AI PLANNER ************************************//
 let sol; // MS4: global variable that contains planned path for current frame
@@ -481,51 +519,56 @@ let AIplayerLocation = [];
 let numFramesPlayernotMoving = 0; // MS6
 let numFramesAfterCaughtTarget = 0; // MS6
 
+//**************************BLOCK RANDOMIZATION ******************************//
+
+
+async function initExperimentSettings() {
+    const maxCompletionTimeMinutes = 60;
+
+    // Assign random condition (AI Adapt or AI Naive)
+    // assignedCondition === 0 means that participant is in the AI Naive condition
+    const aiBlockCondition = 'aiCondition'; // a string we use to represent the condition name
+    let numConditions = 4; // number of conditions
+    let numDraws = 1; // number of draws
+    let assignedCondition = await blockRandomization(db1, studyId, aiBlockCondition, numConditions, maxCompletionTimeMinutes, numDraws);
+
+    currentCondition = assignedCondition[0]+1;
+    
+    // console.log('assignedCondition:', assignedCondition); // Add this line
+
+    let msg = aiBlockCondition + ": participant is AI type: " + assignedCondition;
+    // console.log(msg);
+    // $('#message').append(msg + '<br>');
+}
+
+if (!blockInfo.assignment){
+    // await the asynchroneous function to complete and retrieve the curret
+    await initExperimentSettings();
+    startGame(currentRound, currentCondition, currentBlock);
+    blockInfo.assignment = true;
+}
+
+let visitedBlocks = 0;
+let numSurveyCompleted = 0;
+
 // ****************************UPDATE FUNCTIONS***************************//
 
-// async function initializeRoundSettings() {
-//     for (const blockKey in difficultySettings) {
-//         const numConditions = Object.keys(difficultySettings[blockKey]).length;
-//         const roundSettingsBlock = await blockRandomization(db1, studyId, numDraws=numConditions);
-
-//         // Store in an appropriate structure - example below
-//         roundSettings[blockKey] = roundSettingsBlock; 
-//     }
-// }
-
 // Start Game function
-function startGame(round) {
-    currentRound = round || currentRound; // Start at the specified round, or the current round
-    // settings = getDifficultySettingsFromURL();
-    // settings = difficultySettings[currentRound];
+async function startGame(round, condition, block) {
+    // resizeScoreCanvas();
+    // drawScore();
+    // resizeCanvasAndRedrawScore()
 
-    // if (settingKeys.length === 0){
-    //     settingKeys = Object.keys(difficultySettings);
-    // }
-    if (!DEBUG){
-        const randIndex = Math.floor(Math.random() * settingKeys.length);
-        const randKey = settingKeys[randIndex];
-        settings = difficultySettings[randKey];
-        settingKeys.splice(randIndex, 1);
-    
-        console.log("Key " + randKey + " Settings ", settings);
-    } else{
-        settings = difficultySettings[currentRound];
-    }
+    currentRound = round; // Start at the specified round, or the current round
+    let blockSetting = difficultySettings[condition][block];
 
-    // if (blocksAccessed.length === 0 || Math.random() < 0.5) { // Adjust probability as needed
-    //     blockKey = '1'; // Select baseline block
-    //     blocksAccessed.push('1');
-    // } else {
-    //     blockKey = '2'; // Select AI-assisted block
-    //     blocksAccessed.push('2');
-    // }
+    settings = blockSetting[currentRound];
+    // console.log("Current Settings", settings);
+    // console.log("Random Seed", settings.randSeed);
 
-    // // Get corresponding settings
-    // const currentBlockSettings = roundSettings[blockKey];
-    // const randIndex = Math.floor(Math.random() * currentBlockSettings.length);
-    // settings = currentBlockSettings[randIndex];
-    // currentBlockSettings.splice(randIndex, 1); 
+    // console.log("Current Block", currentBlock);
+    // console.log("Current Round", currentRound);
+    // console.log("Metadata Block Info", blockInfo);
 
     // Initialize with a seed
     randomGenerator = lcg(settings.randSeed);
@@ -547,86 +590,86 @@ function startGame(round) {
         // console.log('Settings being passed into gameLoop', settings);
     }
 }
-startGame(currentRound);
 
 // End Game function
-async function endGame(advanceRound = false) {
+async function endGame() {
     isGameRunning = false;
 
     writeGameDatabase();
-
-    if (advanceRound) {
-        // round = currentRound;
-        
+    if (currentRound < maxRounds && numSurveyCompleted < 2) {
         currentRound++;
-        if (currentRound <= maxRounds && currentRound > 1) {
-            await runGameSequence("You've Completed a Round and earned " + score + " points. Click OK to continue.");
-            // console.log("Starting next round", currentRound);
+        await runGameSequence("You've Completed a Round and earned " + score + " points. Click OK to continue.");
+        await resetGame();
+        startGame(currentRound, currentCondition, currentBlock); // Start the next round
+    } else if (currentRound >= maxRounds && numSurveyCompleted < 2) {
+        // All rounds in the current block are completed
+       
+        blockInfo.completedBlock++;
+        blockInfo.completedBlockOrder.push(currentBlock);
+        console.log("Visited Blocks", visitedBlocks);
+        currentRound = 1; // Reset the round counter
+    
+        // Switch to the other block
+        let prevBlock  = currentBlock;
+        // currentBlock = currentBlock == 1 ? 0 : 1;
+        currentBlock += 1;
+        await runGameSequence("You've Completed a Block and earned " + score + " points. Click OK to continue.");
+        await resetGame();
 
-            // requestIdleCallback(() => {
-                // first clear the heap
-                // eventStream     = null;
-                objects         = null;
-                spawnData       = null;
-                caughtTargets   = null;
-                playerClicks    = null;
-                playerLocation  = null;
-                score           = null;
-                aiScore         = null;
-                player.score    = null;
-                AIplayer.score  = null
+        if (settings.AIMode == 0) {
+            loadWorkLoadSurvey();   
+            // for baseline only load workload survey
+            $("#survey-workload-container").attr("hidden", false);
+            $("#full-game-container").attr("hidden", true);
+            visitedBlocks++;
 
-
-                AIcaughtTargets = null;
-                AIplayerLocation = null;
-
-                // then reassign the variables
-                eventStream = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
-                objects         = []; // Reset the objects array
-                spawnData       = [];
-                caughtTargets   = [];
-                playerClicks    = [];
-                playerLocation  = [];
-                score           = 0;    
-                aiScore         = 0;
-                player.score    = 0;
-                AIplayer.score  = 0
-
-
-                AIcaughtTargets = [];
-                AIplayerLocation = [];
-                
-                player.x        = canvas.width/2;
-                player.y        = canvas.height/2;
-                player.targetX  = canvas.width/2;
-                player.targetY  = canvas.height/2;
-                AIplayer.x, AIplayer.y = canvas.width/2 - playerSize/2; // MS5: Reset the player position
-            // });
+        } else if (settings.AIMode >= 1) {
+            loadFullSurvey();
             
-            startGame(currentRound); // Start the next round
-        } else {
-            await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
-            // Game complete, show results or restart
-            // console.log("Game complete");
-            // Hide Experiment
-            $("#task-header").attr("hidden", true);
-            $("#task-main-content").attr("hidden", true);
-
-            // //Show the redirect page.
-            // $("#exp-complete-header").attr("hidden", false);
-            // $("#task-complete").attr("hidden", false);
-
-            // // Experiment Completed
-            // $('#task-complete').load('html/complete.html');
-            $("#exp-survey-header").attr("hidden", false);
-            $("#survey-main-content").attr("hidden", false);
-
-            // Show Survey
-            $('#survey-main-content').load('html/survey-workload.html');
-            
-            return;
+            $("#survey-full-container").attr("hidden", false);
+            $("#full-game-container").attr("hidden", true);
+            visitedBlocks++;
+        }
+    
+        if (visitedBlocks <= 1) {
+            startGame(currentRound, currentCondition,currentBlock); // Start the next round
         }
     }
+}
+
+async function resetGame(){
+    objects         = null;
+    spawnData       = null;
+    caughtTargets   = null;
+    playerClicks    = null;
+    playerLocation  = null;
+    score           = null;
+    aiScore         = null;
+    player.score    = null;
+    AIplayer.score  = null
+    AIcaughtTargets = null;
+    AIplayerLocation = null;
+
+    // then reassign the variables
+    eventStream     = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
+    objects         = []; // Reset the objects array
+    spawnData       = [];
+    caughtTargets   = [];
+    playerClicks    = [];
+    playerLocation  = [];
+    score           = 0;    
+    aiScore         = 0;
+    player.score    = 0;
+    AIplayer.score  = 0
+
+    AIcaughtTargets  = [];
+    AIplayerLocation = [];
+    
+    player.x        = canvas.width/2;
+    player.y        = canvas.height/2;
+    player.targetX  = canvas.width/2;
+    player.targetY  = canvas.height/2;
+    AIplayer.x, AIplayer.y = canvas.width/2 - playerSize/2; // MS5: Reset the player position
 }
 
 function gameLoop(timestamp) {
@@ -637,7 +680,7 @@ function gameLoop(timestamp) {
     }
 
     if (frameCountGame >= maxFrames) {
-        endGame(true);
+        endGame();
         // console.log("Game Over!", frameCountGame);
         return;
     }
@@ -674,10 +717,11 @@ function render() {
     ctx.save();
     drawWorldBoundary();    // Draw boundaries
     drawPlayer();
-    if (settings.visualizeAIPlayer==1) { // MS5
+    if (defaultSettings.visualizeAIPlayer==1) { // MS5
         drawAIPlayer();
     }
     if (player.moving) drawArrowDirection();   // Draw arrow direction  }
+    displayAIstatus(); // display AI status -- ON or OFF
     // if (settings.experiment>1){
     //     // MS4: draw the path suggested by AI
     // }
@@ -689,6 +733,7 @@ function render() {
     drawObjects();          // Draw objects
     ctx.restore();
     drawScore();            // Draw score
+    // console.log("Is scoreCanvas in the DOM?", $.contains(document, $("#scoreCanvas")[0]));
 }
 
 // Update game objects
@@ -700,7 +745,7 @@ function updateObjects(settings) {
     } 
     if (frameCountGame == 0) {
         console.log("Starting Game");
-        runGameSequence("This is Round " + currentRound + " of 6 of the Main Experiment. Click to Begin.");
+        runGameSequence("This is Round " + currentRound + " of " + maxRounds + " of this Section. Click to Begin.");
     }
     if (deltaFrameCount == 10){
         deltaFrameCount = 0;
@@ -732,7 +777,7 @@ function updateObjects(settings) {
                 newEventObject.aiSuggestions = curSuggestion;
                 //console.log("AI Suggestion", curSuggestion);
             }
-            eventStream[index] = newEventObject;
+            eventStream[index]      = newEventObject;
         }
     }
     
@@ -768,26 +813,27 @@ function updateObjects(settings) {
     }
 
     // Prevent player from moving off-screen
-    player.x = Math.max(player.width / 2, Math.min(canvas.width - player.width / 2, player.x));
-    player.y = Math.max(player.height / 2, Math.min(canvas.height - player.height / 2, player.y));
+    player.x                = Math.max(player.width / 2, Math.min(canvas.width - player.width / 2, player.x));
+    player.y                = Math.max(player.height / 2, Math.min(canvas.height - player.height / 2, player.y));
 
     // MS5: Update AI player position if it is moving
-    AIplayer.velocity = defaultSettings.playerSpeed;
-    //if (AIplayer.moving) {
-    const deltaX = AIplayer.targetX - AIplayer.x;
-    const deltaY = AIplayer.targetY - AIplayer.y;
-    const distanceToTarget = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    AIplayer.velocity       = defaultSettings.playerSpeed;
+
+    const deltaX            = AIplayer.targetX - AIplayer.x;
+    const deltaY            = AIplayer.targetY - AIplayer.y;
+    const distanceToTarget  = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
     if (distanceToTarget < AIplayer.velocity) {
         // AI Player has arrived at the target location
-        AIplayer.x = AIplayer.targetX;
-        AIplayer.y = AIplayer.targetY;
-        AIplayer.moving = false;
+        AIplayer.x         = AIplayer.targetX;
+        AIplayer.y         = AIplayer.targetY;
+        AIplayer.moving    = false;
     } else {
         // Move player towards the target
-        AIplayer.angle = Math.atan2(deltaY, deltaX);
-        AIplayer.x += AIplayer.velocity * Math.cos(AIplayer.angle);
-        AIplayer.y += AIplayer.velocity * Math.sin(AIplayer.angle);
-        AIplayer.moving = true;
+        AIplayer.angle      = Math.atan2(deltaY, deltaX);
+        AIplayer.x         += AIplayer.velocity * Math.cos(AIplayer.angle);
+        AIplayer.y         += AIplayer.velocity * Math.sin(AIplayer.angle);
+        AIplayer.moving     = true;
         AIplayerLocation.push({time: frameCountGame, x: AIplayer.x, y: AIplayer.y});
     }
 
@@ -805,42 +851,40 @@ function updateObjects(settings) {
             // console.log("Object Location", obj.x, obj.y);
 
             // Check if the object is outside the observable area
-            let dx = obj.x - center.x;
-            let dy = obj.y - center.y;
+            let dx                 = obj.x - center.x;
+            let dy                 = obj.y - center.y;
             let distanceFromCenter = Math.sqrt(dx * dx + dy * dy) - 10;
 
             if (distanceFromCenter > observableRadius) {
                 // console.log("Object is outside observable area");
                 obj.active = false; // Set the object to inactive
                 toRemove.push( index );
-                // objects.splice(index, 1); // Remove the object from the array
-                //spawnObject(settings); // Spawn a new object
             }
             
             if (!obj.intercepted && checkCollision(player, obj)) { // MS2: added a condition
                 // Collision detected
                 //obj.active = false; // MS2: commented out this line
                 //objects.splice(index, 1); // MS2: commented out this line
-                obj.intercepted = true; // MS2: added this flag
-                score += obj.value;
-                player.score += obj.value;
+                obj.intercepted   = true; // MS2: added this flag
+                score            += obj.value;
+                player.score     += obj.value;
 
-                let caughtObj = {frame: frameCountGame, target: obj}
+                let caughtObj     = {frame: frameCountGame, target: obj}
                 
                 // console.log("Collision detected!");
                 caughtTargets.push(caughtObj);
-                caughtAnything = true; //MS6
+                caughtAnything   = true; //MS6
             }
 
             if (!obj.AIintercepted && checkCollision(AIplayer, obj)) { // MS5: added a condition
                 // Collision detected
                 obj.AIintercepted = true; // MS2: added this flag             
                 //console.log("AI Collision detected!");
-                let caughtObj = {frame: frameCountGame, target: obj}   
+                let caughtObj     = {frame: frameCountGame, target: obj}   
                 AIcaughtTargets.push(caughtObj);
 
-                aiScore += obj.value;
-                AIplayer.score += obj.value;
+                aiScore           += obj.value;
+                AIplayer.score    += obj.value;
                 // console.log("AI Score: ", aiScore);
             }
         }
@@ -870,7 +914,7 @@ function updateObjects(settings) {
      AIplayer.targetY = offlineSol.interceptLocations[0][1]; 
 
      // calculate the solution in all game modes
-     sol = runAIPlanner( objects, player , observableRadius , center, settings.planNumFramesAhead , 'human' ); 
+     sol = runAIPlanner( objects, player , observableRadius , center, defaultSettings.planNumFramesAhead , 'human' ); 
     
      if (settings.AIMode>0) {
         //console.time('functionExecutionTime');
@@ -885,17 +929,17 @@ function updateObjects(settings) {
             //if ((frameCountGame > 100) & (player.moving)) {
             //    console.log( 'test case');
             //}
-            let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( sol , player , settings.AIadviceAngleThreshold );
+            let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( sol , player , defaultSettings.AIadviceAngleThreshold );
             player.shownAdvice = false;
 
             const deltaX = player.x - center.x;
             const deltaY = player.y - center.y;
             const distanceToCenter = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-            if ((numFramesAfterCaughtTarget > settings.AIframeDelay) && (distanceToCenter > 50)) {
+            if ((numFramesAfterCaughtTarget > defaultSettings.AIframeDelay) && (distanceToCenter > 50)) {
                 if (!player.moving) {
                     player.shownAdvice = true;
-                } else if (player.moving && (valueHumanPlan <= settings.AIadviceThresholdHigh)) {
+                } else if (player.moving && (valueHumanPlan <= defaultSettings.AIadviceThresholdHigh)) {
                     player.shownAdvice = true;
                 }
             }
@@ -917,7 +961,7 @@ function updateObjects(settings) {
         //     if ((numFramesAfterCaughtTarget > settings.AIthresholdnumframesaftercaughttarget) && (distanceToCenter > 50)) {
         //         if (!player.moving) {
         //             player.shownAdvice = true;
-        //         } else if (player.moving && (valueHumanPlan <= settings.AIadviceThresholdHigh)) {
+        //         } else if (player.moving && (valueHumanPlan <= defaultSettings.AIadviceThresholdHigh)) {
         //             player.shownAdvice = true;
         //         }
         //     }
@@ -942,7 +986,7 @@ function spawnObject(settings){
     let numObjectsTotal = objects.length; // MS2: count total number of objects (intercepted objects also count)
     
     let randomThreshold = randomGenerator();
-    if (randomThreshold < defaultSettings.spawnProbability && numObjectsTotal < settings.maxTargets) { // MS2: added this condition
+    if (randomThreshold < defaultSettings.spawnProbability && numObjectsTotal < defaultSettings.maxTargets) { // MS2: added this condition
         // console.log("Spawn Threshold Met");
         let newObject = createComposite(settings);
         
@@ -1159,7 +1203,7 @@ function drawObjects() {
         if (obj.active) {
             if (!obj.intercepted) drawCompositeShape(obj); // MS2: added this condition
             // MS5: added this; can be removed once code is tested
-            if ((obj.AIintercepted) && (settings.visualizeAIPlayer==1)) drawCompositeShapeAI(obj); 
+            if ((obj.AIintercepted) && (defaultSettings.visualizeAIPlayer==1)) drawCompositeShapeAI(obj); 
             // if (obj.intercepted) drawCompositeShapeDEBUG(obj); // MS2: added this; can be removed once code is tested
             // //drawDebugBounds(obj);
         }
@@ -1237,12 +1281,97 @@ function drawDebugBounds(obj) {
     ctx.strokeRect(obj.x, obj.y, obj.size, obj.size); // Draw the boundary of the object
 }
 
+
+
 function drawScore() {
     scoreCtx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height); // Clear the score canvas
     scoreCtx.font = '16px Roboto';
     scoreCtx.fillStyle = 'black'; // Choose a color that will show on your canvas
     scoreCtx.fillText('Score: ' + score, 10, 20); // Adjust the positioning as needed
 }
+
+// function drawScore() {
+//     scoreCtx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
+//     scoreCtx.font = '48px Roboto';
+//     scoreCtx.fillStyle = 'black';
+//     scoreCtx.textBaseline = 'middle';
+//     scoreCtx.textAlign = 'center';
+//     // Make sure to divide by the pixelRatio if the canvas was previously scaled
+//     scoreCtx.fillText('Score: ' + score, scoreCanvas.width / 2, scoreCanvas.height / 2);
+// }
+
+// function drawScore() {
+//     scoreCtx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
+//     scoreCtx.font = 'px Roboto';
+//     scoreCtx.fillStyle = 'black';
+//     scoreCtx.textBaseline = 'middle';
+//     scoreCtx.textAlign = 'center';
+//     // Make sure to divide by the pixelRatio if the canvas was previously scaled
+//     scoreCtx.fillText('Score: ' + score, scoreCanvas.width / 2, scoreCanvas.height / 2);
+// }
+
+// function drawScore() {
+//     // Get the pixel ratio only once, or when the page is resized/reloaded
+//     console.log('Drawing score. Canvas dimensions:', scoreCanvas.width, scoreCanvas.height, 'Pixel ratio:', pixelRatio);
+//     var pixelRatio = window.devicePixelRatio || 1;
+
+//     // Reset the current transformation matrix to the identity matrix
+//     scoreCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+//     // Scale the context to ensure crisp text on high-DPI displays
+//     scoreCtx.scale(pixelRatio, pixelRatio);
+
+//     // Clear the entire scaled canvas
+//     scoreCtx.clearRect(0, 0, scoreCanvas.width / pixelRatio, scoreCanvas.height / pixelRatio);
+
+//     // Set the font size relative to the pixel ratio
+//     scoreCtx.font = (48 / pixelRatio) + 'px Roboto'; // Adjust for the pixel ratio
+//     scoreCtx.fillStyle = 'black';
+//     scoreCtx.textBaseline = 'middle';
+//     scoreCtx.textAlign = 'center';
+
+//     // The fillText coordinates are now relative to the unscaled canvas size
+//     scoreCtx.fillText('Score: ' + score, (scoreCanvas.width / 2) / pixelRatio, (scoreCanvas.height / 2) / pixelRatio);
+// }
+
+// function resizeScoreCanvas() {
+//     var pixelRatio = window.devicePixelRatio || 1;
+//     scoreCanvas.width = scoreCanvas.offsetWidth * pixelRatio;
+//     scoreCanvas.height = scoreCanvas.offsetHeight * pixelRatio;
+//     scoreCanvas.style.width = scoreCanvas.offsetWidth + 'px';
+//     scoreCanvas.style.height = scoreCanvas.offsetHeight + 'px';
+//     scoreCtx.scale(pixelRatio, pixelRatio);
+// }
+
+// function drawScore() {
+//     // Ensure pixel ratio is fetched correctly
+//     var pixelRatio = window.devicePixelRatio || 1;
+//     console.log('Drawing score. Canvas dimensions:', scoreCanvas.width, scoreCanvas.height, 'Pixel ratio:', pixelRatio);
+
+//     // Reset transformations to avoid compounded scaling issues
+//     scoreCtx.setTransform(1, 0, 0, 1, 0, 0);
+//     scoreCtx.scale(pixelRatio, pixelRatio);
+
+//     // Clear the canvas based on its actual dimensions
+//     scoreCtx.clearRect(0, 0, scoreCanvas.width / pixelRatio, scoreCanvas.height / pixelRatio);
+
+//     // Set font size accounting for the pixel ratio
+//     scoreCtx.font = (48 / pixelRatio) + 'px Roboto';
+//     scoreCtx.fillStyle = 'black';
+//     scoreCtx.textBaseline = 'middle';
+//     scoreCtx.textAlign = 'center';
+
+//     // Draw text at the center, ensuring the position is unscaled
+//     scoreCtx.fillText('Score: ' + score, (scoreCanvas.width / 2) / pixelRatio, (scoreCanvas.height / 2) / pixelRatio);
+// }
+
+// // Call this function immediately after you resize the canvas
+// function resizeCanvasAndRedrawScore() {
+//     resizeScoreCanvas(); // Your existing function to resize the canvas
+//     drawScore();        // Redraw the score immediately after
+// }
+
+
 
 function drawCursor(x, y) {
     ctx.save(); // Save state
@@ -1386,7 +1515,7 @@ function drawAISolution() {
         // get the length of the suggested path
         let pathLength = Math.min( sol.interceptLocations.length, defaultSettings.AIMaxDisplayLength );
         if (pathLength > 0) {
-            if (settings.AIDisplayMode==0) {
+            if (defaultSettings.AIDisplayMode==0) {
                 // Show where to move with lines
                 ctx.save();
                 ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency 
@@ -1404,7 +1533,7 @@ function drawAISolution() {
                 ctx.restore();
             }
 
-            // if (settings.AIDisplayMode==1) {
+            // if (defaultSettings.AIDisplayMode==1) {
             //     // Show a cross on where to click next 
             //     ctx.save();
             //     ctx.fillStyle = 'yellow'; // Color of the text
@@ -1435,7 +1564,7 @@ function drawAISolution() {
 
 
             // if (settings.AIDisplayMode==1 && settings.AIMode==2) {
-            if (settings.AIDisplayMode==1) {
+            if (defaultSettings.AIDisplayMode==1) {
                 // Show a cross on where to click next 
                 ctx.save();
                 ctx.fillStyle = 'yellow'; // Color of the text
@@ -1467,7 +1596,7 @@ function drawAISolution() {
             }
             
 
-            if (settings.AIDisplayMode==2) {
+            if (defaultSettings.AIDisplayMode==2) {
                 // Highlight the target interception sequence 
                 ctx.save();
                 ctx.fillStyle = 'black'; // Color of the text
@@ -1579,8 +1708,6 @@ function drawFullAISolutionDEBUG() {
     }
 } 
 
-
-
 // MS4: draw arrow
 function drawFilledArrow(ctx, toX, toY, arrowWidth) {
     const arrowLength = arrowWidth * 4; // Adjust the length of the arrow as needed
@@ -1612,6 +1739,40 @@ function drawFilledArrow(ctx, toX, toY, arrowWidth) {
     // Close the path and fill the arrow with the set color
     ctx.closePath();
     ctx.fill();
+}
+
+// function displayAIstatus(){
+//     if (settings.AIMode == 0) {
+//         document.getElementById("aiModeStatus").textContent = "AI is OFF";
+//     } else {
+//         document.getElementById("aiModeStatus").textContent = "AI is ON";
+//     }
+// }
+
+function displayAIstatus(){
+    // if (settings.AIMode == 0) {
+    //     document.getElementById("aiModeStatus").textContent = "AI is OFF";
+    //     document.getElementById("aiAssistRobot").style.opacity = "0.5";
+    //     document.getElementById("aiAssistRobotCaption").style.opacity = "0.5";
+    // } else {
+    //     document.getElementById("aiModeStatus").textContent = "AI is ON";
+    //     document.getElementById("aiModeStatus").style.color = "green";
+    //     document.getElementById("aiAssistRobot").style.opacity = "1";
+    //     document.getElementById("aiAssistRobotCaption").style.opacity = "1";
+    // }
+    if (settings.AIMode == 0) {
+        document.getElementById("aiModeStatus").textContent = "AI is OFF";
+        document.getElementById("aiModeStatus").style.color = "white";
+        document.getElementById("aiModeStatus").style.backgroundColor = "rgba(255, 0, 0, 0.8)";
+        document.getElementById("aiAssistRobot").style.opacity = "0.5";
+        document.getElementById("aiAssistRobotCaption").style.opacity = "0.5";
+    } else {
+        document.getElementById("aiModeStatus").textContent = "AI is ON";
+        document.getElementById("aiModeStatus").style.color = "white";
+        document.getElementById("aiModeStatus").style.backgroundColor =  "rgba(0, 128, 0, 0.8)"; // semi-transparent green
+        document.getElementById("aiAssistRobot").style.opacity = "1";
+        document.getElementById("aiAssistRobotCaption").style.opacity = "1";
+    }
 }
 
 
@@ -1652,6 +1813,8 @@ function closeCustomAlert() {
 
 // *********************************EVENT LISTENERS********************************* //
 
+
+
 $(document).ready( function(){
    // Event listener for player click locations
    canvas.addEventListener('click', function(event) {
@@ -1683,7 +1846,6 @@ async function runGameSequence(message) {
     await showCustomAlert(message);
     isPaused = false;
 }
-
 
 // Toggle AI assistance function
 function toggleAIAssistance() {
@@ -1749,11 +1911,262 @@ function targetCaught(obj) {
 function distractorCaught(obj){
     caughtDistractors.push({x: obj.x, y: obj.y, time: new Date()});
     console.log("Distractor pushed into array.");
+}   
+
+//********************************SURVEY--Full********************************//
+
+function loadFullSurvey(){
+    var DEBUG_SURVEY = DEBUG;
+    //      Survey Information
+    var TOPIC_FULL_DICT = {
+        "q01"  : null,
+        "q02"  : null,
+        "q03"  : null,
+        "q04"  : null,
+        "q05"  : null,
+        "q06"  : null,
+        "q07"  : null,
+        "q08"  : null,
+        "q09"  : null,
+        // "q10" : null
+    };
+    var TOPICS_RANKED = 0;
+
+    /******************************************************************************
+        RUN ON PAGE LOAD
+
+            Run the following functions as soon as the page is loaded. This will
+            render the consent.html page appropriately.
+    ******************************************************************************/
+
+    $(document).ready(function (){
+        /******************************************************************************
+            FUNCTIONALITY
+
+                All functions that will be used for the survey page.
+        ******************************************************************************/
+        /*
+            Function to control Radio Button Selection
+        */
+        function likertTopicAbility() {
+            /*
+                Radio Button Selection Contoller.
+
+                Only one likert option can be selected for each topic.
+                Keep count of how many topics have been ranked. Once all topics
+                have been ranked, then the submit button can become enabled.
+            */
+            // Retrieve the current topic that was ranked
+            let topic_currently_ranked = $(this).attr("name");
+
+            // Determine is that topic has been ranked before or not
+            if (TOPIC_FULL_DICT[topic_currently_ranked] == null) {
+                // If the topic hasn't bee ranked before, increment counter
+                TOPICS_RANKED++;
+            }
+
+            // Set selection variable
+            TOPIC_FULL_DICT[topic_currently_ranked] = Number($(this).val());
+
+            // if (TOPICS_RANKED == 10) {
+            //     // Enable "Submit" button
+            //     $('#survey-complete-button').prop('disabled', false);
+            //     console.log("All topics ranked");
+            // }
+            var allClicked = true;
+            $('.likert-topic-full').each(function() {
+                if ($(this).find('input:checked').length === 0) {
+                    allClicked = false;
+                    return false; // Exit the loop
+                }
+            });
+
+            // Enable the submit button if all likert buttons have been clicked
+            if (allClicked) {
+                $('#survey-complete-button-full').prop('disabled', false);
+                console.log("All topics ranked");
+            }
+
+
+            if (DEBUG_SURVEY) {
+                console.log(
+                    "Radio Button Selected\n:",
+                    "    Topic :", topic_currently_ranked,
+                    "    Value :", TOPIC_FULL_DICT[topic_currently_ranked]
+                );
+                console.log(
+                    $(this).attr("name")
+                );
+            }
+        };
+
+        function grabFeedbackText(){
+            var feedbackText = document.getElementById('survey-full-user-feedback-text').value;
+            return feedbackText;
+        }
+        
+        async function completeExperiment() {
+            /*
+                When submit button is clicked (after ranking), experiment is done.
+
+                This will submit the final rankings and then load the
+                "Experiment Complete" page.
+            */
+            let SURVEY_END_TIME = new Date();
+            numSurveyCompleted++;
+
+            let feedbackText = grabFeedbackText();
+
+            let path1 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full' ;
+            writeRealtimeDatabase(db1, path1, TOPIC_FULL_DICT);
+            let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/feedback' ;
+            writeRealtimeDatabase(db1, path2, feedbackText);
+
+            if (numSurveyCompleted == 2) {
+                // push them to the final page of the experiment which redirects participants
+                // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
+                // $("#full-game-container").attr("hidden", true);
+                $("#survey-full-container").attr("hidden", true);
+                $("#task-header").attr("hidden", true);
+                $("#exp-complete-header").attr("hidden", false);
+                $("#task-complete").attr("hidden", false);
+                $('#task-complete').load('html/complete.html');
+                return;
+            } else{
+                $("#survey-full-container").attr("hidden", true);
+                $("#survey-full-container").remove();
+                $("#full-game-container").attr("hidden", false);
+                // resizeScoreCanvas()
+
+            }
+            console.log("Submit Button Clicked");
+        };
+
+        //  Handle Likert Selection for ALL Topics
+        $('.likert-topic-full li input').click(likertTopicAbility);
+
+        //  Handle Submitting Survey
+        $('#survey-complete-button-full').off().click(completeExperiment);
+    });
 }
 
-// function preallocateEventStream(eventStreamSize){
-//     // preallocate the array
-//     for (let i = 0; i < eventStreamSize; i++) {
-//         eventStream[i] = {frame: 0, time: 0, player: {}, objects:{}};
-//     }
-// }
+//********************************SURVEY--Workload********************************//
+function loadWorkLoadSurvey(){
+    var DEBUG_SURVEY                    = DEBUG;
+    //      Survey Information
+    var TOPIC_Workload_DICT = {
+        "q01"  : null,
+        "q02"  : null,
+        "q03"  : null,
+    };
+    var TOPICS_RANKED = 0;
+
+    /******************************************************************************
+        RUN ON PAGE LOAD
+
+            Run the following functions as soon as the page is loaded. This will
+            render the consent.html page appropriately.
+    ******************************************************************************/
+
+    $(document).ready(function (){
+        /******************************************************************************
+            FUNCTIONALITY
+
+                All functions that will be used for the survey page.
+        ******************************************************************************/
+        /*
+            Function to control Radio Button Selection
+        */
+        function likertTopicAbility() {
+            /*
+                Radio Button Selection Contoller.
+
+                Only one likert option can be selected for each topic.
+                Keep count of how many topics have been ranked. Once all topics
+                have been ranked, then the submit button can become enabled.
+            */
+            // Retrieve the current topic that was ranked
+            let topic_currently_ranked = $(this).attr("name");
+
+            // Determine is that topic has been ranked before or not
+            if (TOPIC_Workload_DICT[topic_currently_ranked] == null) {
+                // If the topic hasn't bee ranked before, increment counter
+                TOPICS_RANKED++;
+            }
+
+            // Set selection variable
+            TOPIC_Workload_DICT[topic_currently_ranked] = Number($(this).val());
+
+            // if (TOPICS_RANKED == 10) {
+            //     // Enable "Submit" button
+            //     $('#survey-complete-button').prop('disabled', false);
+            //     console.log("All topics ranked");
+            // }
+            var allClicked = true;
+            $('.likert-topic-workload').each(function() {
+                if ($(this).find('input:checked').length === 0) {
+                    allClicked = false;
+                    return false; // Exit the loop
+                }
+            });
+
+            // Enable the submit button if all likert buttons have been clicked
+            if (allClicked) {
+                $('#survey-complete-button-workload').prop('disabled', false);
+                console.log("All topics ranked");
+            }
+
+
+            if (DEBUG_SURVEY) {
+                console.log(
+                    "Radio Button Selected\n:",
+                    "    Topic :", topic_currently_ranked,
+                    "    Value :", TOPIC_Workload_DICT[topic_currently_ranked]
+                );
+                console.log(
+                    $(this).attr("name")
+                );
+            }
+        };
+
+        async function completeExperiment() {
+            /*
+                When submit button is clicked (after ranking), experiment is done.
+
+                This will submit the final rankings and then load the
+                "Experiment Complete" page.
+            */
+            let SURVEY_END_TIME = new Date();
+
+            numSurveyCompleted++;
+
+            let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload' ;
+            writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
+
+            if (numSurveyCompleted == 2) {
+                // push them to the final page of the experiment which redirects participants
+                // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
+
+                $("#survey-workload-container").attr("hidden", true);
+                $("#task-header").attr("hidden", true);
+                $("#exp-complete-header").attr("hidden", false);
+                $("#task-complete").attr("hidden", false);
+                $('#task-complete').load('html/complete.html');
+                return;
+            } else{
+                $("#survey-workload-container").attr("hidden", true);
+                $("#survey-workload-container").remove();
+                $("#full-game-container").attr("hidden", false);
+                // resizeScoreCanvas()
+            }
+
+            console.log("Submit Button Clicked");
+        }
+
+        //  Handle Likert Selection for ALL Topics
+        $('.likert-topic-workload li input').click(likertTopicAbility);
+
+        //  Handle Submitting Survey
+        $('#survey-complete-button-workload').off().click(completeExperiment);
+    });
+}

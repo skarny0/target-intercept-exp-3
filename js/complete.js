@@ -18,11 +18,12 @@ the end of the experiment.
 ******************************************************************************/
 /// Importing functions and variables from the Firebase Psych library
 import {
-    writeRealtimeDatabase,
-    firebaseUserId
-} from "./firebasepsych1.0.js";
+    writeRealtimeDatabase
+} from "./firebasepsych1.1.js";
 
+import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
 
+console.log("Database and firebaseuid: ", db1, firebaseUserId1);
 /******************************************************************************
     DEBUG
 
@@ -37,8 +38,9 @@ var DEBUG_COMPLETE     = false;
 
         All metadata variables that are relevant to the survey page.
 ******************************************************************************/
+console.log("Database and firebaseuid: ", db1, firebaseUserId1); 
 // Database Path
-var COMPLETE_DB_PATH        = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/userFeedback';
+var COMPLETE_DB_PATH        = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/userFeedback';
 
 
 /******************************************************************************
@@ -92,7 +94,7 @@ $(document).ready(function (){
         // The redirect URL should be back to Prolific
         if (restart) {
             if (DEBUG_COMPLETE){
-                window.location.replace("https://skarny0.github.io/target-intercept-exp-1/");
+                window.location.replace("https://skarny0.github.io/target-intercept-exp-3/");
             } else {
                 // This redirect should be updated to Prolific when you are LIVE
                 window.location.replace("https://app.prolific.com/submissions/complete?cc=C683JZHM");

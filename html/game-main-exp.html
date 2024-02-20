@@ -19,7 +19,7 @@ This file contains all of the task information for the experiment.
         <!-- <link rel="stylesheet" type="text/css" href="css/game-v2.css">  -->
         <!-- Inline styles moved to external CSS for better organization -->
          <!-- LoadAI -->
-        <script src = "js/AIplannerv1.js"></script>
+        <!-- <script src = "js/AIplannerv1.js"></script> -->
         <script src = "js/game-main-exp.js"      type="module" ></script>
         <!-- <script src = "js/firebasepsych1.1.js"   type="module" ></script>
         <script src = "js/firebaseconfig.js"     type="module"></script> -->
@@ -27,6 +27,7 @@ This file contains all of the task information for the experiment.
         <!-- <script src="js/survey-usability.js" type="module"></script> -->
         <link rel="stylesheet" href="css/survey-workload-only.css">
         <link rel="stylesheet" href="css/survey-full.css">
+        <link rel="stylesheet" href="css/complete.css">
         <!--
             Custom JavaScript - Experiment Page Metadata and Functionality
         -->
@@ -410,7 +411,7 @@ This file contains all of the task information for the experiment.
                         </div>
                         <div class="col-12 text-center" id="survey-full-user-feedback-text-container">
                             <textarea name="participant-feedback" rows="4" cols="100" id="survey-full-user-feedback-text"
-                                placeholder="Thank you for participating in this study! Any feedback about your experience is appreciated."></textarea>
+                                placeholder="Place your feedback here."></textarea>
                         </div>
                     </div>
                     <!-- <div class="row survey-likert-topic-container">
@@ -438,6 +439,86 @@ This file contains all of the task information for the experiment.
                 <div class="col-12 right-button">
                     <button class="btn btn-primary" id="survey-complete-button-full" disabled>
                         Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLETE GAME -->
+        <div class="col-12 trialbox" id="complete-page-content-container">
+            <!---------------------------------------------
+            |   Message to Participants                   |
+            |                                             |
+            |       The thank you message we want to      |
+            |       display to participants.              |
+            ---------------------------------------------->
+            <div class="row justify-content-center" id="complete-message-to-participant-container">
+                <div class="col-12" id="complete-message-thank-you">
+                    <h3>
+                        <b>Thank You!</b>
+                    </h3>
+                </div>
+                <div class="col-12" id="complete-message-main-text">
+                    <h3>
+                        We greatly appreciate your interest and participation in our study.
+                    </h3>
+                </div>
+                <div class="col-12" id="complete-message-sub-text">
+                    <h4>
+                        
+                    </h4>
+                </div>
+            </div>
+            <!---------------------------------------------
+            |   User Feedback                             |
+            |                                             |
+            |       Ask users to submit any feedback they |
+            |       may have.                             |
+            ---------------------------------------------->
+            <div class="row justify-content-center" id="complete-user-feedback-container">
+                <div class="col-12 text-center" id="user-feedback-header">
+                    <h4>
+                        <b>User Feedback</b>
+                    </h4>
+                </div>
+                <div class="col-12 text-center" id="user-feedback-text-container">
+                    <textarea name="participant-feedback" rows="4" id="user-feedback-text"
+                        placeholder="Thank you for participating in this study! Any feedback about your experience is appreciated."></textarea>
+                </div>
+                <div class="col-12" id="user-feedback-button-container">
+                    <button id="user-feedback-button" name="feedback" type="submit" class="btn btn-secondary" disabled>
+                        Submit Feedback
+                    </button>
+                </div>
+            </div>
+            <!--------------------------------------------- 
+            |   Compensation Information                  |
+            |                                             |
+            |       Be sure to explain to participants    |
+            |       how they are going to be compensated. |
+            ---------------------------------------------->
+            <div class="row justify-content-center" id="complete-unique-code-container">
+                <div class="col-12" id="unique-code-text">
+                    <h4><b>Redirect URL</b></h4>
+                </div>
+                <div class="col-12" id="how-to-get-compensated-text">
+                    <h5>
+                        To be compensated, you must click the button below to be redirected
+                        back to Prolific.
+                    </h5>
+                </div>
+                <div class="col-12" id="compensation-note">
+                    <h5>
+                        Once you are redirected, you will not be able to return to this page.
+                    </h5>
+                </div>
+                <!-- Unique Code -->
+                <div class="col-12" id="unique-code-text-box" hidden="true">
+                    <input type="text" value="Your Unique Code" id="code" readonly>
+                </div>
+                <div class="col-12" id="unique-code-copy-button-container">
+                    <button type="button" class="btn btn-primary" id="unique-code-copy-button">
+                        Redirect to Prolific
                     </button>
                 </div>
             </div>

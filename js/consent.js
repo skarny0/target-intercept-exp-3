@@ -21,11 +21,11 @@ This file should contain static experimental metadata such as:
         Import all FirebaseJS functionality.
 ******************************************************************************/
 /// Importing functions and variables from the Firebase Psych library
-import {
-    writeRealtimeDatabase,
-    writeURLParameters,
-    firebaseUserId1
-} from "./firebasepsych1.1.js";
+// import {
+//     writeRealtimeDatabase,
+//     writeURLParameters,
+//     firebaseUserId
+// } from "./firebasepsych1.1.js";
 
 /******************************************************************************
     METADATA
@@ -215,17 +215,17 @@ $(document).ready(function (){
             $("#task-main-content").attr("hidden", false);
 
             // Load Main Experiment
-            $('#task-main-content').load('html/game-main-exp.html');
+            // $('#task-main-content').load('html/game-main-exp.html');
 
 
             // Write to Database
             // writeRealtimeDatabase(INTEGRITY_DB_PATH, INTEGRITY_DATA);
 
             
-            // $("#instructions-header").attr("hidden", false);
-            // $("#instructions-main-content").attr("hidden", false);
+            $("#instructions-header").attr("hidden", false);
+            $("#instructions-main-content").attr("hidden", false);
 
-            // $('#instructions-main-content').load("html/instructions.html");
+            $('#instructions-main-content').load("html/instructions.html");
 
             // $("#exp-survey-header").attr("hidden", false);
             // $("#survey-main-content").attr("hidden", false);
@@ -234,9 +234,9 @@ $(document).ready(function (){
             // $('#survey-main-content').load('html/survey-workload.html');
 
             // Write to Database
-            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/consentData';
+            //let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
             // let path = EXPERIMENT_DATABASE_NAME + firebaseUserId + '/consentData';
-            writeRealtimeDatabase(path, CONSENT_DATA);
+            //writeRealtimeDatabase(path, CONSENT_DATA);
 
             // // Load Instructions
             
@@ -246,8 +246,8 @@ $(document).ready(function (){
             $("#instructions-main-content").attr("hidden", false);
 
             // Write to Database
-            let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/consentData';
-            writeRealtimeDatabase(path, CONSENT_DATA);
+            //let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
+            //writeRealtimeDatabase(path, CONSENT_DATA);
 
             // Load Instructions
             $('#instructions-main-content').load("html/instructions.html");
@@ -288,12 +288,12 @@ $(document).ready(function (){
 
     if (DEBUG){
         console.log("TESTING");
-        console.log("Firebase UserID:", firebaseUserId1);
+       // console.log("Firebase UserID:", firebaseUserId);
     }
     /*  WRITE TO FIREBASE */
     // Save URL parameters on the path: "[studyId]/participantData/[firebaseUserId]/participantInfo"
-    let pathnow = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/participantInfo';
-    writeURLParameters( pathnow );
+    // let pathnow = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/participantInfo';
+    // writeURLParameters( pathnow );
 
     $('#terms').click(activateButton);
     $('#submit-consent').click(submitConsent);

@@ -22,10 +22,10 @@ let highValueTargetCaught    = false;
 
 // //**************************FIREBASE FUNCTIONALITY****************************//
 // /// Importing functions and variables from the Firebase Psych library
-import { 
-    writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
-    blockRandomization,finalizeBlockRandomization,firebaseUserId 
-} from "./firebasepsych1.0.js";
+// import { 
+//     writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
+//     blockRandomization,finalizeBlockRandomization,firebaseUserId 
+// } from "./firebasepsych1.0.js";
 
 // console.log("Firebase UserId=" + firebaseUserId);
 
@@ -196,10 +196,10 @@ async function endGame(advanceRound = false) {
     // console.log("Player Locations During Movement", playerLocation);
 
        
-    let path1 = studyId + '/participantData/' + firebaseUserId + '/spawnData';
-    let path2 = studyId + '/participantData/' + firebaseUserId + '/caughtTargets';
-    let path3 = studyId + '/participantData/' + firebaseUserId + '/playerClicks';
-    let path4 = studyId + '/participantData/' + firebaseUserId + '/playerLocation';
+    // let path1 = studyId + '/participantData/' + firebaseUserId + '/spawnData';
+    // let path2 = studyId + '/participantData/' + firebaseUserId + '/caughtTargets';
+    // let path3 = studyId + '/participantData/' + firebaseUserId + '/playerClicks';
+    // let path4 = studyId + '/participantData/' + firebaseUserId + '/playerLocation';
 
     // writeRealtimeDatabase(path1, spawnData);
     // writeRealtimeDatabase(path2, caughtTargets);

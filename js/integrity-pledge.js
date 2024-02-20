@@ -19,10 +19,10 @@ There will be no quiz, rather an integrity pledge to sign.
         Import all FirebaseJS functionality.
 ******************************************************************************/
 /// Importing functions and variables from the Firebase Psych library
-import {
-    writeRealtimeDatabase,
-    firebaseUserId
-} from "./firebasepsych1.0.js";
+// import {
+//     writeRealtimeDatabase,
+//     firebaseUserId
+// } from "./firebasepsych1.0.js";
 
 /******************************************************************************
     METADATA
@@ -34,7 +34,7 @@ import {
 var INTEGRITY_PLEDGE    = false;
 
 // Database Path
-var INTEGRITY_DB_PATH   = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/integrityPledge';
+// var INTEGRITY_DB_PATH   = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/integrityPledge';
 
 
 /******************************************************************************
@@ -85,7 +85,7 @@ $(document).ready(function (){
         $("#task-main-content").attr("hidden", false);
 
         // Write to Database
-        writeRealtimeDatabase(INTEGRITY_DB_PATH, INTEGRITY_DATA);
+        // writeRealtimeDatabase(INTEGRITY_DB_PATH, INTEGRITY_DATA);
 
         // Load Main Experiment
         $('#task-main-content').load('html/game-main-exp.html');

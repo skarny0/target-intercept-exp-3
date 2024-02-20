@@ -21,7 +21,7 @@ import {
     writeRealtimeDatabase
 } from "./firebasepsych1.1.js";
 
-import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
+import {studyId, firebaseUserId1, firebaseUserId2, db1, db2} from "./firebaseconfig.js";
 
 console.log("Database and firebaseuid: ", db1, firebaseUserId1);
 /******************************************************************************

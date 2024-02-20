@@ -19,6 +19,8 @@
         <!-- Firebase Config -->
         <script src="js/firebaseconfig.js"></script>
         <script src="js/firebasepsych1.1.js" type="module"></script>
+
+        <script src="js/AIplannerv1.3.js"></script>
         
         <!-- Custom Links -->
         <style type="text/css">
@@ -89,11 +91,12 @@
         <script>
             $(document).ready(function(){
                 if (DEBUG){
-                    $("#task-header").attr("hidden", false);
-                    $("#task-main-content").attr("hidden", false);
+                    $('#consent-main-content').load("html/consent.html");
+                    // $("#task-header").attr("hidden", false);
+                    // $("#task-main-content").attr("hidden", false);
 
-                    // Load Main Experiment
-                    $('#task-main-content').load('html/game-main-exp.html');
+                    // // // Load Main Experiment
+                    // $('#task-main-content').load('html/game-main-exp.html');
                 } else{
                     $('#consent-main-content').load("html/consent.html");
                     //$('#instructions-main-content').load("html/instructions.html");
@@ -174,7 +177,7 @@
                     **********************
                     -->
                     <h2 class="page-title-header" id="task-header" hidden="true">
-                        Main Experiment
+                         
                     </h2>
                     <!--
                         Experiment Survey Page

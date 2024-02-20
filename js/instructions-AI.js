@@ -21,10 +21,10 @@ This file should contain static experimental metadata such as:
         Import all FirebaseJS functionality.
 ******************************************************************************/
 /// Importing functions and variables from the Firebase Psych library
-import {
-    writeRealtimeDatabase,
-    firebaseUserId
-} from "./firebasepsych1.0.js";
+// import {
+//     writeRealtimeDatabase,
+//     firebaseUserId
+// } from "./firebasepsych1.0.js";
 
 /******************************************************************************
     METADATA
@@ -51,7 +51,7 @@ var INSTRUCTION_PAGE_READ       = {
 };
 
 // Database Path
-var INSTRUCTIONS_DB_PATH        = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/instructionData';
+// var INSTRUCTIONS_DB_PATH        = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/instructionData';
 
 
 /******************************************************************************
@@ -77,13 +77,13 @@ $(document).ready(function (){
         $('#instruction-page-' + CURRENT_INSTRUCTION_PAGE.toString().padStart(2, '0')).attr("hidden", false);
         INSTRUCTION_PAGE_TIME = new Date();
 
-        writeRealtimeDatabase(
-            INSTRUCTIONS_DB_PATH + "/metadata",
-            {
-                "instructionStartTime": INSTRUCTION_START_TIME.toString(),
-                "instructionCompleted": false,
-            }
-        );
+        // writeRealtimeDatabase(
+        //     INSTRUCTIONS_DB_PATH + "/metadata",
+        //     {
+        //         "instructionStartTime": INSTRUCTION_START_TIME.toString(),
+        //         "instructionCompleted": false,
+        //     }
+        // );
     }
 
     function finishInstructions() {
@@ -101,12 +101,12 @@ $(document).ready(function (){
                 - Skip Instructions or not
         */
         let INSTRUCTION_END_TIME = new Date();
-        if (DEBUG_INSTRUCTIONS){
-            writeRealtimeDatabase(
-                INSTRUCTIONS_DB_PATH + "/metadata/instructionDebugMode",
-                true
-            );
-        };
+        // if (DEBUG_INSTRUCTIONS){
+        //     writeRealtimeDatabase(
+        //         INSTRUCTIONS_DB_PATH + "/metadata/instructionDebugMode",
+        //         true
+        //     );
+        // };
 
         // Hide Instructions
         $("#instructions-header").attr("hidden", true);
@@ -484,10 +484,10 @@ $(document).ready(function (){
                 'pageRead': true,
                 'readTime': INSTRUCTION_READ_TIME - INSTRUCTION_PAGE_TIME
             };
-            writeRealtimeDatabase(
-                INSTRUCTIONS_DB_PATH + "/" + page_string,
-                toWrite
-            );
+            // writeRealtimeDatabase(
+            //     INSTRUCTIONS_DB_PATH + "/" + page_string,
+            //     toWrite
+            // );
             INSTRUCTION_PAGE_READ['page-' + CURRENT_INSTRUCTION_PAGE.toString().padStart(2, '0')] = true;
         }
         

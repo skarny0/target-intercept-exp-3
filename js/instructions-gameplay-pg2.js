@@ -26,10 +26,10 @@ let slowObjectCaught = false;
 
 // //**************************FIREBASE FUNCTIONALITY****************************//
 // /// Importing functions and variables from the Firebase Psych library
-import { 
-    writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
-    blockRandomization,finalizeBlockRandomization,firebaseUserId 
-} from "./firebasepsych1.0.js";
+// import { 
+//     writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
+//     blockRandomization,finalizeBlockRandomization,firebaseUserId 
+// } from "./firebasepsych1.0.js";
 
 // console.log("Firebase UserId=" + firebaseUserId);
 

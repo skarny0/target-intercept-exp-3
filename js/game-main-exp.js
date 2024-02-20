@@ -12,16 +12,12 @@ This file should contain all variables and functions needed for
 the game.
 */
 
-// $("#full-game-container").attr("hidden", true);
+$("#full-game-container").attr("hidden", false);
 $("#survey-workload-container").attr("hidden", true);
 $("#survey-full-container").attr("hidden", true);
+$("#complete-page-content-container").attr("hidden", true);
 
-// //**************************FIREBASE FUNCTIONALITY****************************//
-// /// Importing functions and variables from the Firebase Psych library
-// import { 
-//     writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
-//     blockRandomization,finalizeBlockRandomization,firebaseUserId 
-// } from "./firebasepsych1.0.js";
+// //****************************************** FIREBASE FUNCTIONALITY **********************************************//
 
 // Importing functions and variables from the FirebasePsych library
 import { writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
@@ -29,57 +25,57 @@ import { writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
     initializeRealtimeDatabase,initializeSecondRealtimeDatabase } from "./firebasepsych1.1.js";
 
 // Define the configuration file for first database
-// const firebaseConfig_db1 = {
-//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-//     authDomain: "uci-hri-main.firebaseapp.com",
-//     databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
-//     projectId: "uci-hri-main",
-//     storageBucket: "uci-hri-main.appspot.com",
-//     messagingSenderId: "639884968072",
-//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-// };
+const firebaseConfig_db1 = {
+    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+    authDomain: "uci-hri-main.firebaseapp.com",
+    databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
+    projectId: "uci-hri-main",
+    storageBucket: "uci-hri-main.appspot.com",
+    messagingSenderId: "639884968072",
+    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+};
 
-// // Define the configuration file for second database
-// const firebaseConfig_db2 = {
-//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-//     authDomain: "uci-hri-main.firebaseapp.com",
-//     databaseURL: "https://uci-hri-main-event.firebaseio.com",
-//     projectId: "uci-hri-main",
-//     storageBucket: "uci-hri-main.appspot.com",
-//     messagingSenderId: "639884968072",
-//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-// };
+// Define the configuration file for second database
+const firebaseConfig_db2 = {
+    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+    authDomain: "uci-hri-main.firebaseapp.com",
+    databaseURL: "https://uci-hri-main-event.firebaseio.com",
+    projectId: "uci-hri-main",
+    storageBucket: "uci-hri-main.appspot.com",
+    messagingSenderId: "639884968072",
+    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+};
 
-// // Get the reference to the two databases using the configuration files
-// const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
-// const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
+// Get the reference to the two databases using the configuration files
+const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
+const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
 
 
-// // console.log("Firebase UserId=" + firebaseUserId);
+// console.log("Firebase UserId=" + firebaseUserId);
 
-// function getDebugParams(){
-//     const urlParams = new URLSearchParams(window.location.search);
-//     let debugBoolean = Boolean(urlParams.get('debug'));
+function getDebugParams(){
+    const urlParams = new URLSearchParams(window.location.search);
+    let debugBoolean = Boolean(urlParams.get('debug'));
 
-//     // console.log(debugBoolean);
+    // console.log(debugBoolean);
 
-//     return debugBoolean;
-// }
+    return debugBoolean;
+}
 
-// var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
+var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 
-// let studyId = 'placeHolder';
+let studyId = 'placeHolder';
 
-// if (DEBUG){
-//    studyId    = "uci-hri-experiment-3-pilot2-debug";
-// } else {
-//     studyId   = "uci-hri-experiment-3-pilot2";
-// }
-// // console.log("Study ID: " + studyId);    
+if (DEBUG){
+   studyId    = "uci-hri-experiment-3-pilot2-debug";
+} else {
+    studyId   = "uci-hri-experiment-3-pilot2";
+}
+// console.log("Study ID: " + studyId);    
 
-// export {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG};
+//export {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG};
 
-import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
+// import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
 
 // Show the user id that is provided by the Firebase Psych library.
 // console.log( "Firebase UserId1=" + firebaseUserId1 );
@@ -99,7 +95,8 @@ function writeGameDatabase(){
     let path6 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/settings';
     let path7 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/roundTime';
     let path8 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIcaughtTargets';
-    let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIplayerLocation';
+    let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIClicks';
+    // let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIplayerLocation';
     let path10 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/aiScore';
     let path11 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerScore';
 
@@ -111,12 +108,15 @@ function writeGameDatabase(){
     
     writeRealtimeDatabase(db1, path4, playerClicks);
     writeRealtimeDatabase(db1, path5, playerLocation);
-    writeRealtimeDatabase(db1, path6, settings);
+    writeRealtimeDatabase(db1, path6, roundSettings);
     writeRealtimeDatabase(db1, path7, roundTime);
     writeRealtimeDatabase(db1, path8, AIcaughtTargets);
-    writeRealtimeDatabase(db1, path9, AIplayerLocation);
+    writeRealtimeDatabase(db1, path9, aiClicks);
+    // writeRealtimeDatabase(db1, path9, AIplayerLocation); // replace with aiClicks
     writeRealtimeDatabase(db1, path10, aiScore);
     writeRealtimeDatabase(db1, path11, score);   
+
+    //calculate the number of changes in the ID (like a click)
 }
 
 //**************************GAME INITIALIZATION*******************************//
@@ -143,9 +143,9 @@ const world = { width: 800, height: 800 };
 const center = { x: canvas.width / 2, y: canvas.height / 2 };
 let observableRadius = 390; // Radius for positioning objects
 
-let settings = {};
+let roundSettings = {};
 
-// ***********************EXPERIMENTAL PARAMETERS***************************// 
+// *************************************************** EXPERIMENTAL PARAMETERS ***********************************************// 
 
 // NOTE: AI MODE FOR EXPERIMENT 1 SHOULD BE === 0 (NO ASSISTANCE)
 // NOTE: Start with default parameters --> make changes that are critical between rounds (to remove duplication)
@@ -155,15 +155,16 @@ let settings = {};
 function getDifficultySettingsFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     let settings = {
-        AIMode: parseInt(urlParams.get('maxTargets'), 10) || 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: parseInt(urlParams.get('maxTargets'), 10) || 5, // MS4: plan solution for display a certain number of frames ahead (to allow human response time) 
-        AIDisplayMode: parseInt(urlParams.get('maxTargets'), 10) || 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept 
-        AIMaxDisplayLength: parseInt(urlParams.get('maxTargets'), 10) || 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: parseInt(urlParams.get('maxTargets'), 10) || 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 20, // MS6: angle tolerance for accepting move in adaptive AI setting
+        AIMode: parseInt(urlParams.get('maxTargets'), 10) || 1,                             // MS4: 0=no assistance; 1=always on; 2=adaptive
+        AIDisplayMode: parseInt(urlParams.get('maxTargets'), 10) || 1,                      // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept 
+        AIMaxDisplayLength: parseInt(urlParams.get('maxTargets'), 10) || 3,                 // MS4: can be used to truncate the AI path length shown
+        visualizeAIPlayer: parseInt(urlParams.get('maxTargets'), 10) || 0,                  // MS5: 0:default; 1=visualize AI player running in background
+        AIStabilityThreshold: parseFloat(urlParams.get('AIStabilityThreshold')) || 1.2,     // MS7: minimum proportional improvement before recommendation changes 
+        alpha: parseFloat(urlParams.get('alpha')) || 0.9,                                   // MS8: discounting parameter for AI planner
+        AIadviceThresholdHigh: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 0.7,   // MS6: threshold on value to give AI advice in adaptive AI setting
+        AIadviceAngleThreshold: parseFloat(urlParams.get('AIadviceThresholdHigh')) || 20,   // MS6: angle tolerance for accepting move in adaptive AI setting
         AIthresholdnumframesaftercaughttarget: parseInt(urlParams.get('visualizeAIPlayer'), 10) || 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: parseInt(urlParams.get('maxTargets'), 10) || 8, // MS2: added this parameter to limit total number of targets
+        maxTargets: parseInt(urlParams.get('maxTargets'), 10) || 8,                         // MS2: added this parameter to limit total number of targets
         spawnProbability: parseFloat(urlParams.get('spawnProbability')) || 1.0,
         spawnInterval: parseInt(urlParams.get('spawnInterval'), 10) || 10,
         // numSpawnLocations: parseInt(urlParams.get('numSpawnLocations'), 10) || 10,
@@ -178,12 +179,14 @@ function getDifficultySettingsFromURL() {
     return settings;
 }
 
-let defaultSettings = {
-    maxFrames: 12000,           // MS1: maximum number of frames to run the game
-    planNumFramesAhead: 1,      // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
+let settings = {
+    maxFrames: 240,             // MS1: maximum number of frames to run the game
+    AIMode:1,                   // MS4: 0=no assistance; 1=always on; 2=adaptive
+    alpha: 0.9,                 // MS8: discounting parameter for AI planner
     AIDisplayMode: 1,           // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
     AIMaxDisplayLength: 3,      // MS4: can be used to truncate the AI path length shown
     visualizeAIPlayer: 0,       // MS5: 0:default; 1=visualize AI player running in background
+    AIStabilityThreshold: 1.2,  // MS7: minimum proportional improvement before recommendation changes
     AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
     AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
     AIframeDelay: 30,           // Delaying advice so that it doesn't overwhelm the player
@@ -193,47 +196,63 @@ let defaultSettings = {
     valueLow: 0,
     valueHigh:  1,
     playerSpeed: 3,
-    maxTargets: 10,
-    speedLow:  1.5, // lowest end of object speed distribution
-    speedHigh: 3, // highest end of object speed distribution
+    maxTargets: 9,
+    speedLow:  1.5,             // lowest end of object speed distribution
+    speedHigh: 3,               // highest end of object speed distribution
 };
 
 let difficultySettings = {
     // CONDITION 1
     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.2,  // MS7: minimum proportional improvement before recommendation changes
                 randSeed: 12},
             2: {AIMode: 0, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 123},},
         1: {1: {AIMode: 1, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 12345},
-            2: {AIMode: 1, 
+            2: {AIMode: 1,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 123456}}},
     // CONDITION 2
     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.2,
                 randSeed: 12},
             2: {AIMode: 1, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 123}},
         1: {1: {AIMode: 0, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 12345},
-            2: {AIMode: 0, 
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 123456}}},
     // CONDITION 3
     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.2,
                 randSeed: 12},
-            2: {AIMode: 0, 
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 123}},
         1: {1: {AIMode: 2, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 12345},
-            2: {AIMode: 2, 
+            2: {AIMode: 2,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 123456}}},
     // CONDITION 4
     4: {0: {1: {AIMode: 2,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.2,
                 randSeed: 12},
             2: {AIMode: 2, 
+                AIStabilityThreshold: 1.2,
                 randSeed: 123}},
-        1: {1: {AIMode: 0, 
+        1: {1: {AIMode: 0,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 12345},
-            2: {AIMode: 0, 
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.2, 
                 randSeed: 123456}}}
 };
 
@@ -421,8 +440,6 @@ let roundID = "round + " + currentRound;
 // Timing variables
 let gameStartTime, elapsedTime;
 let isPaused            = false; // flag for pausing the game
-const gameTime          = 120000; // Two minutes in milliseconds
-
 let isGameRunning       = false;
 let frameCountGame      = 0; // MS: number of updates of the scene
 let deltaFrameCount     = 0; // To limit the size of the Event Stream object; 
@@ -430,9 +447,9 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (!DEBUG){
-    maxFrames = defaultSettings.maxFrames;
+    maxFrames = settings.maxFrames;
 } else{ // set it to whatever you want
-    maxFrames         = 2 * fps;//120 * 60; // Two minutes in frames
+    maxFrames         = 30 * fps;//120 * 60; // Two minutes in frames
 }
 
 const updateInterval    = 1000 / fps; // How many milliseconds per logic update
@@ -446,6 +463,7 @@ let caughtTargets   = [];
 let missedTargets   = [];
 let playerClicks    = [];
 let playerLocation  = [];
+let aiClicks        = [];
 
 const eventStreamSize = 720; // 2 minutes of 60 fps updates
 let eventStream = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
@@ -457,6 +475,7 @@ let mouseX = 0, mouseY = 0;
 // Varaiables for HTML elements
 let score = 0;
 let aiScore = 0;
+let numAIChanges = 0; // MS7 count of number of different targets pursued (measure of "neuroticism" or inverse "inertia")
 
 // Player and View Initialization (related to one another)
 const playerSize = 50;
@@ -496,8 +515,13 @@ function lcg(seed) {
     };
 }
 let randomGenerator;
-// MS4: ******************************* AI PLANNER ************************************//
-let sol; // MS4: global variable that contains planned path for current frame
+// MS4: ********************************************** AI PLANNER ****************************************************//
+
+//let sol; // MS7
+let firstStep, bestSol, allSol; // MS7  Global variable that holds the solutions of the planner 
+let firstStepOffline, bestSolOffline, allSolOffline; // MS7  Global variable that holds the solutions of the planner 
+
+// let sol; // MS4: global variable that contains planned path for current frame
 
 const AIplayerSize = 50;
 const AIplayer = {
@@ -519,8 +543,7 @@ let AIplayerLocation = [];
 let numFramesPlayernotMoving = 0; // MS6
 let numFramesAfterCaughtTarget = 0; // MS6
 
-//**************************BLOCK RANDOMIZATION ******************************//
-
+//**************************************************** BLOCK RANDOMIZATION ******************************************************//
 
 async function initExperimentSettings() {
     const maxCompletionTimeMinutes = 60;
@@ -532,26 +555,34 @@ async function initExperimentSettings() {
     let numDraws = 1; // number of draws
     let assignedCondition = await blockRandomization(db1, studyId, aiBlockCondition, numConditions, maxCompletionTimeMinutes, numDraws);
 
-    currentCondition = assignedCondition[0]+1;
-    
-    // console.log('assignedCondition:', assignedCondition); // Add this line
+    if (DEBUG){
+        console.log('assignedCondition:', assignedCondition); // Add this line
+        let msg = aiBlockCondition + ": participant is AI type: " + assignedCondition;
+         // console.log(msg);
+    }
+    noAssignment = false;
 
-    let msg = aiBlockCondition + ": participant is AI type: " + assignedCondition;
-    // console.log(msg);
-    // $('#message').append(msg + '<br>');
+
+    return assignedCondition[0]+1;
 }
 
-if (!blockInfo.assignment){
+if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
-    await initExperimentSettings();
+    if (DEBUG){
+        currentCondition = 1;
+    }else{
+        currentCondition = await initExperimentSettings();
+    }
+    
     startGame(currentRound, currentCondition, currentBlock);
-    blockInfo.assignment = true;
+    noAssignment = false;
 }
+
 
 let visitedBlocks = 0;
 let numSurveyCompleted = 0;
 
-// ****************************UPDATE FUNCTIONS***************************//
+// ****************************************************** UPDATE FUNCTIONS ********************************************************//
 
 // Start Game function
 async function startGame(round, condition, block) {
@@ -562,14 +593,27 @@ async function startGame(round, condition, block) {
     currentRound = round; // Start at the specified round, or the current round
     let blockSetting = difficultySettings[condition][block];
 
-    settings = blockSetting[currentRound];
-    // console.log("Current Settings", settings);
-    // console.log("Random Seed", settings.randSeed);
+    roundSettings = blockSetting[currentRound];
 
-    // console.log("Current Block", currentBlock);
-    // console.log("Current Round", currentRound);
+    // settings = blockSetting[currentRound];
+    if (DEBUG){
+        console.log("Current Settings", roundSettings);
+        console.log("Random Seed", roundSettings.randSeed);
+
+        console.log("Current Block", currentBlock);
+        console.log("Current Round", currentRound);
+    }
     // console.log("Metadata Block Info", blockInfo);
 
+    // reassign default settings to the values grabbed from the current
+    settings.AIMode = roundSettings.AIMode;
+    settings.AIStabilityThreshold = roundSettings.AIStabilityThreshold;
+    settings.randSeed = roundSettings.randSeed;
+
+    if (DEBUG){
+        console.log("Default Settings AI Mode", settings.AIMode);
+        console.log("Block Settings Mode", roundSettings.AIMode);
+    }
     // Initialize with a seed
     randomGenerator = lcg(settings.randSeed);
 
@@ -606,7 +650,7 @@ async function endGame() {
        
         blockInfo.completedBlock++;
         blockInfo.completedBlockOrder.push(currentBlock);
-        console.log("Visited Blocks", visitedBlocks);
+        // console.log("Visited Blocks", visitedBlocks);
         currentRound = 1; // Reset the round counter
     
         // Switch to the other block
@@ -717,7 +761,7 @@ function render() {
     ctx.save();
     drawWorldBoundary();    // Draw boundaries
     drawPlayer();
-    if (defaultSettings.visualizeAIPlayer==1) { // MS5
+    if (settings.visualizeAIPlayer==1) { // MS5
         drawAIPlayer();
     }
     if (player.moving) drawArrowDirection();   // Draw arrow direction  }
@@ -744,7 +788,7 @@ function updateObjects(settings) {
         return;
     } 
     if (frameCountGame == 0) {
-        console.log("Starting Game");
+        // console.log("Starting Game");
         runGameSequence("This is Round " + currentRound + " of " + maxRounds + " of this Section. Click to Begin.");
     }
     if (deltaFrameCount == 10){
@@ -763,7 +807,7 @@ function updateObjects(settings) {
             newEventObject.player   = JSON.parse(JSON.stringify(curPlayerdata));
             // write ai data
             // let curAIdata           = AIplayer;
-            let curAIdata           = {x: AIplayer.x, y: AIplayer.y, targetX: AIplayer.targetX, targetY: AIplayer.targetY};
+            let curAIdata           = {x: AIplayer.x, y: AIplayer.y, targetX: AIplayer.targetX, targetY: AIplayer.targetY, id: AIplayer.ID};
             newEventObject.aiPlayer = JSON.parse(JSON.stringify(curAIdata));
             // write all objects on screen
             let curObjs             = objects.filter(obj => obj.active);
@@ -771,12 +815,20 @@ function updateObjects(settings) {
             newEventObject.objects  = JSON.parse(JSON.stringify(curObjs));
             // console.log("Event Stream Index", index)
 
-            let curSuggestion       = sol;
-            if (sol != undefined){
+            // MS7
+            let curSuggestion       = firstStep; 
+            if (firstStep != undefined){
                 curSuggestion = JSON.parse(JSON.stringify(curSuggestion));
                 newEventObject.aiSuggestions = curSuggestion;
                 //console.log("AI Suggestion", curSuggestion);
             }
+
+            // let curSuggestion       = sol;
+            // if (sol != undefined){
+            //     curSuggestion = JSON.parse(JSON.stringify(curSuggestion));
+            //     newEventObject.aiSuggestions = curSuggestion;
+            //     //console.log("AI Suggestion", curSuggestion);
+            // }
             eventStream[index]      = newEventObject;
         }
     }
@@ -784,7 +836,7 @@ function updateObjects(settings) {
     frameCountGame++; // MS: increment scene update count
     deltaFrameCount++; // limit the amount of data pushes
 
-    player.velocity = defaultSettings.playerSpeed;
+    player.velocity = settings.playerSpeed;
  
     // Update player position if it is moving
     if (player.moving) {
@@ -817,7 +869,7 @@ function updateObjects(settings) {
     player.y                = Math.max(player.height / 2, Math.min(canvas.height - player.height / 2, player.y));
 
     // MS5: Update AI player position if it is moving
-    AIplayer.velocity       = defaultSettings.playerSpeed;
+    AIplayer.velocity       = settings.playerSpeed;
 
     const deltaX            = AIplayer.targetX - AIplayer.x;
     const deltaY            = AIplayer.targetY - AIplayer.y;
@@ -838,7 +890,7 @@ function updateObjects(settings) {
     }
 
     // MS: and inserted the following code
-    if (frameCountGame % defaultSettings.spawnInterval === 0) {
+    if (frameCountGame % settings.spawnInterval === 0) {
         spawnObject(settings);    
     }
 
@@ -869,6 +921,9 @@ function updateObjects(settings) {
                 score            += obj.value;
                 player.score     += obj.value;
 
+                 // MS7
+                //  console.log("Player Score: " +  score + " Average Score per frame " + ( score / frameCountGame) );
+
                 let caughtObj     = {frame: frameCountGame, target: obj}
                 
                 // console.log("Collision detected!");
@@ -886,6 +941,9 @@ function updateObjects(settings) {
                 aiScore           += obj.value;
                 AIplayer.score    += obj.value;
                 // console.log("AI Score: ", aiScore);
+                 // MS7
+                // console.log("AI Score: " +  aiScore + " Average Score per frame " + ( aiScore / frameCountGame).toFixed(4) + 
+                // "  Number of target changes: " + numAIChanges + "  Prob Change Target per Frame: " + (numAIChanges/frameCountGame).toFixed(6) );
             }
         }
         
@@ -908,77 +966,74 @@ function updateObjects(settings) {
         objects.splice(toRemove[i], 1);
     }
 
-     // MS6: Run planner for the AI player
-     let offlineSol = runAIPlanner( objects, AIplayer , observableRadius , center, 0, 'AI' );
-     AIplayer.targetX = offlineSol.interceptLocations[0][0]; // Set target position for the AI player
-     AIplayer.targetY = offlineSol.interceptLocations[0][1]; 
-
-     // calculate the solution in all game modes
-     sol = runAIPlanner( objects, player , observableRadius , center, defaultSettings.planNumFramesAhead , 'human' ); 
+    // // MS7: Run planner for the offline AI player
+    // let prevBestSolOffline = bestSolOffline;
+    // [firstStepOffline, bestSolOffline, allSolOffline ] = runAIPlanner( objects, AIplayer , observableRadius , center, 'AI', settings.AIStabilityThreshold, prevBestSolOffline, allSolOffline, frameCountGame );
     
-     if (settings.AIMode>0) {
-        //console.time('functionExecutionTime');
-        //console.timeEnd('functionExecutionTime');
-        //console.log( 'Calculated AI path');  
-        
+    // if ((prevBestSolOffline != null) && (bestSolOffline.ID != prevBestSolOffline.ID)) {
+    //     numAIChanges++;
+    // }
+
+    // AIplayer.targetX = firstStepOffline.x; // MS7 -- just save the firstStepOffline object to firebase
+    // AIplayer.targetY = firstStepOffline.y; 
+
+    // // MS7: Run the planner conditional on the human player
+    // [ firstStep, bestSol, allSol ] = runAIPlanner( objects, player , observableRadius , center, 'human', settings.AIStabilityThreshold, bestSol, allSol, frameCountGame ); 
+
+    let prevBestSolOffline = bestSolOffline;
+    // MS8
+    [ firstStepOffline, bestSolOffline, allSolOffline ] = runAIPlanner( objects, AIplayer , observableRadius , center, 'AI', 
+        settings.AIStabilityThreshold, prevBestSolOffline, allSolOffline, frameCountGame, settings.alpha );
+    
+    // AI intention for click,target pair
+    AIplayer.targetX = firstStepOffline.x; // MS7 -- just save the firstStepOffline object to firebase
+    AIplayer.targetY = firstStepOffline.y; 
+    AIplayer.ID      = firstStepOffline.ID; // MS8 // ID of the object to intercept
+    
+    if ((prevBestSolOffline != null) && (bestSolOffline.ID != prevBestSolOffline.ID)) {
+        // push AI intention array
+        // aiIntention.push();
+        aiClicks.push(AIplayer.targetX, AIplayer.targetY, bestSolOffline.ID);
+        numAIChanges++;
+    } else if (prevBestSolOffline == null) {
+        // aiIntention.push
+        aiClicks.push(AIplayer.targetX, AIplayer.targetY, bestSolOffline.ID);
+    }
+
+    // we need to save ()
+
+    // Run the planner conditional on the human player
+    // MS8
+    [ firstStep, bestSol, allSol ] = runAIPlanner( objects, player , observableRadius , center, 'human', settings.AIStabilityThreshold, bestSol, allSol, frameCountGame, settings.alpha );
+    
+    if (settings.AIMode>0) {    
         // MS6
         // Calculate the value of the human's current target
-         player.shownAdvice = true;
+        player.shownAdvice = true;
 
         if (settings.AIMode >= 2) {
             //if ((frameCountGame > 100) & (player.moving)) {
             //    console.log( 'test case');
             //}
-            let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( sol , player , defaultSettings.AIadviceAngleThreshold );
+            // MS7
+            let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( bestSol , allSol, player , settings.AIadviceAngleThreshold, ctx, objects  ); 
             player.shownAdvice = false;
 
             const deltaX = player.x - center.x;
             const deltaY = player.y - center.y;
             const distanceToCenter = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-            if ((numFramesAfterCaughtTarget > defaultSettings.AIframeDelay) && (distanceToCenter > 50)) {
+            if ((numFramesAfterCaughtTarget > settings.AIframeDelay) && (distanceToCenter > 50)) {
                 if (!player.moving) {
                     player.shownAdvice = true;
-                } else if (player.moving && (valueHumanPlan <= defaultSettings.AIadviceThresholdHigh)) {
+                } else if (player.moving && (valueHumanPlan <= settings.AIadviceThresholdHigh)) {
                     player.shownAdvice = true;
                 }
             }
             //console.log( 'Numframesplayernotmoving=' + numFramesPlayernotMoving + ' NumFramesAfterCaughtTarget=' + numFramesAfterCaughtTarget + ' ValuePlan=' + valueHumanPlan);
         }
-
-        // form of suggestions that takes into account cost
-        // if (settings.AIMode >= 2) {
-        //     let [ valueHumanPlan , valuesSuggestions ] = calcValueHumanPlan( sol , player , settings.AIadviceAngleThreshold );
-        //     player.shownAdvice = false;
-        
-        //     const deltaX = player.x - center.x;
-        //     const deltaY = player.y - center.y;
-        //     const distanceToCenter = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        //     let penalty = 0;
-        //     let previousSuggestion = null; // Define previousSuggestion here
-        
-        //     if ((numFramesAfterCaughtTarget > settings.AIthresholdnumframesaftercaughttarget) && (distanceToCenter > 50)) {
-        //         if (!player.moving) {
-        //             player.shownAdvice = true;
-        //         } else if (player.moving && (valueHumanPlan <= defaultSettings.AIadviceThresholdHigh)) {
-        //             player.shownAdvice = true;
-        //         }
-        //     }
-        
-        //     for (let i=0; i<valuesSuggestions.length; i++) {
-        //         let suggestion = valuesSuggestions[i];
-        //         if (previousSuggestion !== null && previousSuggestion !== suggestion) {
-        //             penalty += 1; // Increase the penalty when the suggestion changes
-        //         }
-        //         previousSuggestion = suggestion;
-        
-        //         // Subtract the penalty from the suggestion's score
-        //         suggestion -= penalty;
-        //     }
-        // }
          
-     }
+    }
 }
 
 function spawnObject(settings){
@@ -986,7 +1041,7 @@ function spawnObject(settings){
     let numObjectsTotal = objects.length; // MS2: count total number of objects (intercepted objects also count)
     
     let randomThreshold = randomGenerator();
-    if (randomThreshold < defaultSettings.spawnProbability && numObjectsTotal < defaultSettings.maxTargets) { // MS2: added this condition
+    if (randomThreshold < settings.spawnProbability && numObjectsTotal < settings.maxTargets) { // MS2: added this condition
         // console.log("Spawn Threshold Met");
         let newObject = createComposite(settings);
         
@@ -1027,22 +1082,22 @@ function createComposite(settings) {
 
     // Sample u ~ Uniform(0,1)
     // adjust u by the skewFloor and skewCeiling
-    var valueLow = defaultSettings.valueLow;
-    var valueHigh = defaultSettings.valueHigh;
+    var valueLow = settings.valueLow;
+    var valueHigh = settings.valueHigh;
     var range = valueHigh - valueLow;
     
     //let u = Math.random() * range + valueLow;
     let u = randomGenerator() * range + valueLow;
 
     // Eta controls the skewness of the value distribution
-    let eta = defaultSettings.valueSkew || 1; // Default to 1 if not provided
+    let eta = settings.valueSkew || 1; // Default to 1 if not provided
     // Apply the non-linear transformation
     let fillRadius = Math.pow(u, eta) * shapeSize;
 
      // sample from a distribution of speeds
-     let speedRange = defaultSettings.speedHigh - defaultSettings.speedLow
+     let speedRange = settings.speedHigh - settings.speedLow
      //let speedSample = Math.random() * speedRange + settings.speedLow;
-     let speedSample = randomGenerator()  * speedRange + defaultSettings.speedLow;
+     let speedSample = randomGenerator()  * speedRange + settings.speedLow;
 
     let newObj = {
         ID: frameCountGame ,
@@ -1160,7 +1215,7 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-//*************************DRAWING FUNCTIONS******************************//
+//*************************************************** DRAWING FUNCTIONS **************************************************//
 
 function setupCanvas() {
     // Fill the background of the entire canvas with grey
@@ -1203,7 +1258,7 @@ function drawObjects() {
         if (obj.active) {
             if (!obj.intercepted) drawCompositeShape(obj); // MS2: added this condition
             // MS5: added this; can be removed once code is tested
-            if ((obj.AIintercepted) && (defaultSettings.visualizeAIPlayer==1)) drawCompositeShapeAI(obj); 
+            if ((obj.AIintercepted) && (settings.visualizeAIPlayer==1)) drawCompositeShapeAI(obj); 
             // if (obj.intercepted) drawCompositeShapeDEBUG(obj); // MS2: added this; can be removed once code is tested
             // //drawDebugBounds(obj);
         }
@@ -1371,8 +1426,6 @@ function drawScore() {
 //     drawScore();        // Redraw the score immediately after
 // }
 
-
-
 function drawCursor(x, y) {
     ctx.save(); // Save state
     ctx.fillStyle = 'rgba(100, 100, 100, 0.5)'; // Semi-transparent grey
@@ -1509,13 +1562,133 @@ function drawGrid() {
     ctx.stroke();
 }
 
+// // MS4: draw the path suggested by AI planner
+// function drawAISolution() {
+//     if ((settings.AIMode>0) && (sol != null) && (player.shownAdvice)) {  // MS6: change in conditional
+//         // get the length of the suggested path
+//         let pathLength = Math.min( sol.interceptLocations.length, settings.AIMaxDisplayLength );
+//         if (pathLength > 0) {
+//             if (settings.AIDisplayMode==0) {
+//                 // Show where to move with lines
+//                 ctx.save();
+//                 ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency 
+//                 ctx.lineWidth = 5;
+//                 ctx.beginPath();
+//                 ctx.moveTo(player.x, player.y );
+//                 for (let i=0; i<pathLength; i++) {
+//                     let transp = (i+1)/3;
+//                     ctx.strokeStyle = 'rgba(255, 255, 0, ' + transp + ')'; // Adjust the last number for transparency
+//                     let toX = sol.interceptLocations[i][0];
+//                     let toY = sol.interceptLocations[i][1];
+//                     ctx.lineTo( toX, toY );
+//                 }
+//                 ctx.stroke();
+//                 ctx.restore();
+//             }
+
+//             // if (settings.AIDisplayMode==1) {
+//             //     // Show a cross on where to click next 
+//             //     ctx.save();
+//             //     ctx.fillStyle = 'yellow'; // Color of the text
+//             //     ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency
+//             //     ctx.lineWidth = 5;
+//             //     ctx.beginPath();
+
+//             //     ctx.moveTo(player.x, player.y );
+
+//             //     let i = 0;
+//             //     //for (let i=0; i<pathLength; i++) {
+//             //         let toX = sol.interceptLocations[i][0];
+//             //         let toY = sol.interceptLocations[i][1];
+                    
+//             //         ctx.lineTo( toX, toY ); 
+//             //         ctx.moveTo(toX - 10, toY - 10);
+//             //         ctx.lineTo(toX + 10, toY + 10);
+//             //         ctx.moveTo(toX + 10, toY - 10);
+//             //         ctx.lineTo(toX - 10, toY + 10); 
+
+//             //         // Draw text
+//             //         // Adjust the text position as needed. Here it's slightly offset from the cross.
+//             //         //ctx.fillText(i+1, toX + 15, toY + 15); 
+//             //     //}
+//             //     ctx.stroke();
+//             //     ctx.restore();
+//             // }
+
+
+//             // if (settings.AIDisplayMode==1 && settings.AIMode==2) {
+//             if (settings.AIDisplayMode==1) {
+//                 // Show a cross on where to click next 
+//                 ctx.save();
+//                 ctx.fillStyle = 'yellow'; // Color of the text
+//                 ctx.lineWidth = 5;
+//                 ctx.beginPath();
+            
+//                 ctx.moveTo(player.x, player.y );
+
+//                 let maxError = 600; // Adjust this value as needed
+            
+//                 let i = 0;
+//                 let toX = sol.interceptLocations[i][0];
+//                 let toY = sol.interceptLocations[i][1];
+                
+//                 // Calculate the error
+//                 let error = Math.sqrt(Math.pow(player.x - toX, 2) + Math.pow(player.y - toY, 2));
+//                 // Adjust the color based on the error
+//                 let opacity = Math.min(1, error / maxError);
+//                 ctx.strokeStyle = `rgba(255, 255, 0, ${opacity})`;
+            
+//                 ctx.lineTo( toX, toY ); 
+//                 ctx.moveTo(toX - 10, toY - 10);
+//                 ctx.lineTo(toX + 10, toY + 10);
+//                 ctx.moveTo(toX + 10, toY - 10);
+//                 ctx.lineTo(toX - 10, toY + 10); 
+            
+//                 ctx.stroke();
+//                 ctx.restore();
+//             }
+            
+
+//             if (settings.AIDisplayMode==2) {
+//                 // Highlight the target interception sequence 
+//                 ctx.save();
+//                 ctx.fillStyle = 'black'; // Color of the text
+//                 ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency
+//                 ctx.lineWidth = 5;
+//                 ctx.beginPath();
+
+//                 let i = 0;
+//                 for (let i=0; i<pathLength; i++) {
+//                     let indexNow = sol.originalIndex[i];
+//                     if (indexNow != -1) {
+//                         let toX = objects[indexNow].x;
+//                         let toY = objects[indexNow].y;                      
+//                         // Draw text
+//                         //ctx.fillText(i+1, toX + 25, toY + 25); 
+
+//                         // Draw an arrow to the first one
+//                         if (i==0) {
+//                             drawFilledArrow(ctx, toX - 25 , toY, 10); 
+//                         }
+//                     }
+                    
+//                 }
+//                 ctx.stroke();
+//                 ctx.restore();
+//             }
+
+//         }
+        
+//     }
+// }
 // MS4: draw the path suggested by AI planner
 function drawAISolution() {
-    if ((settings.AIMode>0) && (sol != null) && (player.shownAdvice)) {  // MS6: change in conditional
+    if ((settings.AIMode>0) && (bestSol != null) && (player.shownAdvice)) {  // MS7
         // get the length of the suggested path
-        let pathLength = Math.min( sol.interceptLocations.length, defaultSettings.AIMaxDisplayLength );
+        let pathLength = Math.min( bestSol.interceptLocations.length, settings.AIMaxDisplayLength ); // MS7
         if (pathLength > 0) {
-            if (defaultSettings.AIDisplayMode==0) {
+            // MS7
+            if (settings.AIDisplayMode==0) {
                 // Show where to move with lines
                 ctx.save();
                 ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency 
@@ -1525,46 +1698,48 @@ function drawAISolution() {
                 for (let i=0; i<pathLength; i++) {
                     let transp = (i+1)/3;
                     ctx.strokeStyle = 'rgba(255, 255, 0, ' + transp + ')'; // Adjust the last number for transparency
-                    let toX = sol.interceptLocations[i][0];
-                    let toY = sol.interceptLocations[i][1];
+                    let toX = bestSol.interceptLocations[i][0];
+                    let toY = bestSol.interceptLocations[i][1];
                     ctx.lineTo( toX, toY );
                 }
                 ctx.stroke();
                 ctx.restore();
             }
 
-            // if (defaultSettings.AIDisplayMode==1) {
-            //     // Show a cross on where to click next 
-            //     ctx.save();
-            //     ctx.fillStyle = 'yellow'; // Color of the text
-            //     ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency
-            //     ctx.lineWidth = 5;
-            //     ctx.beginPath();
+            // MS7: updating code with new variable
+             if (settings.AIDisplayMode==1) {
+                // Show a cross on where to click next 
+                ctx.save();
+                ctx.fillStyle = 'yellow'; // Color of the text
+                ctx.strokeStyle = 'rgba(255, 255, 0, 0.5)'; // Adjust the last number for transparency
+                ctx.lineWidth = 5;
+                ctx.beginPath();
 
-            //     ctx.moveTo(player.x, player.y );
+                ctx.moveTo(player.x, player.y );
 
-            //     let i = 0;
-            //     //for (let i=0; i<pathLength; i++) {
-            //         let toX = sol.interceptLocations[i][0];
-            //         let toY = sol.interceptLocations[i][1];
+                let i = 0;
+                //for (let i=0; i<pathLength; i++) {
+                    let toX = bestSol.interceptLocations[i][0];
+                    let toY = bestSol.interceptLocations[i][1];
                     
-            //         ctx.lineTo( toX, toY ); 
-            //         ctx.moveTo(toX - 10, toY - 10);
-            //         ctx.lineTo(toX + 10, toY + 10);
-            //         ctx.moveTo(toX + 10, toY - 10);
-            //         ctx.lineTo(toX - 10, toY + 10); 
+                    ctx.lineTo( toX, toY ); 
+                    ctx.moveTo(toX - 10, toY - 10);
+                    ctx.lineTo(toX + 10, toY + 10);
+                    ctx.moveTo(toX + 10, toY - 10);
+                    ctx.lineTo(toX - 10, toY + 10); 
 
-            //         // Draw text
-            //         // Adjust the text position as needed. Here it's slightly offset from the cross.
-            //         //ctx.fillText(i+1, toX + 15, toY + 15); 
-            //     //}
-            //     ctx.stroke();
-            //     ctx.restore();
-            // }
-
-
+                    // Draw text
+                    // Adjust the text position as needed. Here it's slightly offset from the cross.
+                    //ctx.fillText(i+1, toX + 15, toY + 15); 
+                //}
+                ctx.stroke();
+                ctx.restore();
+            }
+ 
+            // MS7
             // if (settings.AIDisplayMode==1 && settings.AIMode==2) {
-            if (defaultSettings.AIDisplayMode==1) {
+                /*
+            if (settings.AIDisplayMode==1) {
                 // Show a cross on where to click next 
                 ctx.save();
                 ctx.fillStyle = 'yellow'; // Color of the text
@@ -1576,8 +1751,8 @@ function drawAISolution() {
                 let maxError = 600; // Adjust this value as needed
             
                 let i = 0;
-                let toX = sol.interceptLocations[i][0];
-                let toY = sol.interceptLocations[i][1];
+                let toX = bestSol.interceptLocations[i][0];
+                let toY = bestSol.interceptLocations[i][1];
                 
                 // Calculate the error
                 let error = Math.sqrt(Math.pow(player.x - toX, 2) + Math.pow(player.y - toY, 2));
@@ -1594,9 +1769,10 @@ function drawAISolution() {
                 ctx.stroke();
                 ctx.restore();
             }
-            
+            */
 
-            if (defaultSettings.AIDisplayMode==2) {
+
+            if (settings.AIDisplayMode==2) {
                 // Highlight the target interception sequence 
                 ctx.save();
                 ctx.fillStyle = 'black'; // Color of the text
@@ -1606,7 +1782,7 @@ function drawAISolution() {
 
                 let i = 0;
                 for (let i=0; i<pathLength; i++) {
-                    let indexNow = sol.originalIndex[i];
+                    let indexNow = bestSol.originalIndex[i];
                     if (indexNow != -1) {
                         let toX = objects[indexNow].x;
                         let toY = objects[indexNow].y;                      
@@ -1626,6 +1802,22 @@ function drawAISolution() {
 
         }
         
+    }
+
+    // MS7
+    // Some visualization debugging tools
+    let showIDs = false;
+    if (showIDs) {
+        let numObjects = objects.length;
+        for (let i=0; i<numObjects; i++) {
+            if (objects[i].intercepted == false) {
+                let index = objects[i].ID;
+                let targetX = objects[i].x;
+                let targetY = objects[i].y;
+                ctx.fillStyle = 'black'; // Color of the text
+                ctx.fillText(index , targetX + 15, targetY + 15);
+            }          
+        }
     }
 }
 
@@ -1652,9 +1844,9 @@ function drawFullAISolutionDEBUG() {
             let targetY = center.y;
             let valueTarget = 0;
             if (index != -1) { // Not going towards origin
-                if (objects[index] == null) {
-                    console.log( 'test');
-                }
+                // if (objects[index] == null) {
+                //     // console.log( 'test');
+                // }
                 targetX = objects[index].x;
                 targetY = objects[index].y;
                 valueTarget = objects[index].fill / objects[index].size;
@@ -1741,37 +1933,21 @@ function drawFilledArrow(ctx, toX, toY, arrowWidth) {
     ctx.fill();
 }
 
-// function displayAIstatus(){
-//     if (settings.AIMode == 0) {
-//         document.getElementById("aiModeStatus").textContent = "AI is OFF";
-//     } else {
-//         document.getElementById("aiModeStatus").textContent = "AI is ON";
-//     }
-// }
-
 function displayAIstatus(){
-    // if (settings.AIMode == 0) {
-    //     document.getElementById("aiModeStatus").textContent = "AI is OFF";
-    //     document.getElementById("aiAssistRobot").style.opacity = "0.5";
-    //     document.getElementById("aiAssistRobotCaption").style.opacity = "0.5";
-    // } else {
-    //     document.getElementById("aiModeStatus").textContent = "AI is ON";
-    //     document.getElementById("aiModeStatus").style.color = "green";
-    //     document.getElementById("aiAssistRobot").style.opacity = "1";
-    //     document.getElementById("aiAssistRobotCaption").style.opacity = "1";
-    // }
     if (settings.AIMode == 0) {
         document.getElementById("aiModeStatus").textContent = "AI is OFF";
         document.getElementById("aiModeStatus").style.color = "white";
         document.getElementById("aiModeStatus").style.backgroundColor = "rgba(255, 0, 0, 0.8)";
         document.getElementById("aiAssistRobot").style.opacity = "0.5";
         document.getElementById("aiAssistRobotCaption").style.opacity = "0.5";
+        document.getElementById("aiAssistRobotCaption").textContent = "Hi! I'm your AI assistant. My suggestions are currently OFF.";
     } else {
         document.getElementById("aiModeStatus").textContent = "AI is ON";
         document.getElementById("aiModeStatus").style.color = "white";
         document.getElementById("aiModeStatus").style.backgroundColor =  "rgba(0, 128, 0, 0.8)"; // semi-transparent green
         document.getElementById("aiAssistRobot").style.opacity = "1";
         document.getElementById("aiAssistRobotCaption").style.opacity = "1";
+        document.getElementById("aiAssistRobotCaption").textContent = "Hi! I'm your AI assistant. My movement suggestions will be in yellow!";
     }
 }
 
@@ -1811,9 +1987,7 @@ function closeCustomAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
 
-// *********************************EVENT LISTENERS********************************* //
-
-
+// *************************************************** EVENT LISTENERS *************************************************** //
 
 $(document).ready( function(){
    // Event listener for player click locations
@@ -1836,8 +2010,6 @@ $(document).ready( function(){
             playerClicks.push({frame: frameCountGame, targetX: clickX, targetY: clickY, curX: player.x, curY: player.y, angle:player.angle});
         //}
     });
-
-    
     window.closeCustomAlert = closeCustomAlert; // Add closeCustomAlert to the global scope
 });
 
@@ -1896,7 +2068,7 @@ function isClickOnObject(obj, x, y) {
     return distance <= cursorSize;
 }
 
-//*****************************DATA COLLECTION***************************//
+//************************************************** DATA COLLECTION *****************************************************//
   
 function targetMissed() {
     showTargetMessage(false);
@@ -1913,7 +2085,7 @@ function distractorCaught(obj){
     console.log("Distractor pushed into array.");
 }   
 
-//********************************SURVEY--Full********************************//
+//**************************************************** SURVEY -- FULL ****************************************************//
 
 function loadFullSurvey(){
     var DEBUG_SURVEY = DEBUG;
@@ -1984,7 +2156,7 @@ function loadFullSurvey(){
             // Enable the submit button if all likert buttons have been clicked
             if (allClicked) {
                 $('#survey-complete-button-full').prop('disabled', false);
-                console.log("All topics ranked");
+                // console.log("All topics ranked");
             }
 
 
@@ -2026,20 +2198,21 @@ function loadFullSurvey(){
                 // push them to the final page of the experiment which redirects participants
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
                 // $("#full-game-container").attr("hidden", true);
+                finalizeBlockRandomization(db1, studyId, currentCondition);
                 $("#survey-full-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
-                $("#task-complete").attr("hidden", false);
-                $('#task-complete').load('html/complete.html');
-                return;
-            } else{
+                $("#complete-page-content-container").attr("hidden", false);
+                await loadCompletePage();
+                // $('#task-complete').load('html/complete.html');
+            } else{ // continue to another block
                 $("#survey-full-container").attr("hidden", true);
                 $("#survey-full-container").remove();
                 $("#full-game-container").attr("hidden", false);
                 // resizeScoreCanvas()
 
             }
-            console.log("Submit Button Clicked");
+            // console.log("Submit Button Clicked");
         };
 
         //  Handle Likert Selection for ALL Topics
@@ -2050,7 +2223,7 @@ function loadFullSurvey(){
     });
 }
 
-//********************************SURVEY--Workload********************************//
+//*************************************************** SURVEY -- WORKLOAD *************************************************//
 function loadWorkLoadSurvey(){
     var DEBUG_SURVEY                    = DEBUG;
     //      Survey Information
@@ -2113,7 +2286,7 @@ function loadWorkLoadSurvey(){
             // Enable the submit button if all likert buttons have been clicked
             if (allClicked) {
                 $('#survey-complete-button-workload').prop('disabled', false);
-                console.log("All topics ranked");
+                // console.log("All topics ranked");
             }
 
 
@@ -2146,13 +2319,13 @@ function loadWorkLoadSurvey(){
             if (numSurveyCompleted == 2) {
                 // push them to the final page of the experiment which redirects participants
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
-
+                finalizeBlockRandomization(db1, studyId, currentCondition);
                 $("#survey-workload-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
-                $("#task-complete").attr("hidden", false);
-                $('#task-complete').load('html/complete.html');
-                return;
+                $("#complete-page-content-container").attr("hidden", false);
+                // await loadCompletePage();
+                // $('#task-complete').load('html/complete.html');
             } else{
                 $("#survey-workload-container").attr("hidden", true);
                 $("#survey-workload-container").remove();
@@ -2160,7 +2333,7 @@ function loadWorkLoadSurvey(){
                 // resizeScoreCanvas()
             }
 
-            console.log("Submit Button Clicked");
+            // console.log("Submit Button Clicked");
         }
 
         //  Handle Likert Selection for ALL Topics
@@ -2168,5 +2341,116 @@ function loadWorkLoadSurvey(){
 
         //  Handle Submitting Survey
         $('#survey-complete-button-workload').off().click(completeExperiment);
+    });
+}
+
+
+//*************************************************** COMPLETE -- REDIRECT************************************************//
+async function loadCompletePage(){
+    // try {
+    //     let response = await fetch('path/to/complete/page.html');
+    //     let text = await response.text();
+    //     document.getElementById('complete-page-content-container').innerHTML = text;
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
+
+    var DEBUG_COMPLETE     = false;
+
+
+    /******************************************************************************
+        VARIABLES
+
+            All metadata variables that are relevant to the survey page.
+    ******************************************************************************/
+    // console.log("Database and firebaseuid: ", db1, firebaseUserId1); 
+    // Database Path
+    var COMPLETE_DB_PATH        = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId1 + '/userFeedback';
+
+    $(document).ready(function (){
+        /******************************************************************************
+            FUNCTIONALITY
+    
+                All functions that will be used for the complete page.
+        ******************************************************************************/
+        function replaceClass(element, remove, add) {
+            /*
+                Use jQuery to replace the class of the given element.
+            */
+    
+            $(element).removeClass(remove);
+            $(element).addClass(add);
+        };
+        
+        function copyCode() {
+            /*
+                Copy the Unique Code to the clipboard.
+    
+                Use this function if you will be providing a unique code for
+                participants to submit when redirected to Prolific or MTurk.
+            */
+            var temp = $("<input>");
+            $("body").append(temp);
+            temp.val($('#code').val()).select();
+            document.execCommand("copy");
+            alert("Copied the code: " + temp.val());
+            temp.remove();
+        };
+    
+        function redirectToProlific() {
+            /*
+                Redirect participants back to prolific after the study.
+            */
+            //  Redirect URL for Experiment 02 (explanationstyleN with eplanations file v15) (pilot 10 participants)
+            var restart;
+            if (confirm("If you click 'OK', you will be redirected to Prolific. If you click 'Cancel' you will stay on this page.")) {
+                restart = true;
+            } else {
+                restart = false;
+            }
+            
+            // The redirect URL should be back to Prolific
+            if (restart) {
+                if (DEBUG_COMPLETE){
+                    window.location.replace("https://skarny0.github.io/target-intercept-exp-3/");
+                } else {
+                    // This redirect should be updated to Prolific when you are LIVE
+                    window.location.replace("https://app.prolific.com/submissions/complete?cc=C683JZHM");
+                }
+            }
+        }
+    
+        function feedbackToSubmit() {
+            /*
+                Determine if there is feedback to submit or not.
+    
+                If there is then the button is enabled.
+                If there isn't then the button is disabled.
+    
+            */
+            let content = $("#user-feedback-text").val().trim();
+            $('#user-feedback-button').prop('disabled', content === '');
+        }
+    
+        function submitFeedback() {
+            /*
+                Submit user feedback.
+
+            */
+
+            let feedbacktext = $('#user-feedback-text').val();
+            let path = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/playerScore';
+            writeRealtimeDatabase(db1, path, feedbacktext);
+    
+            replaceClass('#user-feedback-button', "btn-secondary", "btn-primary");
+        };
+        //  Copy Unique Code to Clipboard
+        $('#unique-code-copy-button').click(redirectToProlific);
+    
+        //  Determine if there is User Feedback to be Submitted
+        $('#user-feedback-text').on('keyup', feedbackToSubmit);
+    
+        //  Submit User Feedback
+        $('#user-feedback-button').click(submitFeedback);
     });
 }

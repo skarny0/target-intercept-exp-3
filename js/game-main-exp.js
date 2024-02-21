@@ -204,55 +204,55 @@ let settings = {
 let difficultySettings = {
     // CONDITION 1
     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.2,  // MS7: minimum proportional improvement before recommendation changes
+                AIStabilityThreshold: 1.0,  // MS7: minimum proportional improvement before recommendation changes
                 randSeed: 12},
             2: {AIMode: 0, 
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.0,
                 randSeed: 123},},
         1: {1: {AIMode: 1, 
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.0,
                 randSeed: 12345},
             2: {AIMode: 1,
-                AIStabilityThreshold: 1.2, 
+                AIStabilityThreshold: 1.0, 
                 randSeed: 123456}}},
     // CONDITION 2
     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.0,
                 randSeed: 12},
             2: {AIMode: 1, 
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.0,
                 randSeed: 123}},
         1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.0,
                 randSeed: 12345},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.2, 
+                AIStabilityThreshold: 1.0, 
                 randSeed: 123456}}},
     // CONDITION 3
     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.2,
+                AIStabilityThreshold: 1.4,
                 randSeed: 12},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.2, 
+                AIStabilityThreshold: 1.4, 
                 randSeed: 123}},
-        1: {1: {AIMode: 2, 
-                AIStabilityThreshold: 1.2,
+        1: {1: {AIMode: 1, 
+                AIStabilityThreshold: 1.4,
                 randSeed: 12345},
-            2: {AIMode: 2,
-                AIStabilityThreshold: 1.2, 
+            2: {AIMode: 1,
+                AIStabilityThreshold: 1.4, 
                 randSeed: 123456}}},
     // CONDITION 4
-    4: {0: {1: {AIMode: 2,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.2,
+    4: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.4,
                 randSeed: 12},
-            2: {AIMode: 2, 
-                AIStabilityThreshold: 1.2,
+            2: {AIMode: 1, 
+                AIStabilityThreshold: 1.4,
                 randSeed: 123}},
         1: {1: {AIMode: 0,
-                AIStabilityThreshold: 1.2, 
+                AIStabilityThreshold: 1.4, 
                 randSeed: 12345},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.2, 
+                AIStabilityThreshold: 1.4, 
                 randSeed: 123456}}}
 };
 
@@ -2324,7 +2324,7 @@ function loadWorkLoadSurvey(){
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
                 $("#complete-page-content-container").attr("hidden", false);
-                // await loadCompletePage();
+                await loadCompletePage();
                 // $('#task-complete').load('html/complete.html');
             } else{
                 $("#survey-workload-container").attr("hidden", true);

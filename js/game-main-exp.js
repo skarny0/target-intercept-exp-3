@@ -50,7 +50,6 @@ const firebaseConfig_db2 = {
 const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
 const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
 
-
 // console.log("Firebase UserId=" + firebaseUserId);
 
 function getDebugParams(){
@@ -80,6 +79,11 @@ if (DEBUG){
 // Show the user id that is provided by the Firebase Psych library.
 // console.log( "Firebase UserId1=" + firebaseUserId1 );
 // console.log( "Firebase UserId2=" + firebaseUserId2 );
+
+// intitial firebase write.
+let pathnow = studyId + '/participantData/' + firebaseUserId1 + '/participantInfo';
+writeURLParameters(db1, pathnow);
+
 
 // database write function
 function writeGameDatabase(){

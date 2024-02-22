@@ -184,7 +184,7 @@ function getDifficultySettingsFromURL() {
 }
 
 let settings = {
-    maxFrames: 240,             // MS1: maximum number of frames to run the game
+    gameTime: 240,             // maximum number of seconds per round
     AIMode:1,                   // MS4: 0=no assistance; 1=always on; 2=adaptive
     alpha: 0.9,                 // MS8: discounting parameter for AI planner
     AIDisplayMode: 1,           // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
@@ -453,7 +453,7 @@ let maxFrames = null;
 if (DEBUG){
     maxFrames         = 30 * fps;
 } else{ // set it to whatever you want
-    maxFrames         = settings.maxFrames * fps;// settings.maxFrames * fps;//120 * 60; // Two minutes in frames
+    maxFrames         = settings.gameTime * fps; //120 * 60; // Two minutes in frames
 }
 
 const updateInterval    = 1000 / fps; // How many milliseconds per logic update

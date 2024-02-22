@@ -66,9 +66,9 @@ var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 let studyId = 'placeHolder';
 
 if (DEBUG){
-   studyId    = "uci-hri-experiment-3-pilot2-debug";
+   studyId    = "uci-hri-experiment-3-pilot3-debug";
 } else {
-    studyId   = "uci-hri-experiment-3-pilot2";
+    studyId   = "uci-hri-experiment-3-pilot3";
 }
 // console.log("Study ID: " + studyId);    
 

@@ -87,13 +87,18 @@ writeURLParameters(db1, pathnow);
 
 // database write function
 function writeGameDatabase(){
+
+    let pathUID1 = studyId + '/participantData/' + firebaseUserId2 + '/UID';
+    let pathUID2 = studyId + '/participantData/' + firebaseUserId1 + '/UID';
+
+    writeRealtimeDatabase(db2, pathUID1, firebaseUserId1);
+    writeRealtimeDatabase(db1, pathUID2, firebaseUserId2);
+
     // console.log("Writing to database");
     let path1 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/spawnData';
     let path2 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/caughtTargets';
-
     // write event stream to a separate realtime database
     let path3 = studyId + '/participantData/' + firebaseUserId2 + '/block' + currentBlock + '/round' + currentRound + '/eventStream'; 
-
     let path4 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerClicks';
     let path5 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerLocation';
     let path6 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/settings';
@@ -118,8 +123,7 @@ function writeGameDatabase(){
     writeRealtimeDatabase(db1, path9, aiClicks);
     // writeRealtimeDatabase(db1, path9, AIplayerLocation); // replace with aiClicks
     writeRealtimeDatabase(db1, path10, aiScore);
-    writeRealtimeDatabase(db1, path11, score);   
-
+    writeRealtimeDatabase(db1, path11, score);
     //calculate the number of changes in the ID (like a click)
 }
 
@@ -574,6 +578,7 @@ if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
     if (DEBUG){
         currentCondition =  1;//await initExperimentSettings();
+        console.log('assignedCondition:', currentCondition); // Add this line
     }else{
         currentCondition = await initExperimentSettings();
     }
@@ -743,6 +748,7 @@ function gameLoop(timestamp) {
     // Check if it's time for the next update
     if (deltaTime >= updateInterval) {
         lastUpdateTime = timestamp - (deltaTime % updateInterval);
+        //console.log("Current Obj")
         updateObjects(settings);
          // Update game logic
         // console.log("Game Loop Settings:", settings);
@@ -895,6 +901,7 @@ function updateObjects(settings) {
     // MS: and inserted the following code
     if (frameCountGame % settings.spawnInterval === 0) {
         spawnObject(settings);    
+        
     }
 
     let toRemove = [];
@@ -1066,7 +1073,7 @@ function spawnObject(settings){
 
         // push to objects array in order to render and update
         objects.push(newObject);
-        // console.log("New Object Spawned", newObject);
+        console.log("New Object Spawned", newObject);
         spawnData.push(newObject)
 
     }

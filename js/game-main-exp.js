@@ -189,7 +189,7 @@ let settings = {
     alpha: 0.9,                 // MS8: discounting parameter for AI planner
     AIDisplayMode: 1,           // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
     AIMaxDisplayLength: 3,      // MS4: can be used to truncate the AI path length shown
-    visualizeAIPlayer: 1,       // MS5: 0:default; 1=visualize AI player running in background
+    visualizeAIPlayer: 0,       // MS5: 0:default; 1=visualize AI player running in background
     AIStabilityThreshold: 1.2,  // MS7: minimum proportional improvement before recommendation changes
     AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
     AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting

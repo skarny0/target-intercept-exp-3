@@ -189,7 +189,7 @@ let settings = {
     alpha: 0.9,                 // MS8: discounting parameter for AI planner
     AIDisplayMode: 1,           // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
     AIMaxDisplayLength: 3,      // MS4: can be used to truncate the AI path length shown
-    visualizeAIPlayer: 0,       // MS5: 0:default; 1=visualize AI player running in background
+    visualizeAIPlayer: 1,       // MS5: 0:default; 1=visualize AI player running in background
     AIStabilityThreshold: 1.2,  // MS7: minimum proportional improvement before recommendation changes
     AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
     AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
@@ -450,10 +450,10 @@ let deltaFrameCount     = 0; // To limit the size of the Event Stream object;
 const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
-if (!DEBUG){
-    maxFrames = settings.maxFrames;
+if (DEBUG){
+    maxFrames         = 30 * fps;
 } else{ // set it to whatever you want
-    maxFrames         = 30 * fps;//120 * 60; // Two minutes in frames
+    maxFrames         = settings.maxFrames * fps;// settings.maxFrames * fps;//120 * 60; // Two minutes in frames
 }
 
 const updateInterval    = 1000 / fps; // How many milliseconds per logic update
@@ -573,7 +573,7 @@ async function initExperimentSettings() {
 if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
     if (DEBUG){
-        currentCondition = 1;
+        currentCondition =  1;//await initExperimentSettings();
     }else{
         currentCondition = await initExperimentSettings();
     }
@@ -581,7 +581,6 @@ if (noAssignment){
     startGame(currentRound, currentCondition, currentBlock);
     noAssignment = false;
 }
-
 
 let visitedBlocks = 0;
 let numSurveyCompleted = 0;

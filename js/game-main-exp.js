@@ -451,7 +451,7 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (DEBUG){
-    maxFrames         = 30 * fps;
+    maxFrames         = settings.gameTime * fps;
 } else{ // set it to whatever you want
     maxFrames         = settings.gameTime * fps; //120 * 60; // Two minutes in frames
 }

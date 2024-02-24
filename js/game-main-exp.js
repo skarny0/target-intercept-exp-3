@@ -55,9 +55,7 @@ const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( fireba
 function getDebugParams(){
     const urlParams = new URLSearchParams(window.location.search);
     let debugBoolean = Boolean(urlParams.get('debug'));
-
     // console.log(debugBoolean);
-
     return debugBoolean;
 }
 
@@ -70,79 +68,50 @@ if (DEBUG){
 } else {
     studyId   = "uci-hri-experiment-3-pilot3";
 }
-// console.log("Study ID: " + studyId);    
 
-//export {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG};
-
-// import {studyId, firebaseUserId1, firebaseUserId2, db1, db2, DEBUG} from "./firebaseconfig.js";
-
-// Show the user id that is provided by the Firebase Psych library.
-// console.log( "Firebase UserId1=" + firebaseUserId1 );
-// console.log( "Firebase UserId2=" + firebaseUserId2 );
-
-// intitial firebase write.
+// WRITE PROLIFIC PARTICIPANT DATA TO DB1
 let pathnow = studyId + '/participantData/' + firebaseUserId1 + '/participantInfo';
 writeURLParameters(db1, pathnow);
-
 
 // database write function
 function writeGameDatabase(){
 
-    let pathUID1 = studyId + '/participantData/' + firebaseUserId2 + '/UID';
-    let pathUID2 = studyId + '/participantData/' + firebaseUserId1 + '/UID';
-
+    let pathUID1 = studyId + '/participantData/' + firebaseUserId2 + '/UID2';
+    let pathUID2 = studyId + '/participantData/' + firebaseUserId1 + '/UID1';
     writeRealtimeDatabase(db2, pathUID1, firebaseUserId1);
     writeRealtimeDatabase(db1, pathUID2, firebaseUserId2);
 
     // console.log("Writing to database");
-    let path1 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/spawnData';
-    let path2 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/caughtTargets';
-    // write event stream to a separate realtime database
-    let path3 = studyId + '/participantData/' + firebaseUserId2 + '/block' + currentBlock + '/round' + currentRound + '/eventStream'; 
-    let path4 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerClicks';
-    let path5 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerLocation';
-    let path6 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/settings';
-    let path7 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/roundTime';
-    let path8 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIcaughtTargets';
-    let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIClicks';
-    // let path9 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIplayerLocation';
-    let path10 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/aiScore';
-    let path11 = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerScore';
+    let path1   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/spawnData';
+    let path2   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/caughtTargets';
+    let path3   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/eventStream'; 
+    let path4   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerClicks';
+    let path5   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerLocation';
+    let path6   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/settings';
+    let path7   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/roundTime';
+    let path8   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIcaughtTargets';
+    let path9   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIClicks';
+    let path10  = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/aiScore';
+    let path11  = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerScore';
+    let path12  = studyId + '/participantData/' + firebaseUserId1 + '/condition' + '/blockCondition';
+    let path13  = studyId + '/participantData/' + firebaseUserId1 + '/condition' + '/seedCondition';
 
     writeRealtimeDatabase(db1, path1, spawnData);
     writeRealtimeDatabase(db1, path2, caughtTargets);
-
-    // write to separate dataframe
-    writeRealtimeDatabase(db2, path3, eventStream); 
-    
+    writeRealtimeDatabase(db1, path3, eventStream); 
     writeRealtimeDatabase(db1, path4, playerClicks);
     writeRealtimeDatabase(db1, path5, playerLocation);
     writeRealtimeDatabase(db1, path6, roundSettings);
     writeRealtimeDatabase(db1, path7, roundTime);
     writeRealtimeDatabase(db1, path8, AIcaughtTargets);
     writeRealtimeDatabase(db1, path9, aiClicks);
-    // writeRealtimeDatabase(db1, path9, AIplayerLocation); // replace with aiClicks
     writeRealtimeDatabase(db1, path10, aiScore);
     writeRealtimeDatabase(db1, path11, score);
-    //calculate the number of changes in the ID (like a click)
+    writeRealtimeDatabase(db1, path12, currentCondition);
+    writeRealtimeDatabase(db1, path13, curSeeds);
 }
 
-//**************************GAME INITIALIZATION*******************************//
-// function initEnvironment (){
-//     // World Building Elements
-//     const canvas = document.getElementById('gameCanvas');
-//     const ctx = canvas.getContext('2d');
-//     const scoreCanvas = document.getElementById('scoreCanvas');
-//     const scoreCtx = scoreCanvas.getContext('2d');
-//     const world = { width: 800, height: 800 };
-//     const center = { x: canvas.width / 2, y: canvas.height / 2 };
-//     let observableRadius = 390; // Radius for positioning objects
-
-//     return canvas, ctx, scoreCanvas, scoreCtx, world, center, observableRadius;
-// }
-
-// let canvas, ctx, scoreCanvas, scoreCtx, world, center, observableRadius = initEnvironment();
-
+//************************************************ ENVIRONMENT INITIALIZATION ********************************************//
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreCanvas = document.getElementById('scoreCanvas');
@@ -153,7 +122,7 @@ let observableRadius = 390; // Radius for positioning objects
 
 let roundSettings = {};
 
-// *************************************************** EXPERIMENTAL PARAMETERS ***********************************************// 
+// *********************************************** EXPERIMENTAL PARAMETERS ***********************************************// 
 
 // NOTE: AI MODE FOR EXPERIMENT 1 SHOULD BE === 0 (NO ASSISTANCE)
 // NOTE: Start with default parameters --> make changes that are critical between rounds (to remove duplication)
@@ -212,57 +181,62 @@ let settings = {
 let difficultySettings = {
     // CONDITION 1
     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.0,  // MS7: minimum proportional improvement before recommendation changes
-                randSeed: 12},
+                AIStabilityThreshold: 1.0},  // MS7: minimum proportional improvement before recommendation changes,
             2: {AIMode: 0, 
-                AIStabilityThreshold: 1.0,
-                randSeed: 123},},
+                AIStabilityThreshold: 1.0}},
         1: {1: {AIMode: 1, 
-                AIStabilityThreshold: 1.0,
-                randSeed: 12345},
+                AIStabilityThreshold: 1.0},
             2: {AIMode: 1,
-                AIStabilityThreshold: 1.0, 
-                randSeed: 123456}}},
+                AIStabilityThreshold: 1.0}}},
     // CONDITION 2
     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.0,
-                randSeed: 12},
+                AIStabilityThreshold: 1.0},
             2: {AIMode: 1, 
-                AIStabilityThreshold: 1.0,
-                randSeed: 123}},
+                AIStabilityThreshold: 1.0}},
         1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.0,
-                randSeed: 12345},
+                AIStabilityThreshold: 1.0},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.0, 
-                randSeed: 123456}}},
+                AIStabilityThreshold: 1.0}}},
     // CONDITION 3
     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4,
-                randSeed: 12},
+                AIStabilityThreshold: 1.4},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.4, 
-                randSeed: 123}},
+                AIStabilityThreshold: 1.4}},
         1: {1: {AIMode: 1, 
-                AIStabilityThreshold: 1.4,
-                randSeed: 12345},
+                AIStabilityThreshold: 1.4},
             2: {AIMode: 1,
-                AIStabilityThreshold: 1.4, 
-                randSeed: 123456}}},
+                AIStabilityThreshold: 1.4}}},
     // CONDITION 4
     4: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4,
-                randSeed: 12},
+                AIStabilityThreshold: 1.4},
             2: {AIMode: 1, 
-                AIStabilityThreshold: 1.4,
-                randSeed: 123}},
+                AIStabilityThreshold: 1.4}},
         1: {1: {AIMode: 0,
-                AIStabilityThreshold: 1.4, 
-                randSeed: 12345},
+                AIStabilityThreshold: 1.4},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.4, 
-                randSeed: 123456}}}
+                AIStabilityThreshold: 1.4}}}
 };
+
+function getPermutations(array) {
+    // Base case: if array is empty, there is only one permutation: an empty array
+    if (array.length === 0) return [[]];
+
+    let permutations = [];
+
+    for (let i = 0; i < array.length; i++) {
+        let rest = array.slice(0, i).concat(array.slice(i + 1));
+        let restPermutations = getPermutations(rest);
+
+        for (let perm of restPermutations) {
+            permutations.push([array[i]].concat(perm));
+        }
+    }
+
+    return permutations;
+}
+
+const seedSet = [12, 123, 1234, 12345];
+const permutedSeeds = getPermutations(seedSet);
 
 // final block conditions will look something like this.
 // let difficultySettings = {
@@ -440,6 +414,7 @@ let settingKeys = Object.keys(difficultySettings);
 let currentRound = 1;
 let currentBlock = 0;
 let currentCondition = null;
+let curSeeds = null;   
 let noAssignment = true;
 
 let maxRounds = 2;
@@ -455,7 +430,7 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (DEBUG){
-    maxFrames         = settings.maxSeconds * fps;
+    maxFrames         = 10 * fps;// settings.maxSeconds * fps;
 } else{ // set it to whatever you want
     maxFrames         = settings.maxSeconds * fps; //120 * 60; // Two minutes in frames
 }
@@ -522,6 +497,7 @@ function lcg(seed) {
       return current / m;
     };
 }
+
 let randomGenerator;
 // MS4: ********************************************** AI PLANNER ****************************************************//
 
@@ -563,27 +539,37 @@ async function initExperimentSettings() {
     let numDraws = 1; // number of draws
     let assignedCondition = await blockRandomization(db1, studyId, aiBlockCondition, numConditions, maxCompletionTimeMinutes, numDraws);
 
-    if (DEBUG){
-        console.log('assignedCondition:', assignedCondition); // Add this line
-        let msg = aiBlockCondition + ": participant is AI type: " + assignedCondition;
-         // console.log(msg);
+    const seedCondition = 'seedCondition'; // a string we use to represent the condition name   
+    numConditions = 24; // number of conditions
+    numDraws = 1; // number of draws
+    let assignedSeed = await blockRandomization(db1, studyId, seedCondition, numConditions, maxCompletionTimeMinutes, numDraws);
+    if(DEBUG){
+        console.log("seed condition num:", assignedSeed);
     }
     noAssignment = false;
 
+    currentCondition = assignedCondition[0]+1;
+    curSeeds = permutedSeeds[assignedSeed[0]];
 
-    return assignedCondition[0]+1;
+    // return assignedCondition[0]+1, permutedSeeds[assignedSeed[0]];
 }
 
 if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
     if (DEBUG){
-        currentCondition =  1;//await initExperimentSettings();
+        // currentCondition =  1;//await initExperimentSettings();
+        // currentCondition, curSeeds = await initExperimentSettings();
+        await initExperimentSettings();
+
+        // console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedCondition:', currentCondition); // Add this line
+        console.log('assignedSeed:', curSeeds); // Add this line
     }else{
-        currentCondition = await initExperimentSettings();
+        currentCondition, curSeeds = await initExperimentSettings();
+        console.log('assignedCondition:', currentCondition); // Add this line
+        console.log('assignedSeed:', curSeeds); // Add this line
     }
-    
-    startGame(currentRound, currentCondition, currentBlock);
+    startGame(currentRound, currentCondition, currentBlock, curSeeds); // Start the next round
     noAssignment = false;
 }
 
@@ -593,34 +579,28 @@ let numSurveyCompleted = 0;
 // ****************************************************** UPDATE FUNCTIONS ********************************************************//
 
 // Start Game function
-async function startGame(round, condition, block) {
-    // resizeScoreCanvas();
-    // drawScore();
-    // resizeCanvasAndRedrawScore()
-
+async function startGame(round, condition, block, seeds) {
     currentRound = round; // Start at the specified round, or the current round
+
     let blockSetting = difficultySettings[condition][block];
-
     roundSettings = blockSetting[currentRound];
-
-    // settings = blockSetting[currentRound];
-    if (DEBUG){
-        console.log("Current Settings", roundSettings);
-        console.log("Random Seed", roundSettings.randSeed);
-
-        console.log("Current Block", currentBlock);
-        console.log("Current Round", currentRound);
-    }
-    // console.log("Metadata Block Info", blockInfo);
 
     // reassign default settings to the values grabbed from the current
     settings.AIMode = roundSettings.AIMode;
     settings.AIStabilityThreshold = roundSettings.AIStabilityThreshold;
-    settings.randSeed = roundSettings.randSeed;
+   
+    if (currentBlock == 0) {
+        settings.randSeed = seeds[currentRound - 1];
+    } else if (currentBlock == 1) {
+        settings.randSeed = seeds[currentRound + 1];
+    }
 
     if (DEBUG){
         console.log("Default Settings AI Mode", settings.AIMode);
         console.log("Block Settings Mode", roundSettings.AIMode);
+        console.log("Current Settings", roundSettings);
+        console.log("Current Block", currentBlock);
+        console.log("Current Round", currentRound);
     }
     // Initialize with a seed
     randomGenerator = lcg(settings.randSeed);
@@ -652,7 +632,7 @@ async function endGame() {
         currentRound++;
         await runGameSequence("You've Completed a Round and earned " + score + " points. Click OK to continue.");
         await resetGame();
-        startGame(currentRound, currentCondition, currentBlock); // Start the next round
+        startGame(currentRound, currentCondition, currentBlock, curSeeds); // Start the next round
     } else if (currentRound >= maxRounds && numSurveyCompleted < 2) {
         // All rounds in the current block are completed
        
@@ -684,7 +664,7 @@ async function endGame() {
         }
     
         if (visitedBlocks <= 1) {
-            startGame(currentRound, currentCondition,currentBlock); // Start the next round
+            startGame(currentRound, currentCondition,currentBlock,curSeeds); // Start the next round
         }
     }
 }
@@ -2194,14 +2174,14 @@ function loadFullSurvey(){
                 This will submit the final rankings and then load the
                 "Experiment Complete" page.
             */
-            let SURVEY_END_TIME = new Date();
             numSurveyCompleted++;
 
             let feedbackText = grabFeedbackText();
-
             let path1 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full' ;
+            let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback' ;
+
+
             writeRealtimeDatabase(db1, path1, TOPIC_FULL_DICT);
-            let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/feedback' ;
             writeRealtimeDatabase(db1, path2, feedbackText);
 
             if (numSurveyCompleted == 2) {
@@ -2209,6 +2189,7 @@ function loadFullSurvey(){
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
                 // $("#full-game-container").attr("hidden", true);
                 finalizeBlockRandomization(db1, studyId, currentCondition);
+                finalizeBlockRandomization(db1, studyId, curSeeds);
                 $("#survey-full-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
@@ -2330,6 +2311,7 @@ function loadWorkLoadSurvey(){
                 // push them to the final page of the experiment which redirects participants
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
                 finalizeBlockRandomization(db1, studyId, currentCondition);
+                finalizeBlockRandomization(db1, studyId, curSeeds);
                 $("#survey-workload-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
@@ -2355,7 +2337,7 @@ function loadWorkLoadSurvey(){
 }
 
 
-//*************************************************** COMPLETE -- REDIRECT************************************************//
+//*************************************************** COMPLETE -- REDIRECT ************************************************//
 async function loadCompletePage(){
     // try {
     //     let response = await fetch('path/to/complete/page.html');
@@ -2449,8 +2431,8 @@ async function loadCompletePage(){
             */
 
             let feedbacktext = $('#user-feedback-text').val();
-            let path = studyId + '/participantData/' + firebaseUserId1 + '/round' + currentRound + '/playerScore';
-            writeRealtimeDatabase(db1, path, feedbacktext);
+            //let path = studyId + '/participantData/' + firebaseUserId1 + 'paricipantInfo/' + 'feedback';
+            writeRealtimeDatabase(db1, pathnow, feedbacktext);
     
             replaceClass('#user-feedback-button', "btn-secondary", "btn-primary");
         };

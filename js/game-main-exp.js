@@ -556,16 +556,12 @@ async function initExperimentSettings() {
 
 if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
-    if (DEBUG){
-        // currentCondition =  1;//await initExperimentSettings();
-        // currentCondition, curSeeds = await initExperimentSettings();
+    if (DEBUG){ // adjust value as needed for debuggin default is the same as the main experiment
         await initExperimentSettings();
-
-        // console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedSeed:', curSeeds); // Add this line
     }else{
-        currentCondition, curSeeds = await initExperimentSettings();
+        await initExperimentSettings();
         console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedSeed:', curSeeds); // Add this line
     }

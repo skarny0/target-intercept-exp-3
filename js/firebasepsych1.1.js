@@ -37,7 +37,7 @@ export async function initializeRealtimeDatabase( firebaseConfig ) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             firebaseUserId = user.uid;
-            console.log( "User is signed in. Firebase user id=" + firebaseUserId );
+            // console.log( "User is signed in. Firebase user id=" + firebaseUserId );
           } else {
             // User is signed out
             //console.log( "User is signed out" );

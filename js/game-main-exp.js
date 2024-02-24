@@ -562,8 +562,8 @@ if (noAssignment){
         console.log('assignedSeed:', curSeeds); // Add this line
     }else{
         await initExperimentSettings();
-        console.log('assignedCondition:', currentCondition); // Add this line
-        console.log('assignedSeed:', curSeeds); // Add this line
+        // console.log('assignedCondition:', currentCondition); // Add this line
+        // console.log('assignedSeed:', curSeeds); // Add this line
     }
     startGame(currentRound, currentCondition, currentBlock, curSeeds); // Start the next round
     noAssignment = false;
@@ -1049,7 +1049,7 @@ function spawnObject(settings){
 
         // push to objects array in order to render and update
         objects.push(newObject);
-        console.log("New Object Spawned", newObject);
+        //console.log("New Object Spawned", newObject);
         spawnData.push(newObject)
 
     }

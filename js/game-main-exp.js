@@ -76,10 +76,10 @@ writeURLParameters(db1, pathnow);
 // database write function
 function writeGameDatabase(){
 
-    let pathUID1 = studyId + '/participantData/' + firebaseUserId2 + '/UID2';
-    let pathUID2 = studyId + '/participantData/' + firebaseUserId1 + '/UID1';
-    writeRealtimeDatabase(db2, pathUID1, firebaseUserId1);
-    writeRealtimeDatabase(db1, pathUID2, firebaseUserId2);
+    // let pathUID1 = studyId + '/participantData/' + firebaseUserId2 + '/keyUID';
+    // let pathUID2 = studyId + '/participantData/' + firebaseUserId1 + '/keyUID';
+    // writeRealtimeDatabase(db2, pathUID1, firebaseUserId1);
+    // writeRealtimeDatabase(db1, pathUID2, firebaseUserId2);
 
     // console.log("Writing to database");
     let path1   = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/spawnData';

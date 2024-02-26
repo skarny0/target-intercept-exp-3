@@ -979,11 +979,13 @@ function updateObjects(settings) {
     if ((prevBestSolOffline != null) && (bestSolOffline.ID != prevBestSolOffline.ID)) {
         // push AI intention array
         // aiIntention.push();
-        aiClicks.push(AIplayer.targetX, AIplayer.targetY, bestSolOffline.ID);
+        let aiIntention = {frame: frameCountGame, x: AIplayer.targetX, y: AIplayer.targetY, id: bestSolOffline.ID};
+        aiClicks.push(aiIntention);
         numAIChanges++;
     } else if (prevBestSolOffline == null) {
         // aiIntention.push
-        aiClicks.push(AIplayer.targetX, AIplayer.targetY, bestSolOffline.ID);
+        let aiIntention = {frame: frameCountGame, x: AIplayer.targetX, y: AIplayer.targetY, id: bestSolOffline.ID};
+        aiClicks.push(aiIntention);
     }
 
     // we need to save ()

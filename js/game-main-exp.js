@@ -430,7 +430,7 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (DEBUG){
-    maxFrames         = 10 * fps;// settings.maxSeconds * fps;
+    maxFrames         = 2 * fps;// settings.maxSeconds * fps;
 } else{ // set it to whatever you want
     maxFrames         = settings.maxSeconds * fps; //120 * 60; // Two minutes in frames
 }
@@ -2430,7 +2430,8 @@ async function loadCompletePage(){
 
             let feedbacktext = $('#user-feedback-text').val();
             //let path = studyId + '/participantData/' + firebaseUserId1 + 'paricipantInfo/' + 'feedback';
-            writeRealtimeDatabase(db1, pathnow, feedbacktext);
+            let currentPath = studyId + '/participantData/' + firebaseUserId1 + '/participantInfo/' + 'feedback'
+            writeRealtimeDatabase(db1, currentPath, feedbacktext);
     
             replaceClass('#user-feedback-button', "btn-secondary", "btn-primary");
         };

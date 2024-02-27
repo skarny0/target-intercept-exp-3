@@ -216,13 +216,13 @@ let difficultySettings = {
             2: {AIMode: 0,
                 AIStabilityThreshold: 1.4}}},
     5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4},
+                AIStabilityThreshold: 1.0},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}},
+                AIStabilityThreshold: 1.0}},
         1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.4},
+                AIStabilityThreshold: 1.0},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}}},
+                AIStabilityThreshold: 1.0}}},
     6: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
                 AIStabilityThreshold: 1.4},
             2: {AIMode: 0,

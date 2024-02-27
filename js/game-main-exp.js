@@ -1515,6 +1515,7 @@ function drawGrid() {
 //     }
 // }
 // MS4: draw the path suggested by AI planner
+
 function drawAISolution() {
     if ((settings.AIMode>0) && (bestSol != null) && (player.shownAdvice)) {  // MS7
         // get the length of the suggested path
@@ -1919,7 +1920,6 @@ function distractorCaught(obj){
 }   
 
 //**************************************************** SURVEY -- FULL ****************************************************//
-
 function loadFullSurvey(){
     var DEBUG_SURVEY = DEBUG;
     //      Survey Information
@@ -1986,12 +1986,33 @@ function loadFullSurvey(){
                 }
             });
 
-            // Enable the submit button if all likert buttons have been clicked
-            if (allClicked) {
-                $('#survey-complete-button-full').prop('disabled', false);
-                // console.log("All topics ranked");
-            }
+           
+            // let feedbackText = grabFeedbackText();
 
+            // // Enable the submit button if all likert buttons have been clicked
+            // if (allClicked && feedbackText.length > 0) {
+            //     $('#survey-complete-button-full').prop('disabled', false);
+            //     // console.log("All topics ranked");
+            // }
+
+            // Check if all likert buttons have been clicked and feedback text is not empty whenever an input changes
+            $('.likert-topic-full li input, #survey-full-user-feedback-text').on('input', function() {
+                var allClicked = true;
+                $('.likert-topic-full').each(function() {
+                    if ($(this).find('input:checked').length === 0) {
+                        allClicked = false;
+                        return false; // Exit the loop
+                    }
+                });
+
+                var feedbackText = $('#survey-full-user-feedback-text').val();
+
+                if (allClicked && feedbackText.trim() !== '') {
+                    $('#survey-complete-button-full').prop('disabled', false);
+                } else {
+                    $('#survey-complete-button-full').prop('disabled', true);
+                }
+            });
 
             if (DEBUG_SURVEY) {
                 console.log(
@@ -2010,6 +2031,7 @@ function loadFullSurvey(){
             return feedbackText;
         }
         
+        
         async function completeExperiment() {
             /*
                 When submit button is clicked (after ranking), experiment is done.
@@ -2020,6 +2042,7 @@ function loadFullSurvey(){
             numSurveyCompleted++;
 
             let feedbackText = grabFeedbackText();
+
             let path1 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full' ;
             let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback' ;
 
@@ -2190,7 +2213,6 @@ function loadWorkLoadSurvey(){
         $('#survey-complete-button-workload').off().click(completeExperiment);
     });
 }
-
 
 //*************************************************** COMPLETE -- REDIRECT ************************************************//
 async function loadCompletePage(){

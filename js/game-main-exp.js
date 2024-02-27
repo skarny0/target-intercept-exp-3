@@ -64,9 +64,9 @@ var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 let studyId = 'placeHolder';
 
 if (DEBUG){
-   studyId    = "uci-hri-experiment-3-pilot3-debug";
+   studyId    = "uci-hri-experiment-3-pilot4-debug";
 } else {
-    studyId   = "uci-hri-experiment-3-pilot3";
+    studyId   = "uci-hri-experiment-3-pilot4";
 }
 
 // WRITE PROLIFIC PARTICIPANT DATA TO DB1

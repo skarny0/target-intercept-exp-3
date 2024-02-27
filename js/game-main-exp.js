@@ -430,7 +430,7 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (DEBUG){
-    maxFrames         = 2 * fps;// settings.maxSeconds * fps;
+    maxFrames         = 240 * fps;// settings.maxSeconds * fps;
 } else{ // set it to whatever you want
     maxFrames         = settings.maxSeconds * fps; //120 * 60; // Two minutes in frames
 }
@@ -560,6 +560,8 @@ if (noAssignment){
         await initExperimentSettings();
         console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedSeed:', curSeeds); // Add this line
+        // currentCondition = 3;
+        // curSeeds = [12,123,12345,123456];
     }else{
         await initExperimentSettings();
         // console.log('assignedCondition:', currentCondition); // Add this line

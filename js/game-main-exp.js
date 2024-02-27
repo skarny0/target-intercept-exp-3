@@ -214,6 +214,22 @@ let difficultySettings = {
         1: {1: {AIMode: 0,
                 AIStabilityThreshold: 1.4},
             2: {AIMode: 0,
+                AIStabilityThreshold: 1.4}}},
+    5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.4},
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.4}},
+        1: {1: {AIMode: 0, 
+                AIStabilityThreshold: 1.4},
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.4}}},
+    6: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+                AIStabilityThreshold: 1.4},
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.4}},
+        1: {1: {AIMode: 0, 
+                AIStabilityThreshold: 1.4},
+            2: {AIMode: 0,
                 AIStabilityThreshold: 1.4}}}
 };
 
@@ -238,178 +254,6 @@ function getPermutations(array) {
 const seedSet = [12, 123, 1234, 12345];
 const permutedSeeds = getPermutations(seedSet);
 
-// final block conditions will look something like this.
-// let difficultySettings = {
-//     // CONDITION 1
-//     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 0, 
-//                 randSeed: 123},},
-//         1: {1: {AIMode: 1, 
-//                 randSeed: 12345},
-//             2: {AIMode: 1, 
-//                 randSeed: 123456}}},
-//     // CONDITION 2
-//     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 1, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 0, 
-//                 randSeed: 12345},
-//             2: {AIMode: 0, 
-//                 randSeed: 123456}}},
-//     // CONDITION 3
-//     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 0, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 2, 
-//                 randSeed: 12345},
-//             2: {AIMode: 2, 
-//                 randSeed: 123456}}},
-//     // CONDITION 4
-//     4: {0: {1: {AIMode: 2,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 2, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 0, 
-//                 randSeed: 12345},
-//             2: {AIMode: 0, 
-//                 randSeed: 123456}}},
-//      // CONDITION 5
-//     5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 0, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 3, 
-//                 randSeed: 12345},
-//             2: {AIMode: 3, 
-//                 randSeed: 123456}}},
-//      // CONDITION 6
-//     6: {0: {1: {AIMode: 3,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 3, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 0, 
-//                 randSeed: 12345},
-//             2: {AIMode: 0, 
-//                 randSeed: 123456}}},
-//      // CONDITION 7
-//     7: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 0, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 4, 
-//                 randSeed: 12345},
-//             2: {AIMode: 4, 
-//                 randSeed: 123456}}},
-//      // CONDITION 8
-//     8: {0: {1: {AIMode: 4,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-//                 randSeed: 12},
-//             2: {AIMode: 4, 
-//                 randSeed: 123}},
-//         1: {1: {AIMode: 0, 
-//                 randSeed: 12345},
-//             2: {AIMode: 0, 
-//                 randSeed: 123456}}}
-// };
-
-// Example of what previous settings looked like
-// let difficultySettings = {
-//     1: {experiment: 3, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 1, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30,
-//         maxTargets: 3, // MS2: added this parameter to limit total number of targets
-//         randSeed: 12},
-//     2: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//         maxTargets: 6, // MS2: added this parameter to limit total number of targets
-//         randSeed: 123},
-//         // Add more settings for each level
-//     3: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//         maxTargets: 9, // MS2: added this parameter to limit total number of targets
-//         randSeed: 1234},
-//     4: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//         maxTargets: 3, // MS2: added this parameter to limit total number of targets
-//         randSeed: 12345},
-//     5: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//         maxTargets: 6, // MS2: added this parameter to limit total number of targets
-//         randSeed: 123456},
-//         // Add more settings for each level
-//     6: {experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-//         AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-//         planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-//         AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-//         AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-//         visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-//         AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-//         AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-//         AIframeDelay: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-//         maxTargets: 9, // MS2: added this parameter to limit total number of targets
-//         randSeed: 1234567}
-// };
-/*
-        experiment: 2, // SK: 1=Experiment 1 - no drawing ; 2=Experiments 2 & 3 drawing always on
-        AIMode: 2, // MS4: 0=no assistance; 1=always on; 2=adaptive
-        planNumFramesAhead: 1, // MS4: plan solution for display a certain number of frames ahead (to allow human response time)
-        AIDisplayMode: 1, // MS4: 0=show movement path; 1=show where to click; 2=show which targets to intercept
-        AIMaxDisplayLength: 3, // MS4: can be used to truncate the AI path length shown
-        visualizeAIPlayer: 0, // MS5: 0:default; 1=visualize AI player running in background
-        AIadviceThresholdHigh: 0.7, // MS6: threshold on value to give AI advice in adaptive AI setting
-        AIadviceAngleThreshold: 30, // MS6: angle tolerance for accepting move in adaptive AI setting
-        AIthresholdnumframesaftercaughttarget: 30, // MS6: for adaptive AI, how many frames to wait with advice after player catches target 
-        maxTargets: 6, // MS2: added this parameter to limit total number of targets
-        spawnProbability:  1,
-        spawnInterval: 10,
-        valueSkew: 1,
-        valueLow: 0,
-        valueHigh:  1,
-        playerSpeed: 3,
-        speedLow:  1.5, // lowest end of object speed distribution
-        speedHigh: 3, // highest end of object speed distribution
-        randSeed: 123456},
-*/
-
-// Get the keys for randomization
-let settingKeys = Object.keys(difficultySettings);
-//console.log(settingKeys);   
-
 // Block randomization variables -- placed here for ordering dependency
 let currentRound = 1;
 let currentBlock = 0;
@@ -430,7 +274,7 @@ const fps               = 30; // Desired logic updates per second
 
 let maxFrames = null;
 if (DEBUG){
-    maxFrames         = 240 * fps;// settings.maxSeconds * fps;
+    maxFrames         = 2 * fps;// settings.maxSeconds * fps;
 } else{ // set it to whatever you want
     maxFrames         = settings.maxSeconds * fps; //120 * 60; // Two minutes in frames
 }
@@ -535,7 +379,7 @@ async function initExperimentSettings() {
     // Assign random condition (AI Adapt or AI Naive)
     // assignedCondition === 0 means that participant is in the AI Naive condition
     const aiBlockCondition = 'aiCondition'; // a string we use to represent the condition name
-    let numConditions = 4; // number of conditions
+    let numConditions = 6; // number of conditions
     let numDraws = 1; // number of draws
     let assignedCondition = await blockRandomization(db1, studyId, aiBlockCondition, numConditions, maxCompletionTimeMinutes, numDraws);
 
@@ -550,19 +394,18 @@ async function initExperimentSettings() {
 
     currentCondition = assignedCondition[0]+1;
     curSeeds = permutedSeeds[assignedSeed[0]];
-
-    // return assignedCondition[0]+1, permutedSeeds[assignedSeed[0]];
 }
 
 if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
     if (DEBUG){ // adjust value as needed for debuggin default is the same as the main experiment
         await initExperimentSettings();
+        // currentCondition = 6;
+        // curSeeds = [12,123,12345,123456];
+
         console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedSeed:', curSeeds); // Add this line
-        // currentCondition = 3;
-        // curSeeds = [12,123,12345,123456];
-    }else{
+    } else {
         await initExperimentSettings();
         // console.log('assignedCondition:', currentCondition); // Add this line
         // console.log('assignedSeed:', curSeeds); // Add this line
@@ -2225,6 +2068,10 @@ function loadWorkLoadSurvey(){
     };
     var TOPICS_RANKED = 0;
 
+    // Clear previous inputs
+    // $('.likert-topic-workload li input').val('');
+    $('.likert-topic-workload li input').prop('checked', false);
+
     /******************************************************************************
         RUN ON PAGE LOAD
 
@@ -2303,9 +2150,17 @@ function loadWorkLoadSurvey(){
             let SURVEY_END_TIME = new Date();
 
             numSurveyCompleted++;
-
-            let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload' ;
-            writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
+            
+            if (numSurveyCompleted == 1 && currentCondition >= 5) {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload1' ;
+                writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
+            } else if (numSurveyCompleted == 2 && currentCondition >= 5) {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload2' ;
+                writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
+            } else {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload' ;
+                writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
+            }
 
             if (numSurveyCompleted == 2) {
                 // push them to the final page of the experiment which redirects participants
@@ -2320,7 +2175,7 @@ function loadWorkLoadSurvey(){
                 // $('#task-complete').load('html/complete.html');
             } else{
                 $("#survey-workload-container").attr("hidden", true);
-                $("#survey-workload-container").remove();
+                // $("#survey-workload-container").remove();
                 $("#full-game-container").attr("hidden", false);
                 // resizeScoreCanvas()
             }

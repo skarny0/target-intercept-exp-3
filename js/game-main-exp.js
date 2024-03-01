@@ -25,30 +25,40 @@ import { writeRealtimeDatabase,writeURLParameters,readRealtimeDatabase,
     initializeRealtimeDatabase,initializeSecondRealtimeDatabase } from "./firebasepsych1.1.js";
 
 // Define the configuration file for first database
-const firebaseConfig_db1 = {
-    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-    authDomain: "uci-hri-main.firebaseapp.com",
-    databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
-    projectId: "uci-hri-main",
-    storageBucket: "uci-hri-main.appspot.com",
-    messagingSenderId: "639884968072",
-    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-};
+// const firebaseConfig_db1 = {
+//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+//     authDomain: "uci-hri-main.firebaseapp.com",
+//     databaseURL: "https://uci-hri-main-default-rtdb.firebaseio.com",
+//     projectId: "uci-hri-main",
+//     storageBucket: "uci-hri-main.appspot.com",
+//     messagingSenderId: "639884968072",
+//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+// };
 
-// Define the configuration file for second database
-const firebaseConfig_db2 = {
-    apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
-    authDomain: "uci-hri-main.firebaseapp.com",
-    databaseURL: "https://uci-hri-main-event.firebaseio.com",
-    projectId: "uci-hri-main",
-    storageBucket: "uci-hri-main.appspot.com",
-    messagingSenderId: "639884968072",
-    appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
-};
+// // Define the configuration file for second database
+// const firebaseConfig_db2 = {
+//     apiKey: "AIzaSyBbJjawzuVIzAWedluckmIIPhLrssvRzVw",
+//     authDomain: "uci-hri-main.firebaseapp.com",
+//     databaseURL: "https://uci-hri-main-event.firebaseio.com",
+//     projectId: "uci-hri-main",
+//     storageBucket: "uci-hri-main.appspot.com",
+//     messagingSenderId: "639884968072",
+//     appId: "1:639884968072:web:6da12c23a7ce40673f5f3d"
+// };
+
+const firebaseConfig_db1 = {
+    apiKey: "AIzaSyBc4_NgMNcTy9l94gtXugtmZI3AVldJ4NA",
+    authDomain: "uci-hri-exp1.firebaseapp.com",
+    databaseURL: "https://uci-hri-exp1-default-rtdb.firebaseio.com",
+    projectId: "uci-hri-exp1",
+    storageBucket: "uci-hri-exp1.appspot.com",
+    messagingSenderId: "711728520612",
+    appId: "1:711728520612:web:60a9225db99a8a45743531"
+  };
 
 // Get the reference to the two databases using the configuration files
 const [ db1 , firebaseUserId1 ] = await initializeRealtimeDatabase( firebaseConfig_db1 );
-const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
+// const [ db2 , firebaseUserId2 ] = await initializeSecondRealtimeDatabase( firebaseConfig_db2 );
 
 // console.log("Firebase UserId=" + firebaseUserId);
 

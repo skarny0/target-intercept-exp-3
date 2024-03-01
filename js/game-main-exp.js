@@ -64,9 +64,9 @@ var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 let studyId = 'placeHolder';
 
 if (DEBUG){
-   studyId    = "uci-hri-experiment-3-pilot4-debug";
+   studyId    = "uci-hri-experiment-3-pilot5-debug";
 } else {
-    studyId   = "uci-hri-experiment-3-pilot4";
+    studyId   = "uci-hri-experiment-3-pilot5";
 }
 
 // WRITE PROLIFIC PARTICIPANT DATA TO DB1
@@ -181,56 +181,56 @@ let settings = {
 let difficultySettings = {
     // CONDITION 1
     1: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.0},  // MS7: minimum proportional improvement before recommendation changes,
+                AIStabilityThreshold: 1.2},  // MS7: minimum proportional improvement before recommendation changes,
             2: {AIMode: 0, 
-                AIStabilityThreshold: 1.0}},
-        1: {1: {AIMode: 1, 
-                AIStabilityThreshold: 1.0},
-            2: {AIMode: 1,
-                AIStabilityThreshold: 1.0}}},
+                AIStabilityThreshold: 1.2}},
+        1: {1: {AIMode: 0, 
+                AIStabilityThreshold: 1.2},
+            2: {AIMode: 0,
+                AIStabilityThreshold: 1.2}}},
     // CONDITION 2
     2: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.0},
+                AIStabilityThreshold: 1.2},
             2: {AIMode: 1, 
-                AIStabilityThreshold: 1.0}},
+                AIStabilityThreshold: 1.2}},
         1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.0},
+                AIStabilityThreshold: 1.2},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.0}}},
+                AIStabilityThreshold: 1.2}}},
     // CONDITION 3
     3: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4},
+                AIStabilityThreshold: 1.2},
             2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}},
+                AIStabilityThreshold: 1.2}},
         1: {1: {AIMode: 1, 
-                AIStabilityThreshold: 1.4},
+                AIStabilityThreshold: 1.2},
             2: {AIMode: 1,
-                AIStabilityThreshold: 1.4}}},
+                AIStabilityThreshold: 1.2}}},
     // CONDITION 4
     4: {0: {1: {AIMode: 1,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4},
+                AIStabilityThreshold: 1.2},
             2: {AIMode: 1, 
-                AIStabilityThreshold: 1.4}},
-        1: {1: {AIMode: 0,
-                AIStabilityThreshold: 1.4},
-            2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}}},
-    5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.0},
-            2: {AIMode: 0,
-                AIStabilityThreshold: 1.0}},
-        1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.0},
-            2: {AIMode: 0,
-                AIStabilityThreshold: 1.0}}},
-    6: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
-                AIStabilityThreshold: 1.4},
-            2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}},
-        1: {1: {AIMode: 0, 
-                AIStabilityThreshold: 1.4},
-            2: {AIMode: 0,
-                AIStabilityThreshold: 1.4}}}
+                AIStabilityThreshold: 1.2}},
+        1: {1: {AIMode: 1,
+                AIStabilityThreshold: 1.2},
+            2: {AIMode: 1,
+                AIStabilityThreshold: 1.2}}}
+    // 5: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+    //             AIStabilityThreshold: 1.0},
+    //         2: {AIMode: 0,
+    //             AIStabilityThreshold: 1.0}},
+    //     1: {1: {AIMode: 0, 
+    //             AIStabilityThreshold: 1.0},
+    //         2: {AIMode: 0,
+    //             AIStabilityThreshold: 1.0}}},
+    // 6: {0: {1: {AIMode: 0,                  // MS4: 0=no assistance; 1=always on; 2=adaptive
+    //             AIStabilityThreshold: 1.4},
+    //         2: {AIMode: 0,
+    //             AIStabilityThreshold: 1.4}},
+    //     1: {1: {AIMode: 0, 
+    //             AIStabilityThreshold: 1.4},
+    //         2: {AIMode: 0,
+    //             AIStabilityThreshold: 1.4}}}
 };
 
 function getPermutations(array) {
@@ -342,6 +342,11 @@ function lcg(seed) {
     };
 }
 
+function generateRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
 let randomGenerator;
 // MS4: ********************************************** AI PLANNER ****************************************************//
 
@@ -379,30 +384,37 @@ async function initExperimentSettings() {
     // Assign random condition (AI Adapt or AI Naive)
     // assignedCondition === 0 means that participant is in the AI Naive condition
     const aiBlockCondition = 'aiCondition'; // a string we use to represent the condition name
-    let numConditions = 6; // number of conditions
+    let numConditions = 4; // number of conditions
     let numDraws = 1; // number of draws
     let assignedCondition = await blockRandomization(db1, studyId, aiBlockCondition, numConditions, maxCompletionTimeMinutes, numDraws);
 
-    const seedCondition = 'seedCondition'; // a string we use to represent the condition name   
-    numConditions = 24; // number of conditions
-    numDraws = 1; // number of draws
-    let assignedSeed = await blockRandomization(db1, studyId, seedCondition, numConditions, maxCompletionTimeMinutes, numDraws);
-    if(DEBUG){
-        console.log("seed condition num:", assignedSeed);
+    // random seeds should be randomly grabbed outside of permutation (generate four totally random integer values between 1 and 1000000)
+
+    // const seedCondition = 'seedCondition'; // a string we use to represent the condition name   
+    // numConditions = 24; // number of conditions
+    // numDraws = 1; // number of draws
+    // let assignedSeed = await blockRandomization(db1, studyId, seedCondition, numConditions, maxCompletionTimeMinutes, numDraws);
+
+    var randomValues = [];
+    for (var i = 0; i < 4; i++) {
+        randomValues.push(generateRandomInt(1, 1000000));
     }
+
     noAssignment = false;
 
     currentCondition = assignedCondition[0]+1;
-    curSeeds = permutedSeeds[assignedSeed[0]];
+    curSeeds = randomValues;
+    // if(DEBUG){
+    //     console.log("seed condition num:", assignedSeed);
+    // }
 }
 
 if (noAssignment){
     // await the asynchroneous function to complete and retrieve the curret
     if (DEBUG){ // adjust value as needed for debuggin default is the same as the main experiment
         await initExperimentSettings();
-        // currentCondition = 6;
+        currentCondition = 4;
         // curSeeds = [12,123,12345,123456];
-
         console.log('assignedCondition:', currentCondition); // Add this line
         console.log('assignedSeed:', curSeeds); // Add this line
     } else {
@@ -481,24 +493,19 @@ async function endGame() {
         blockInfo.completedBlockOrder.push(currentBlock);
         // console.log("Visited Blocks", visitedBlocks);
         currentRound = 1; // Reset the round counter
-    
-        // Switch to the other block
-        let prevBlock  = currentBlock;
-        // currentBlock = currentBlock == 1 ? 0 : 1;
         currentBlock += 1;
+
         await runGameSequence("You've Completed a Block and earned " + score + " points. Click OK to continue.");
         await resetGame();
 
         if (settings.AIMode == 0) {
             loadWorkLoadSurvey();   
-            // for baseline only load workload survey
             $("#survey-workload-container").attr("hidden", false);
             $("#full-game-container").attr("hidden", true);
             visitedBlocks++;
 
         } else if (settings.AIMode >= 1) {
             loadFullSurvey();
-            
             $("#survey-full-container").attr("hidden", false);
             $("#full-game-container").attr("hidden", true);
             visitedBlocks++;
@@ -1178,87 +1185,6 @@ function drawScore() {
     scoreCtx.fillText('Score: ' + score, 10, 20); // Adjust the positioning as needed
 }
 
-// function drawScore() {
-//     scoreCtx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
-//     scoreCtx.font = '48px Roboto';
-//     scoreCtx.fillStyle = 'black';
-//     scoreCtx.textBaseline = 'middle';
-//     scoreCtx.textAlign = 'center';
-//     // Make sure to divide by the pixelRatio if the canvas was previously scaled
-//     scoreCtx.fillText('Score: ' + score, scoreCanvas.width / 2, scoreCanvas.height / 2);
-// }
-
-// function drawScore() {
-//     scoreCtx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
-//     scoreCtx.font = 'px Roboto';
-//     scoreCtx.fillStyle = 'black';
-//     scoreCtx.textBaseline = 'middle';
-//     scoreCtx.textAlign = 'center';
-//     // Make sure to divide by the pixelRatio if the canvas was previously scaled
-//     scoreCtx.fillText('Score: ' + score, scoreCanvas.width / 2, scoreCanvas.height / 2);
-// }
-
-// function drawScore() {
-//     // Get the pixel ratio only once, or when the page is resized/reloaded
-//     console.log('Drawing score. Canvas dimensions:', scoreCanvas.width, scoreCanvas.height, 'Pixel ratio:', pixelRatio);
-//     var pixelRatio = window.devicePixelRatio || 1;
-
-//     // Reset the current transformation matrix to the identity matrix
-//     scoreCtx.setTransform(1, 0, 0, 1, 0, 0);
-
-//     // Scale the context to ensure crisp text on high-DPI displays
-//     scoreCtx.scale(pixelRatio, pixelRatio);
-
-//     // Clear the entire scaled canvas
-//     scoreCtx.clearRect(0, 0, scoreCanvas.width / pixelRatio, scoreCanvas.height / pixelRatio);
-
-//     // Set the font size relative to the pixel ratio
-//     scoreCtx.font = (48 / pixelRatio) + 'px Roboto'; // Adjust for the pixel ratio
-//     scoreCtx.fillStyle = 'black';
-//     scoreCtx.textBaseline = 'middle';
-//     scoreCtx.textAlign = 'center';
-
-//     // The fillText coordinates are now relative to the unscaled canvas size
-//     scoreCtx.fillText('Score: ' + score, (scoreCanvas.width / 2) / pixelRatio, (scoreCanvas.height / 2) / pixelRatio);
-// }
-
-// function resizeScoreCanvas() {
-//     var pixelRatio = window.devicePixelRatio || 1;
-//     scoreCanvas.width = scoreCanvas.offsetWidth * pixelRatio;
-//     scoreCanvas.height = scoreCanvas.offsetHeight * pixelRatio;
-//     scoreCanvas.style.width = scoreCanvas.offsetWidth + 'px';
-//     scoreCanvas.style.height = scoreCanvas.offsetHeight + 'px';
-//     scoreCtx.scale(pixelRatio, pixelRatio);
-// }
-
-// function drawScore() {
-//     // Ensure pixel ratio is fetched correctly
-//     var pixelRatio = window.devicePixelRatio || 1;
-//     console.log('Drawing score. Canvas dimensions:', scoreCanvas.width, scoreCanvas.height, 'Pixel ratio:', pixelRatio);
-
-//     // Reset transformations to avoid compounded scaling issues
-//     scoreCtx.setTransform(1, 0, 0, 1, 0, 0);
-//     scoreCtx.scale(pixelRatio, pixelRatio);
-
-//     // Clear the canvas based on its actual dimensions
-//     scoreCtx.clearRect(0, 0, scoreCanvas.width / pixelRatio, scoreCanvas.height / pixelRatio);
-
-//     // Set font size accounting for the pixel ratio
-//     scoreCtx.font = (48 / pixelRatio) + 'px Roboto';
-//     scoreCtx.fillStyle = 'black';
-//     scoreCtx.textBaseline = 'middle';
-//     scoreCtx.textAlign = 'center';
-
-//     // Draw text at the center, ensuring the position is unscaled
-//     scoreCtx.fillText('Score: ' + score, (scoreCanvas.width / 2) / pixelRatio, (scoreCanvas.height / 2) / pixelRatio);
-// }
-
-// // Call this function immediately after you resize the canvas
-// function resizeCanvasAndRedrawScore() {
-//     resizeScoreCanvas(); // Your existing function to resize the canvas
-//     drawScore();        // Redraw the score immediately after
-// }
-
 function drawCursor(x, y) {
     ctx.save(); // Save state
     ctx.fillStyle = 'rgba(100, 100, 100, 0.5)'; // Semi-transparent grey
@@ -1841,7 +1767,13 @@ $(document).ready( function(){
             player.angle = Math.atan2(deltaY, deltaX);
             player.moving = true;
 
-            playerClicks.push({frame: frameCountGame, targetX: clickX, targetY: clickY, curX: player.x, curY: player.y, angle:player.angle});
+            // ai click suggestions
+            let i = 0;
+            //for (let i=0; i<pathLength; i++) {
+            let toX = bestSol.interceptLocations[i][0];
+            let toY = bestSol.interceptLocations[i][1];
+        
+            playerClicks.push({frame:frameCountGame, targetX:clickX, targetY:clickY, curX:player.x, curY:player.y, aiX:toX, aiY:toY});
         //}
     });
     window.closeCustomAlert = closeCustomAlert; // Add closeCustomAlert to the global scope
@@ -1936,6 +1868,8 @@ function loadFullSurvey(){
         // "q10" : null
     };
     var TOPICS_RANKED = 0;
+
+    $('.likert-topic-full li input').prop('checked', false);
 
     /******************************************************************************
         RUN ON PAGE LOAD
@@ -2042,13 +1976,24 @@ function loadFullSurvey(){
             numSurveyCompleted++;
 
             let feedbackText = grabFeedbackText();
-
-            let path1 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full' ;
-            let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback' ;
-
-
-            writeRealtimeDatabase(db1, path1, TOPIC_FULL_DICT);
-            writeRealtimeDatabase(db1, path2, feedbackText);
+            
+            if (numSurveyCompleted == 1 && currentCondition == 4) {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full1' ;
+                let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback1' ;
+                writeRealtimeDatabase(db1, path, TOPIC_FULL_DICT);
+                writeRealtimeDatabase(db1, path2, feedbackText);
+                
+            } else if (numSurveyCompleted == 2 && currentCondition == 4) {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full2' ;
+                let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback2' ;
+                writeRealtimeDatabase(db1, path, TOPIC_FULL_DICT);
+                writeRealtimeDatabase(db1, path2, feedbackText);
+            } else {
+                let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/full' ;
+                let path2 = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/aiFeedback' ;
+                writeRealtimeDatabase(db1, path, TOPIC_FULL_DICT);
+                writeRealtimeDatabase(db1, path2, feedbackText);
+            }
 
             if (numSurveyCompleted == 2) {
                 // push them to the final page of the experiment which redirects participants
@@ -2064,7 +2009,8 @@ function loadFullSurvey(){
                 // $('#task-complete').load('html/complete.html');
             } else{ // continue to another block
                 $("#survey-full-container").attr("hidden", true);
-                $("#survey-full-container").remove();
+                document.getElementById('survey-full-user-feedback-text').value = '';
+                //$("#survey-full-container").remove();
                 $("#full-game-container").attr("hidden", false);
                 // resizeScoreCanvas()
 
@@ -2136,6 +2082,7 @@ function loadWorkLoadSurvey(){
             //     $('#survey-complete-button').prop('disabled', false);
             //     console.log("All topics ranked");
             // }
+
             var allClicked = true;
             $('.likert-topic-workload').each(function() {
                 if ($(this).find('input:checked').length === 0) {
@@ -2174,10 +2121,10 @@ function loadWorkLoadSurvey(){
 
             numSurveyCompleted++;
             
-            if (numSurveyCompleted == 1 && currentCondition >= 5) {
+            if (numSurveyCompleted == 1 && currentCondition == 1) {
                 let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload1' ;
                 writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
-            } else if (numSurveyCompleted == 2 && currentCondition >= 5) {
+            } else if (numSurveyCompleted == 2 && currentCondition == 1) {
                 let path = studyId + '/participantData/' + firebaseUserId1 + '/selfAssessment/workload2' ;
                 writeRealtimeDatabase(db1, path, TOPIC_Workload_DICT);
             } else {

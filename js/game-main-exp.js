@@ -2004,7 +2004,7 @@ function loadFullSurvey(){
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
                 // $("#full-game-container").attr("hidden", true);
                 finalizeBlockRandomization(db1, studyId, currentCondition);
-                finalizeBlockRandomization(db1, studyId, curSeeds);
+                // finalizeBlockRandomization(db1, studyId, curSeeds);
                 $("#survey-full-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);
@@ -2140,7 +2140,7 @@ function loadWorkLoadSurvey(){
                 // push them to the final page of the experiment which redirects participants
                 // await runGameSequence("Congratulations on Finishing the Main Experiment! Click OK to Continue to the Feedback Survey.");
                 finalizeBlockRandomization(db1, studyId, currentCondition);
-                finalizeBlockRandomization(db1, studyId, curSeeds);
+                // finalizeBlockRandomization(db1, studyId, curSeeds);
                 $("#survey-workload-container").attr("hidden", true);
                 $("#task-header").attr("hidden", true);
                 $("#exp-complete-header").attr("hidden", false);

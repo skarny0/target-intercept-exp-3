@@ -1777,13 +1777,7 @@ $(document).ready( function(){
             player.angle = Math.atan2(deltaY, deltaX);
             player.moving = true;
 
-            // ai click suggestions
-            let i = 0;
-            //for (let i=0; i<pathLength; i++) {
-            let toX = bestSol.interceptLocations[i][0];
-            let toY = bestSol.interceptLocations[i][1];
-        
-            playerClicks.push({frame:frameCountGame, targetX:clickX, targetY:clickY, curX:player.x, curY:player.y, aiX:toX, aiY:toY});
+            playerClicks.push({frame:frameCountGame, targetX:clickX, targetY:clickY, curX:player.x, curY:player.y, aiX:firstStep.x, aiY:firstStep.y, id:firstStep.ID});
         //}
     });
     window.closeCustomAlert = closeCustomAlert; // Add closeCustomAlert to the global scope

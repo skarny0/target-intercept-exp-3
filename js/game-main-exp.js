@@ -74,9 +74,9 @@ var DEBUG  = getDebugParams();   // Always start coding in DEBUG mode
 let studyId = 'placeHolder';
 
 if (DEBUG){
-   studyId    = "uci-hri-experiment-3-pilot5-debug";
+   studyId    = "uci-hri-experiment-3-run2-debug";
 } else {
-    studyId   = "uci-hri-experiment-3-pilot5";
+    studyId   = "uci-hri-experiment-3-run2";
 }
 
 // WRITE PROLIFIC PARTICIPANT DATA TO DB1
@@ -105,6 +105,7 @@ function writeGameDatabase(){
     let path11  = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/playerScore';
     let path12  = studyId + '/participantData/' + firebaseUserId1 + '/condition' + '/blockCondition';
     let path13  = studyId + '/participantData/' + firebaseUserId1 + '/condition' + '/seedCondition';
+    let path14  = studyId + '/participantData/' + firebaseUserId1 + '/block' + currentBlock + '/round' + currentRound + '/AIClicks_Adjusted';
 
     writeRealtimeDatabase(db1, path1, spawnData);
     writeRealtimeDatabase(db1, path2, caughtTargets);
@@ -119,6 +120,8 @@ function writeGameDatabase(){
     writeRealtimeDatabase(db1, path11, score);
     writeRealtimeDatabase(db1, path12, currentCondition);
     writeRealtimeDatabase(db1, path13, curSeeds);
+    writeRealtimeDatabase(db1, path14, aiClicks_adjusted);
+
 }
 
 //************************************************ ENVIRONMENT INITIALIZATION ********************************************//
@@ -301,6 +304,7 @@ let missedTargets   = [];
 let playerClicks    = [];
 let playerLocation  = [];
 let aiClicks        = [];
+let aiClicks_adjusted       = [];
 
 const eventStreamSize = 720; // 2 minutes of 60 fps updates
 let eventStream = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
@@ -539,6 +543,8 @@ async function resetGame(){
     AIplayer.score  = null
     AIcaughtTargets = null;
     AIplayerLocation = null;
+    aiClicks_adjusted       = null;
+    // aiClicks     = null; 
 
     // then reassign the variables
     eventStream     = Array.from({ length: eventStreamSize }, () => ({}));// preallocate the array
@@ -551,6 +557,8 @@ async function resetGame(){
     aiScore         = 0;
     player.score    = 0;
     AIplayer.score  = 0
+    aiClicks_adjusted       = [];
+    //aiClicks     = [];
 
     AIcaughtTargets  = [];
     AIplayerLocation = [];
@@ -843,11 +851,13 @@ function updateObjects(settings) {
         // aiIntention.push();
         let aiIntention = {frame: frameCountGame, x: AIplayer.targetX, y: AIplayer.targetY, id: bestSolOffline.ID};
         aiClicks.push(aiIntention);
+        aiClicks_adjusted.push(aiIntention);
         numAIChanges++;
     } else if (prevBestSolOffline == null) {
         // aiIntention.push
         let aiIntention = {frame: frameCountGame, x: AIplayer.targetX, y: AIplayer.targetY, id: bestSolOffline.ID};
         aiClicks.push(aiIntention);
+        aiClicks_adjusted.push(aiIntention);
     }
 
     // we need to save ()
